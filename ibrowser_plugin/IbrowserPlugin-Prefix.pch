@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ibrowser_plugin' target in the 'ibrowser_plugin' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
