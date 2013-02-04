@@ -4,7 +4,9 @@
     "version": "0.1.0",
     "manifest_version": 2,
     "plugins": [
-        { "path": "IbrowserPlugin.bundle"}
+        {
+                "path": "IbrowserPlugin.bundle"
+        } 
     ],
     "background": {
         "page": "index.html",

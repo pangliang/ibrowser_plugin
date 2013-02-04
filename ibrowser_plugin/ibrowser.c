@@ -10,14 +10,15 @@
 #import <WebKit/npfunctions.h>
 #import <WebKit/npruntime.h>
 
+#include <dlfcn.h>
+
+//#include "funtions.h"
 
 
 // Browser function table，可以通过它来得到浏览器提供的功能
 static NPNetscapeFuncs* browser;
 static const char *plugin_method_name_open = "open";
-
-
-
+static NPP _instance;
 
 ////////////////////////////////////
 /*******各种接口的声明*********/
@@ -101,7 +102,19 @@ void NP_Shutdown(void)
     
 }
 
+#define STRINGN_TO_NPVARIANT(_val, _len, _v)                                  \
+NP_BEGIN_MACRO                                                                \
+(_v).type = NPVariantType_String;                                         \
+NPString str = { _val, (uint32_t)(_len) };                                  \
+(_v).value.stringValue = str;                                             \
+NP_END_MACRO
 
+#define STRINGZ_TO_NPVARIANT(_val, _v)                                        \
+NP_BEGIN_MACRO                                                                \
+(_v).type = NPVariantType_String;                                         \
+NPString str = { _val, (uint32_t)(strlen(_val)) };                          \
+(_v).value.stringValue = str;                                             \
+NP_END_MACRO
 
 bool plugin_has_method(NPObject *obj, NPIdentifier methodName) {
     // This function will be called when we invoke method on this plugin elements.
@@ -123,9 +136,35 @@ bool plugin_invoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args
             CFURLRef url = CFURLCreateWithBytes(NULL, (const UInt8 *)str.UTF8Characters, str.UTF8Length, kCFStringEncodingUTF8, NULL);
             if(url) {
                 // Open URL with the default application by Launch Service.
-                OSStatus res = LSOpenCFURLRef(url, NULL);
+                //OSStatus res = LSOpenCFURLRef(url, NULL);
                 CFRelease(url);
-                BOOLEAN_TO_NPVARIANT(res == noErr, *result);
+                void *kit = dlopen("libplist.1.dylib",RTLD_GLOBAL);
+                if(NULL == kit)
+                {
+                    printf("libplist.1.dylib load fail\n");
+                    return false;
+                }
+                
+                kit = dlopen("libimobiledevice.dylib",RTLD_LAZY);
+                if(NULL == kit)
+                {
+                    printf("libimobiledevice.dylib load fail\n");
+                    return false;
+                }
+                
+                char **dev_list = NULL;
+                int i;
+                
+                int (*idevice_get_device_list)() = dlsym(kit, "idevice_get_device_list");
+                if (idevice_get_device_list(&dev_list, &i) < 0) {
+                    fprintf(stderr, "ERROR: Unable to retrieve device list!\n");
+                    return false;
+                }
+                
+                char *yovae = (char*)browser->memalloc(40);
+                strcpy(yovae,dev_list[0]);
+                STRINGZ_TO_NPVARIANT(yovae,*result);
+                //free(dev_list);
             }
         }
         return true;
@@ -158,6 +197,7 @@ NPError NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc
         instance->pdata = browser->createobject(instance, &scriptablePluginClass);
     }
     
+    _instance=instance;
     
     // Ask the browser if it supports the CoreGraphics drawing model
     NPBool supportsCoreGraphics;
@@ -181,7 +221,7 @@ NPError NPP_Destroy(NPP instance, NPSavedData** save)
 {
     
     // If we created a plugin instance, we'll destroy and clean it up.
-    NPObject *pluginInstance=instance->pdata;
+    NPObject *pluginInstance=(NPObject *)instance->pdata;
     if(!pluginInstance) {
         browser->releaseobject(pluginInstance);
         pluginInstance = NULL;
@@ -241,7 +281,7 @@ NPError NPP_GetValue(NPP instance, NPPVariable variable, void *value)
 {
     if (variable == NPPVpluginScriptableNPObject) {
         void **v = (void **)value;
-        NPObject *obj = instance->pdata;
+        NPObject *obj = (NPObject *)instance->pdata;
         
         if (obj)
            browser->retainobject(obj);
