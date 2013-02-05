@@ -7,16 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81987DEB16C0AA500008FAB0 /* funtions.c in Sources */ = {isa = PBXBuildFile; fileRef = 81437D4C16BFA9D6000B8F54 /* funtions.c */; };
+		81987DF616C0DD3E0008FAB0 /* libimobiledevice.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */; };
+		81987DF916C0DD580008FAB0 /* libplist.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF716C0DD570008FAB0 /* libplist.1.dylib */; };
+		81987DFA16C0DD580008FAB0 /* libusbmuxd.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */; };
+		81987DFB16C0DD5E0008FAB0 /* libplist.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81987DF716C0DD570008FAB0 /* libplist.1.dylib */; };
+		81987DFC16C0DD5E0008FAB0 /* libusbmuxd.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */; };
+		81987DFD16C0DD5E0008FAB0 /* libimobiledevice.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */; };
 		819AF53D16BA68C600E3B545 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 819AF53B16BA68C600E3B545 /* InfoPlist.strings */; };
 		819AF55016BA7F4E00E3B545 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819AF53216BA68C600E3B545 /* Cocoa.framework */; };
 		819AF55216BA7F5800E3B545 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819AF55116BA7F5800E3B545 /* WebKit.framework */; };
 		81AED23316BBAB0000C4D062 /* ibrowser.c in Sources */ = {isa = PBXBuildFile; fileRef = 81AED23216BBAB0000C4D062 /* ibrowser.c */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		81987DF416C0DB9D0008FAB0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				81987DFB16C0DD5E0008FAB0 /* libplist.1.dylib in CopyFiles */,
+				81987DFC16C0DD5E0008FAB0 /* libusbmuxd.2.dylib in CopyFiles */,
+				81987DFD16C0DD5E0008FAB0 /* libimobiledevice.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		81437D4C16BFA9D6000B8F54 /* funtions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = funtions.c; sourceTree = "<group>"; };
 		81437D4E16BFAA36000B8F54 /* funtions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = funtions.h; sourceTree = "<group>"; };
-		81437D4F16BFC59D000B8F54 /* libimobiledevice.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libimobiledevice.dylib; path = chrome_plugin/libimobiledevice.dylib; sourceTree = "<group>"; };
+		81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libimobiledevice.dylib; path = libs/libimobiledevice.dylib; sourceTree = "<group>"; };
+		81987DF716C0DD570008FAB0 /* libplist.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libplist.1.dylib; path = libs/libplist.1.dylib; sourceTree = "<group>"; };
+		81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libusbmuxd.2.dylib; path = libs/libusbmuxd.2.dylib; sourceTree = "<group>"; };
 		819AF52F16BA68C600E3B545 /* IbrowserPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IbrowserPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		819AF53216BA68C600E3B545 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		819AF53516BA68C600E3B545 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -26,12 +50,8 @@
 		819AF53C16BA68C600E3B545 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		819AF53E16BA68C600E3B545 /* IbrowserPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IbrowserPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		819AF54C16BA6BC200E3B545 /* chrome_plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = chrome_plugin; sourceTree = "<group>"; };
-		819AF54D16BA6BE200E3B545 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = chrome_plugin/manifest.json; sourceTree = "<group>"; };
-		819AF54E16BA6CEE00E3B545 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = chrome_plugin/index.html; sourceTree = "<group>"; };
-		819AF54F16BA6D5900E3B545 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = main.js; path = chrome_plugin/main.js; sourceTree = "<group>"; };
 		819AF55116BA7F5800E3B545 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		81AED23216BBAB0000C4D062 /* ibrowser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ibrowser.c; sourceTree = "<group>"; };
-		81C21D4016BFA30000E14168 /* libusbmuxd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libusbmuxd.dylib; path = "../../../Volumes/e_win/libimobiledevice-macosx/libusbmuxd.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81987DF916C0DD580008FAB0 /* libplist.1.dylib in Frameworks */,
+				81987DFA16C0DD580008FAB0 /* libusbmuxd.2.dylib in Frameworks */,
+				81987DF616C0DD3E0008FAB0 /* libimobiledevice.dylib in Frameworks */,
 				819AF55216BA7F5800E3B545 /* WebKit.framework in Frameworks */,
 				819AF55016BA7F4E00E3B545 /* Cocoa.framework in Frameworks */,
 			);
@@ -50,12 +73,10 @@
 		819AF52416BA68C600E3B545 = {
 			isa = PBXGroup;
 			children = (
-				81437D4F16BFC59D000B8F54 /* libimobiledevice.dylib */,
-				81C21D4016BFA30000E14168 /* libusbmuxd.dylib */,
+				81987DF716C0DD570008FAB0 /* libplist.1.dylib */,
+				81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */,
+				81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */,
 				819AF55116BA7F5800E3B545 /* WebKit.framework */,
-				819AF54F16BA6D5900E3B545 /* main.js */,
-				819AF54E16BA6CEE00E3B545 /* index.html */,
-				819AF54D16BA6BE200E3B545 /* manifest.json */,
 				819AF54C16BA6BC200E3B545 /* chrome_plugin */,
 				819AF53816BA68C600E3B545 /* ibrowser_plugin */,
 				819AF53116BA68C600E3B545 /* Frameworks */,
@@ -121,6 +142,7 @@
 				819AF52B16BA68C600E3B545 /* Sources */,
 				819AF52C16BA68C600E3B545 /* Frameworks */,
 				819AF52D16BA68C600E3B545 /* Resources */,
+				81987DF416C0DB9D0008FAB0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -173,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81987DEB16C0AA500008FAB0 /* funtions.c in Sources */,
 				81AED23316BBAB0000C4D062 /* ibrowser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,8 +306,8 @@
 				INFOPLIST_FILE = "ibrowser_plugin/IbrowserPlugin-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
-					"\"/Volumes/e_win/libimobiledevice-macosx\"",
 					"\"$(SRCROOT)/chrome_plugin\"",
+					"\"$(SRCROOT)/libs\"",
 				);
 				PRODUCT_NAME = IbrowserPlugin;
 				VALID_ARCHS = "i386 x86_64";
@@ -315,8 +338,8 @@
 				INFOPLIST_FILE = "ibrowser_plugin/IbrowserPlugin-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
-					"\"/Volumes/e_win/libimobiledevice-macosx\"",
 					"\"$(SRCROOT)/chrome_plugin\"",
+					"\"$(SRCROOT)/libs\"",
 				);
 				PRODUCT_NAME = IbrowserPlugin;
 				VALID_ARCHS = "i386 x86_64";

@@ -11,13 +11,14 @@ int get_device_id(char ***dev_list)
     int i;
     
 	if (idevice_get_device_list(dev_list, &i) < 0) {
-        fprintf(stderr, "ERROR: Unable to retrieve device list!\n");
+        fprintf(stderr, "  ERROR: Unable to retrieve device list!\n");
         return -1;
     }
     //idevice_device_list_free(dev_list);
     return i;
 }
 
+/*
 int get_app_list(char *xml_doc)
 {
     idevice_t phone = NULL;
@@ -66,3 +67,4 @@ int get_app_list(char *xml_doc)
     
     return xml_length;
 }
+ */

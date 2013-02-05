@@ -10,9 +10,7 @@
 #import <WebKit/npfunctions.h>
 #import <WebKit/npruntime.h>
 
-#include <dlfcn.h>
-
-//#include "funtions.h"
+#include "funtions.h"
 
 
 // Browser function table，可以通过它来得到浏览器提供的功能
@@ -131,41 +129,18 @@ bool plugin_invoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args
         BOOLEAN_TO_NPVARIANT(false, *result);
         // Meke sure the arugment has at least one String parameter.
         if(argCount > 0 && NPVARIANT_IS_STRING(args[0])) {
-            // Build CFURL object from the arugment.
-            NPString str = NPVARIANT_TO_STRING(args[0]);
-            CFURLRef url = CFURLCreateWithBytes(NULL, (const UInt8 *)str.UTF8Characters, str.UTF8Length, kCFStringEncodingUTF8, NULL);
-            if(url) {
-                // Open URL with the default application by Launch Service.
-                //OSStatus res = LSOpenCFURLRef(url, NULL);
-                CFRelease(url);
-                void *kit = dlopen("libplist.1.dylib",RTLD_GLOBAL);
-                if(NULL == kit)
-                {
-                    printf("libplist.1.dylib load fail\n");
-                    return false;
-                }
-                
-                kit = dlopen("libimobiledevice.dylib",RTLD_LAZY);
-                if(NULL == kit)
-                {
-                    printf("libimobiledevice.dylib load fail\n");
-                    return false;
-                }
-                
-                char **dev_list = NULL;
-                int i;
-                
-                int (*idevice_get_device_list)() = dlsym(kit, "idevice_get_device_list");
-                if (idevice_get_device_list(&dev_list, &i) < 0) {
-                    fprintf(stderr, "ERROR: Unable to retrieve device list!\n");
-                    return false;
-                }
-                
-                char *yovae = (char*)browser->memalloc(40);
-                strcpy(yovae,dev_list[0]);
-                STRINGZ_TO_NPVARIANT(yovae,*result);
-                //free(dev_list);
-            }
+            char **dev_list = NULL;
+            int i;
+            
+            i=get_device_id(&dev_list);
+            char *yovae = (char*)browser->memalloc(40);
+            strcpy(yovae,dev_list[0]);
+            STRINGZ_TO_NPVARIANT(yovae,*result);
+            
+            printf("%s",dev_list[0]);
+            
+            //free(dev_list);
+            
         }
         return true;
     }
