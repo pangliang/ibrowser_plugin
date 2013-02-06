@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		81987DEB16C0AA500008FAB0 /* funtions.c in Sources */ = {isa = PBXBuildFile; fileRef = 81437D4C16BFA9D6000B8F54 /* funtions.c */; };
+		31320917BDB318C7DAA77E9A /* functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 313208EB516E70DC37B106E4 /* functions.cpp */; };
 		81987DF616C0DD3E0008FAB0 /* libimobiledevice.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */; };
 		81987DF916C0DD580008FAB0 /* libplist.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF716C0DD570008FAB0 /* libplist.1.dylib */; };
 		81987DFA16C0DD580008FAB0 /* libusbmuxd.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */; };
@@ -17,7 +17,7 @@
 		819AF53D16BA68C600E3B545 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 819AF53B16BA68C600E3B545 /* InfoPlist.strings */; };
 		819AF55016BA7F4E00E3B545 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819AF53216BA68C600E3B545 /* Cocoa.framework */; };
 		819AF55216BA7F5800E3B545 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819AF55116BA7F5800E3B545 /* WebKit.framework */; };
-		81AED23316BBAB0000C4D062 /* ibrowser.c in Sources */ = {isa = PBXBuildFile; fileRef = 81AED23216BBAB0000C4D062 /* ibrowser.c */; };
+		81AED23316BBAB0000C4D062 /* ibrowser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81AED23216BBAB0000C4D062 /* ibrowser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,8 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		81437D4C16BFA9D6000B8F54 /* funtions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = funtions.c; sourceTree = "<group>"; };
-		81437D4E16BFAA36000B8F54 /* funtions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = funtions.h; sourceTree = "<group>"; };
+		313208EB516E70DC37B106E4 /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
+		815B376E16C10AA500FB86EA /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functions.h; sourceTree = "<group>"; };
 		81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libimobiledevice.dylib; path = libs/libimobiledevice.dylib; sourceTree = "<group>"; };
 		81987DF716C0DD570008FAB0 /* libplist.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libplist.1.dylib; path = libs/libplist.1.dylib; sourceTree = "<group>"; };
 		81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libusbmuxd.2.dylib; path = libs/libusbmuxd.2.dylib; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		819AF53E16BA68C600E3B545 /* IbrowserPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IbrowserPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		819AF54C16BA6BC200E3B545 /* chrome_plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = chrome_plugin; sourceTree = "<group>"; };
 		819AF55116BA7F5800E3B545 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		81AED23216BBAB0000C4D062 /* ibrowser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ibrowser.c; sourceTree = "<group>"; };
+		81AED23216BBAB0000C4D062 /* ibrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibrowser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,10 +77,10 @@
 				81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */,
 				81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */,
 				819AF55116BA7F5800E3B545 /* WebKit.framework */,
-				819AF54C16BA6BC200E3B545 /* chrome_plugin */,
 				819AF53816BA68C600E3B545 /* ibrowser_plugin */,
 				819AF53116BA68C600E3B545 /* Frameworks */,
 				819AF53016BA68C600E3B545 /* Products */,
+				819AF54C16BA6BC200E3B545 /* chrome_plugin */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,10 +114,10 @@
 		819AF53816BA68C600E3B545 /* ibrowser_plugin */ = {
 			isa = PBXGroup;
 			children = (
-				81437D4C16BFA9D6000B8F54 /* funtions.c */,
-				81AED23216BBAB0000C4D062 /* ibrowser.c */,
+				815B376E16C10AA500FB86EA /* functions.h */,
+				81AED23216BBAB0000C4D062 /* ibrowser.cpp */,
 				819AF53916BA68C600E3B545 /* Supporting Files */,
-				81437D4E16BFAA36000B8F54 /* funtions.h */,
+				313208EB516E70DC37B106E4 /* functions.cpp */,
 			);
 			path = ibrowser_plugin;
 			sourceTree = "<group>";
@@ -195,8 +195,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81987DEB16C0AA500008FAB0 /* funtions.c in Sources */,
-				81AED23316BBAB0000C4D062 /* ibrowser.c in Sources */,
+				81AED23316BBAB0000C4D062 /* ibrowser.cpp in Sources */,
+				31320917BDB318C7DAA77E9A /* functions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,12 +288,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_CW_ASM_SYNTAX = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_ENABLE_TRIGRAPHS = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ibrowser_plugin/IbrowserPlugin-Prefix.pch";
@@ -320,12 +322,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_CW_ASM_SYNTAX = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_ENABLE_TRIGRAPHS = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ibrowser_plugin/IbrowserPlugin-Prefix.pch";

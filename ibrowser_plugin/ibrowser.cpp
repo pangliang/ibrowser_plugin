@@ -10,20 +10,11 @@
 #import <WebKit/npfunctions.h>
 #import <WebKit/npruntime.h>
 
-#include "funtions.h"
-
-
-// Browser function table，可以通过它来得到浏览器提供的功能
+#include "functions.h"
+ 
 static NPNetscapeFuncs* browser;
-static const char *plugin_method_name_open = "open";
-static NPP _instance;
 
-////////////////////////////////////
-/*******各种接口的声明*********/
-//在NPAPI编程的接口中你会发现有NP_打头的，有NPP_打头的，有NPN_打头的
-//NP是npapi的插件库提供给浏览器的最上层的接口
-//NPP即NP Plugin是插件本身提供给浏览器调用的接口，主要被用来填充NPPluginFuncs的结构体
-//NPN即NP Netscape ,是浏览器提供给插件使用的接口，这些接口一般都在NPNetscapeFuncs结构体中
+extern "C"{
 
 //Mach-o entry points,浏览器和创建交流的最上层的接口
 NPError NP_Initialize(NPNetscapeFuncs *browserFuncs);
@@ -52,6 +43,7 @@ bool hasProperty(NPObject *obj, NPIdentifier propertyName);
 bool getProperty(NPObject *obj, NPIdentifier propertyName, NPVariant *result);
 ////////////////////////////////////
 
+}
 static struct NPClass scriptablePluginClass = {
     NP_CLASS_STRUCT_VERSION,
     NULL,
@@ -117,35 +109,34 @@ NP_END_MACRO
 bool plugin_has_method(NPObject *obj, NPIdentifier methodName) {
     // This function will be called when we invoke method on this plugin elements.
     NPUTF8 *name = browser->utf8fromidentifier(methodName);
-    bool result = strcmp(name, plugin_method_name_open) == 0;
+    bool result = !(NULL == invoke_functions[name]);
+    if(result)
+        printf("plugin_has_method %s TRUE\n", name);
+    else
+        printf("plugin_has_method %s FALSE\n", name);
     browser->memfree(name);
     return result;
 }
+
 bool plugin_invoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
-    // Make sure the method called is "open".
+
+    bool ret=true;
+
     NPUTF8 *name = browser->utf8fromidentifier(methodName);
-    if(strcmp(name, plugin_method_name_open) == 0) {
-        browser->memfree(name);
-        BOOLEAN_TO_NPVARIANT(false, *result);
-        // Meke sure the arugment has at least one String parameter.
-        if(argCount > 0 && NPVARIANT_IS_STRING(args[0])) {
-            char **dev_list = NULL;
-            int i;
-            
-            i=get_device_id(&dev_list);
-            char *yovae = (char*)browser->memalloc(40);
-            strcpy(yovae,dev_list[0]);
-            STRINGZ_TO_NPVARIANT(yovae,*result);
-            
-            printf("%s",dev_list[0]);
-            
-            //free(dev_list);
-            
-        }
-        return true;
+
+    if(NULL == invoke_functions[name])
+    {
+        printf("method %s is not exist\n", name);
+        ret=false;
+    }else{
+        char *result_buff = (char*)browser->memalloc(RESULT_BUFF_SIZE);
+        invoke_functions[name](NULL,result_buff);
+        STRINGZ_TO_NPVARIANT(result_buff,*result);
     }
+
     browser->memfree(name);
-    return false;
+    return ret;
+
 }
 
 bool hasProperty(NPObject *obj, NPIdentifier propertyName) {
@@ -161,19 +152,10 @@ bool getProperty(NPObject *obj, NPIdentifier propertyName, NPVariant *result) {
 //NPP Functions Implements
 NPError NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char* argn[], char* argv[], NPSavedData* saved)
 {
-    // Create per-instance storage
-    //obj = (PluginObject *)malloc(sizeof(PluginObject));
-    //bzero(obj, sizeof(PluginObject));
-    
-    //obj->npp = instance;
-    //instance->pdata = obj;
-    
     if(!instance->pdata) {
         instance->pdata = browser->createobject(instance, &scriptablePluginClass);
     }
-    
-    _instance=instance;
-    
+
     // Ask the browser if it supports the CoreGraphics drawing model
     NPBool supportsCoreGraphics;
     if (browser->getvalue(instance, NPNVsupportsCoreGraphicsBool, &supportsCoreGraphics) != NPERR_NO_ERROR)
@@ -188,7 +170,7 @@ NPError NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc
     browser->setvalue(instance,
                       NPPVpluginEventModel,
                       (void *)NPEventModelCocoa);
-    
+
     return NPERR_NO_ERROR;
 }
 
@@ -271,3 +253,4 @@ NPError NPP_SetValue(NPP instance, NPNVariable variable, void *value)
 {
     return NPERR_GENERIC_ERROR;
 }
+
