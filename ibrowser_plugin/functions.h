@@ -18,11 +18,14 @@ using namespace std;
 typedef int (*InvokeFunction) ( char *, char * );
 
 int get_device_id(char *args, char *result);
+int get_device_info(char *args, char *result);
 int get_app_list(char *args, char *result);
  
 static unordered_map<string, InvokeFunction> invoke_functions={
         { "get_device_id", get_device_id},
+        { "get_device_info", get_device_info},
         { "get_app_list", get_app_list},
+
 };
 
 
