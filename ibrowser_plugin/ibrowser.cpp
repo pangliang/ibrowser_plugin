@@ -12,7 +12,7 @@
 
 #include "functions.h"
  
-static NPNetscapeFuncs* browser;
+static NPNetscapeFuncs* browser=NULL;
 
 extern "C"{
 
@@ -37,8 +37,8 @@ NPError NPP_GetValue(NPP instance, NPPVariable variable, void *value);
 NPError NPP_SetValue(NPP instance, NPNVariable variable, void *value);
 
 //Functions for scriptablePluginClass
-bool plugin_has_method(NPObject *obj, NPIdentifier methodName);
-bool plugin_invoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result);
+bool pluginHasMethod(NPObject *obj, NPIdentifier methodName);
+bool pluginInvoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result);
 bool hasProperty(NPObject *obj, NPIdentifier propertyName);
 bool getProperty(NPObject *obj, NPIdentifier propertyName, NPVariant *result);
 ////////////////////////////////////
@@ -49,8 +49,8 @@ static struct NPClass scriptablePluginClass = {
     NULL,
     NULL,
     NULL,
-    plugin_has_method,
-    plugin_invoke,
+    pluginHasMethod,
+    pluginInvoke,
     NULL,
     hasProperty,
     getProperty,
@@ -92,13 +92,6 @@ void NP_Shutdown(void)
     
 }
 
-#define STRINGN_TO_NPVARIANT(_val, _len, _v)                                  \
-NP_BEGIN_MACRO                                                                \
-(_v).type = NPVariantType_String;                                         \
-NPString str = { _val, (uint32_t)(_len) };                                  \
-(_v).value.stringValue = str;                                             \
-NP_END_MACRO
-
 #define STRINGZ_TO_NPVARIANT(_val, _v)                                        \
 NP_BEGIN_MACRO                                                                \
 (_v).type = NPVariantType_String;                                         \
@@ -106,32 +99,60 @@ NPString str = { _val, (uint32_t)(strlen(_val)) };                          \
 (_v).value.stringValue = str;                                             \
 NP_END_MACRO
 
-bool plugin_has_method(NPObject *obj, NPIdentifier methodName) {
+bool pluginHasMethod(NPObject *obj, NPIdentifier methodName) {
     // This function will be called when we invoke method on this plugin elements.
     NPUTF8 *name = browser->utf8fromidentifier(methodName);
-    bool result = !(NULL == invoke_functions[name]);
-    if(result)
-        printf("plugin_has_method %s TRUE\n", name);
-    else
-        printf("plugin_has_method %s FALSE\n", name);
+    bool result = !(NULL == INVOKE_FUNCTIONS[name]);
     browser->memfree(name);
     return result;
 }
 
-bool plugin_invoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
+bool pluginInvoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
 
-    bool ret=true;
-
+    bool ret=false;
+    char **argsList = NULL;
     NPUTF8 *name = browser->utf8fromidentifier(methodName);
 
-    if(NULL == invoke_functions[name])
+    if(NULL == INVOKE_FUNCTIONS[name])
     {
-        printf("method %s is not exist\n", name);
         ret=false;
     }else{
-        char *result_buff = (char*)browser->memalloc(RESULT_BUFF_SIZE);
-        invoke_functions[name](NULL,result_buff);
-        STRINGZ_TO_NPVARIANT(result_buff,*result);
+        init(false);
+
+        if(argCount > 0)
+        {
+            argsList = new char*[argCount];
+            for (int i=0;i<argCount;i++)
+            {
+                NPString npString = NPVARIANT_TO_STRING(args[0]);
+                argsList[i]=(char *) malloc(npString.UTF8Length+1);
+                memset((void *) argsList[i], 0, npString.UTF8Length+1);
+                memcpy((void *) argsList[i], (void *)npString.UTF8Characters, npString.UTF8Length);
+            }
+        }
+
+        //每次都要分配内存
+        char *buff = (char*)browser->memalloc(RESULT_BUFF_SIZE);
+        memset(buff, 0, RESULT_BUFF_SIZE);
+
+        if (INVOKE_FUNCTIONS[name](argsList,argCount, buff) < 0)
+        {
+            printf("call again !\n");
+            init(true);
+            memset(buff, 0, RESULT_BUFF_SIZE);
+            INVOKE_FUNCTIONS[name](argsList,argCount, buff);
+        }
+        STRINGZ_TO_NPVARIANT(buff,*result);
+        ret=true;
+
+        if(argCount > 0)
+        {
+            for (int i=0;i<argCount;i++)
+            {
+                free(argsList[i]);
+            }
+            delete []argsList;
+        }
     }
 
     browser->memfree(name);

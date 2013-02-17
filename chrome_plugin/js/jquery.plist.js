@@ -65,7 +65,14 @@
     }
 
     $.plist = function(xml) {
-        return parse( $(xml).children() );
+        if($(xml).children().length>0)
+            return parse( $(xml).children() );
+        else{
+            console.log(xml);
+            return null;
+        }
+
+
     };
 
 })(jQuery);
