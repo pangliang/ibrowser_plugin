@@ -1,4 +1,4 @@
-static int base64encode(const char *in_str, int in_len, char *out_str)
+int base64encode(const char *in_str, int in_len, char *out_str)
 {
     static unsigned char base64[] ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     int curr_out_len = 0;

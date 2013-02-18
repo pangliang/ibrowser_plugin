@@ -24,7 +24,7 @@ $(function(){
     });
 
     $("#tab_app_list").on("click",function(){
-        $("#app_list > *:not(':first')").html("");
+        $("#app_list > *:not(':first,:last')").html("");
         var p= $.extend({},plugin.getAppList());
         console.log(p);
         if(p){
@@ -38,9 +38,16 @@ $(function(){
                 div.attr("id",app["CFBundleDisplayName"]);
                 var pngdata=plugin.getSbservicesIconPngData(app["CFBundleIdentifier"]);
                 div.find("#icon").attr("src",pngdata);
-                $("#app_list").append(div);
+                $("#app_list_temp").after(div);
             });
         }
+    });
+
+    $("#install_app_buttion").on("click",function(){
+        var pkg_path=plugin.uploadFile();
+        console.log(pkg_path);
+        if(pkg_path && "" != pkg_path)
+            plugin.installPackage(pkg_path);
     });
 
     //$("#tab_device_info").click();

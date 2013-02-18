@@ -121,11 +121,10 @@ bool pluginInvoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args,
     char **argsList = NULL;
     NPUTF8 *name = browser->utf8fromidentifier(methodName);
 
-    if(NULL == INVOKE_FUNCTIONS[name])
+    if(NULL == INVOKE_FUNCTIONS[name] || false == init(false))
     {
         ret=false;
     }else{
-        init(false);
 
         if(argCount > 0)
         {
@@ -143,18 +142,21 @@ bool pluginInvoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args,
         char *buff = (char*)browser->memalloc(RESULT_BUFF_SIZE);
         memset(buff, 0, RESULT_BUFF_SIZE);
 
-        uint32_t result_size = 0;
+        int result_size = 0;
         if ((result_size = INVOKE_FUNCTIONS[name](argsList,argCount, buff)) < 0)
         {
-            printf("call again !\n");
+            printf("call %s again !\n",name);
             init(true);
             memset(buff, 0, RESULT_BUFF_SIZE);
             result_size=INVOKE_FUNCTIONS[name](argsList,argCount, buff);
         }
         printf("call %s succ,return %d\n",name,result_size);
-        STRINGN_TO_NPVARIANT(buff,result_size,*result);
+        if (result_size > 0){
+            STRINGN_TO_NPVARIANT(buff,result_size,*result);
+        }else{
+            NULL_TO_NPVARIANT(*result);
+        }
         ret=true;
-
         if(argCount > 0)
         {
             for (int i=0;i<argCount;i++)
@@ -227,6 +229,7 @@ NPError NPP_SetWindow(NPP instance, NPWindow* window)
 NPError NPP_NewStream(NPP instance, NPMIMEType type, NPStream* stream, NPBool seekable, uint16_t* stype)
 {
     *stype = NP_ASFILEONLY;
+    printf("=====NPP_NewStream, url:%s\n",stream->url);
     return NPERR_NO_ERROR;
 }
 
@@ -247,6 +250,7 @@ int32_t NPP_Write(NPP instance, NPStream* stream, int32_t offset, int32_t len, v
 
 void NPP_StreamAsFile(NPP instance, NPStream* stream, const char* fname)
 {
+    printf("=====NPP_StreamAsFile, url:%s\n",stream->url);
 }
 
 void NPP_Print(NPP instance, NPPrint* platformPrint)
@@ -262,7 +266,7 @@ int16_t NPP_HandleEvent(NPP instance, void* event)
 
 void NPP_URLNotify(NPP instance, const char* url, NPReason reason, void* notifyData)
 {
-    
+    printf("=====NPP_URLNotify, url:%s\n",url);
 }
 
 NPError NPP_GetValue(NPP instance, NPPVariable variable, void *value)

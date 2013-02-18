@@ -300,7 +300,7 @@
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_ENABLE_TRIGRAPHS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ibrowser_plugin/IbrowserPlugin-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -334,7 +334,7 @@
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_ENABLE_TRIGRAPHS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ibrowser_plugin/IbrowserPlugin-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;

@@ -49,14 +49,14 @@ function Plugin(plugin)
         console.log(result);
     }
 
-    this.uploadFile=function(fileName){
-        var result=plugin.upload_file(fileName);
-        console.log(result);
+    this.uploadFile=function(){
+        var result=plugin.upload_file();
+        return result;
     }
 
     this.installPackage=function(fileName){
         var result=plugin.install_package(fileName);
-        console.log(result);
+        return result;
     }
 
     this.getSbservicesIconPngData=function(bundleId){

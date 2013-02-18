@@ -33,3 +33,7 @@
 .app{
     float:left;
 }
+
+#install_app_buttion {
+    cursor: pointer;
+}
