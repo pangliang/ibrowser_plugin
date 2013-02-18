@@ -224,6 +224,53 @@ int upload_file(char **args, uint32_t argCount, char *result)
     return strlen(target_file);
 }
 
+void install_callback(const char *operation, plist_t status, void *user_data) {
+    char *xml_doc=NULL;
+    uint32_t xml_length;
+    plist_to_xml(status, &xml_doc, &xml_length);
+    printf("install_callback:%s\n%s\n",xml_doc);
+}
+
+int install_package(char **args, uint32_t argCount, char *result)
+{
+    uint16_t port = 0;
+    char *xml_doc=NULL;
+    uint32_t xml_length=0;
+    plist_t node = NULL;
+
+    char *pkg_path = NULL;
+
+    if (argCount != 1)
+    {
+        return -1;
+    }
+
+    pkg_path = args[0];
+
+    if (NULL == instproxy_client)
+    {
+        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.mobile.installation_proxy",&port) || !port))
+        {
+            printf("lockdownd_start_service com.apple.mobile.installation_proxy error");
+            return -1;
+        }
+
+        if(INSTPROXY_E_SUCCESS != instproxy_client_new(device,port,&instproxy_client) )
+        {
+            printf("instproxy_client_new error");
+            return -1;
+        }
+    }
+
+    if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, pkg_path, NULL, install_callback, NULL))
+    {
+        printf("instproxy_install %s error\n",pkg_path);
+        return -1;
+    }
+
+    return 0;
+}
+
 int get_sbservices_icon_pngdata(char **args, uint32_t argCount, char *result)
 {
     uint16_t port = 0;

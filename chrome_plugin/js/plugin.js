@@ -54,6 +54,11 @@ function Plugin(plugin)
         console.log(result);
     }
 
+    this.installPackage=function(fileName){
+        var result=plugin.install_package(fileName);
+        console.log(result);
+    }
+
     this.getSbservicesIconPngData=function(bundleId){
         var result=plugin.get_sbservices_icon_pngdata(bundleId);
         return "data:image/png;base64,"+result;

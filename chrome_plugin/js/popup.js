@@ -44,5 +44,6 @@ $(function(){
     });
 
     //$("#tab_device_info").click();
-    plugin.uploadFile("/Volumes/h_win/mac_downloads/Clear-v1.2.1.ipa");
+    //plugin.uploadFile("/Volumes/h_win/mac_downloads/Clear-v1.2.1.ipa");
+    //plugin.installPackage("/Downloads/Clear-v1.2.1.ipa");
 });
