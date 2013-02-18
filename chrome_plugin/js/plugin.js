@@ -9,6 +9,7 @@ function Plugin(plugin)
         }
         return size.toFixed(2) + ' ' + units[i];
     }
+
     this.getDiskUsage=function(){
         var result=plugin.get_device_info("com.apple.disk_usage");
         var p= $.plist(result);
@@ -23,19 +24,19 @@ function Plugin(plugin)
             p.AmountDataReserved= this.readableFileSize(p.AmountDataReserved);
         }
         return p;
-    };
+    }
 
     this.getBatteryInfo=function(){
         var result=plugin.get_device_info("com.apple.mobile.battery");
         var p= $.plist(result);
         return p;
-    };
+    }
 
     this.getDeviceInfo=function(){
         var result=plugin.get_device_info();
         var p= $.plist(result);
         return p;
-    };
+    }
 
     this.getAppList=function(){
         var result=plugin.get_app_list();
@@ -46,5 +47,15 @@ function Plugin(plugin)
     this.readFile=function(fileName){
         var result=plugin.read_file(fileName);
         console.log(result);
+    }
+
+    this.uploadFile=function(fileName){
+        var result=plugin.upload_file(fileName);
+        console.log(result);
+    }
+
+    this.getSbservicesIconPngData=function(bundleId){
+        var result=plugin.get_sbservices_icon_pngdata(bundleId);
+        return "data:image/png;base64,"+result;
     }
 }

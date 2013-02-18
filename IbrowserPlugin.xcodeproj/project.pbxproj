@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31320917BDB318C7DAA77E9A /* functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 313208EB516E70DC37B106E4 /* functions.cpp */; };
+		31320E5F4087619B5CE1BF75 /* base64.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31320D505ADC7B39C3D393A8 /* base64.h */; };
 		81987DF616C0DD3E0008FAB0 /* libimobiledevice.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */; };
 		81987DF916C0DD580008FAB0 /* libplist.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF716C0DD570008FAB0 /* libplist.1.dylib */; };
 		81987DFA16C0DD580008FAB0 /* libusbmuxd.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81987DF816C0DD570008FAB0 /* libusbmuxd.2.dylib */; };
@@ -30,6 +31,7 @@
 				81987DFB16C0DD5E0008FAB0 /* libplist.1.dylib in CopyFiles */,
 				81987DFC16C0DD5E0008FAB0 /* libusbmuxd.2.dylib in CopyFiles */,
 				81987DFD16C0DD5E0008FAB0 /* libimobiledevice.dylib in CopyFiles */,
+				31320E5F4087619B5CE1BF75 /* base64.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		313208EB516E70DC37B106E4 /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
+		31320D505ADC7B39C3D393A8 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		815B376E16C10AA500FB86EA /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functions.h; sourceTree = "<group>"; };
 		81987DF516C0DD3E0008FAB0 /* libimobiledevice.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libimobiledevice.dylib; path = libs/libimobiledevice.dylib; sourceTree = "<group>"; };
 		81987DF716C0DD570008FAB0 /* libplist.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libplist.1.dylib; path = libs/libplist.1.dylib; sourceTree = "<group>"; };
@@ -118,6 +121,7 @@
 				81AED23216BBAB0000C4D062 /* ibrowser.cpp */,
 				819AF53916BA68C600E3B545 /* Supporting Files */,
 				313208EB516E70DC37B106E4 /* functions.cpp */,
+				31320D505ADC7B39C3D393A8 /* base64.h */,
 			);
 			path = ibrowser_plugin;
 			sourceTree = "<group>";

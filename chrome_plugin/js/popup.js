@@ -24,6 +24,7 @@ $(function(){
     });
 
     $("#tab_app_list").on("click",function(){
+        $("#app_list > *:not(':first')").html("");
         var p= $.extend({},plugin.getAppList());
         console.log(p);
         if(p){
@@ -35,11 +36,13 @@ $(function(){
                     $(this).html(app[infoName]);
                 });
                 div.attr("id",app["CFBundleDisplayName"]);
+                var pngdata=plugin.getSbservicesIconPngData(app["CFBundleIdentifier"]);
+                div.find("#icon").attr("src",pngdata);
                 $("#app_list").append(div);
             });
         }
     });
 
     //$("#tab_device_info").click();
-    plugin.readFile("/private/var/mobile/Applications/797E872E-3BC8-4A18-9736-A06CFA54D096/AutoNavi.app/default57.png");
+    plugin.uploadFile("/Volumes/h_win/mac_downloads/Clear-v1.2.1.ipa");
 });

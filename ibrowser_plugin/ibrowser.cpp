@@ -92,6 +92,14 @@ void NP_Shutdown(void)
     
 }
 
+
+#define STRINGN_TO_NPVARIANT(_val, _len, _v)                                  \
+NP_BEGIN_MACRO                                                                \
+    (_v).type = NPVariantType_String;                                         \
+    NPString str = { _val, (uint32_t)(_len) };                                  \
+    (_v).value.stringValue = str;                                             \
+NP_END_MACRO
+
 #define STRINGZ_TO_NPVARIANT(_val, _v)                                        \
 NP_BEGIN_MACRO                                                                \
 (_v).type = NPVariantType_String;                                         \
@@ -135,14 +143,16 @@ bool pluginInvoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args,
         char *buff = (char*)browser->memalloc(RESULT_BUFF_SIZE);
         memset(buff, 0, RESULT_BUFF_SIZE);
 
-        if (INVOKE_FUNCTIONS[name](argsList,argCount, buff) < 0)
+        uint32_t result_size = 0;
+        if ((result_size = INVOKE_FUNCTIONS[name](argsList,argCount, buff)) < 0)
         {
             printf("call again !\n");
             init(true);
             memset(buff, 0, RESULT_BUFF_SIZE);
-            INVOKE_FUNCTIONS[name](argsList,argCount, buff);
+            result_size=INVOKE_FUNCTIONS[name](argsList,argCount, buff);
         }
-        STRINGZ_TO_NPVARIANT(buff,*result);
+        printf("call %s succ,return %d\n",name,result_size);
+        STRINGN_TO_NPVARIANT(buff,result_size,*result);
         ret=true;
 
         if(argCount > 0)

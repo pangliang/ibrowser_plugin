@@ -49,11 +49,15 @@ bool init(bool reconnect);
 int get_device_info(char **args, unsigned int argCount, char *result);
 int get_app_list(char **args, unsigned int argCount, char *result);
 int read_file(char **args, uint32_t argCount, char *result);
+int upload_file(char **args, uint32_t argCount, char *result);
+int get_sbservices_icon_pngdata(char **args, uint32_t argCount, char *result);
 
 static unordered_map<string, int (*) ( char **, unsigned int, char * )> INVOKE_FUNCTIONS ={
         { "get_device_info", get_device_info},
         { "get_app_list", get_app_list},
         { "read_file", read_file},
+        { "upload_file", upload_file},
+        { "get_sbservices_icon_pngdata", get_sbservices_icon_pngdata},
 
 };
 
