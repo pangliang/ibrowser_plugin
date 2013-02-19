@@ -1,0 +1,16 @@
+{
+    "name": "我的扩展程序",
+    "version": "0.1.0",
+    "manifest_version": 2,
+    "plugins": [
+        {
+                "path": "ibrowser_x86_64.plugin","public":true
+        } 
+    ],
+    "browser_action": {
+        "name": "Make this page red",
+        "icons": ["icon.jpeg"],
+        "default_popup": "index.html"
+    }
+    
+}
