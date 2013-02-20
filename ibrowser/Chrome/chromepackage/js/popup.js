@@ -40,8 +40,10 @@ $(function(){
                     $(this).html(app[infoName]);
                 });
                 div.attr("id",app["CFBundleDisplayName"]);
-                var pngdata=plugin.getSbservicesIconPngData(app["CFBundleIdentifier"]);
-                div.find("#icon").attr("src",pngdata);
+                plugin.getSbservicesIconPngData(app["CFBundleIdentifier"],function(data){
+                    div.find("#icon").attr("src","data:image/png;base64,"+data);
+                });
+                
                 $("#app_list_temp").before(div);
             });
         }

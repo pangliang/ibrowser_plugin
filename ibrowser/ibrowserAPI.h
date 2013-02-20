@@ -44,6 +44,7 @@ public:
         registerMethod("testEvent", make_method(this, &ibrowserAPI::testEvent));
         
         registerMethod("init",      make_method(this, &ibrowserAPI::init));
+        registerMethod("clean",      make_method(this, &ibrowserAPI::clean));
         registerMethod("getDeviceInfo", make_method(this, &ibrowserAPI::getDeviceInfo));
         registerMethod("getAppList",      make_method(this, &ibrowserAPI::getAppList));
         registerMethod("getSbservicesIconPngdata", make_method(this, &ibrowserAPI::getSbservicesIconPngdata));
@@ -90,7 +91,8 @@ public:
     FB::variant clean();
     FB::variant getDeviceInfo(const std::string& domain);
     FB::variant getAppList();
-    FB::variant getSbservicesIconPngdata(const std::string& bundleId);
+    FB::variant getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback);
+    FB::variant getSbservicesIconPngdataThread(const std::string& bundleId,const FB::JSObjectPtr& callback);
     FB::variant openDialog();
     FB::variant uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback);
     FB::variant uploadFileThread(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback);
@@ -111,6 +113,7 @@ private:
     FB::BrowserHostPtr m_host;
 
     std::string m_testString;
+    std::string uploadFileDir = "/Downloads";
     
     idevice_t device = NULL;
     instproxy_client_t instproxy_client = NULL;

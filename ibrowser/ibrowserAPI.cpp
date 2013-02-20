@@ -27,7 +27,7 @@ FB::variant ibrowserAPI::init()
     if (NULL == device)
     {
         if (IDEVICE_E_SUCCESS != idevice_new(&device, NULL)) {
-            FB::script_error("No device found, is it plugged in?\n");
+            throw FB::script_error("No device found, is it plugged in?\n");
             return false;
         }
     }
@@ -35,7 +35,7 @@ FB::variant ibrowserAPI::init()
     if (NULL == lockdownd_client)
     {
         if (LOCKDOWN_E_SUCCESS != (lockdownd_client_new_with_handshake(device, &lockdownd_client, CLIENT_LABEL))) {
-            FB::script_error("lockdownd_client_new_with_handshake fail!\n");
+            throw FB::script_error("lockdownd_client_new_with_handshake fail!\n");
             return false;
         }
     }
@@ -44,13 +44,13 @@ FB::variant ibrowserAPI::init()
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.mobile.installation_proxy",&port) || !port))
         {
-            FB::script_error("lockdownd_start_service com.apple.mobile.installation_proxy error");
+            throw FB::script_error("lockdownd_start_service com.apple.mobile.installation_proxy error");
             return false;
         }
         
         if(INSTPROXY_E_SUCCESS != instproxy_client_new(device,port,&instproxy_client) )
         {
-            FB::script_error("instproxy_client_new error");
+            throw FB::script_error("instproxy_client_new error");
             return false;
         }
     }
@@ -60,12 +60,12 @@ FB::variant ibrowserAPI::init()
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.afc",&port)) || !port)
         {
-            FB::script_error("lockdownd_start_service com.apple.afc error\n");
+            throw FB::script_error("lockdownd_start_service com.apple.afc error\n");
             return false;
         }
         
         if (afc_client_new(device, port, &afc_client) != AFC_E_SUCCESS) {
-            FB::script_error("Could not connect to AFC!\n");
+            throw FB::script_error("Could not connect to AFC!\n");
             return false;
         }
     }
@@ -74,18 +74,15 @@ FB::variant ibrowserAPI::init()
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.springboardservices",&port)) || !port)
         {
-            FB::script_error("lockdownd_start_service com.apple.springboardservices error\n");
+            throw FB::script_error("lockdownd_start_service com.apple.springboardservices error\n");
             return false;
         }
         
         if (sbservices_client_new(device, port, &sbservices_client) != AFC_E_SUCCESS) {
-            FB::script_error("sbservices_client_new error!\n");
+            throw FB::script_error("sbservices_client_new error!\n");
             return false;
         }
     }
-    
-    printf("init:%p",this);
-    
     
     return true;
 
@@ -122,6 +119,8 @@ FB::variant ibrowserAPI::clean()
         afc_client_free(afc_client);
         afc_client = NULL;
     }
+    
+    return true;
 }
 
 
@@ -130,7 +129,7 @@ FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain)
     
     plist_t node = NULL;
     if(LOCKDOWN_E_SUCCESS != lockdownd_get_value(lockdownd_client, domain.empty()?NULL:domain.c_str(), NULL, &node) ) {
-        FB::script_error("ERROR: Unable to get_device_info");
+        throw FB::script_error("ERROR: Unable to get_device_info");
         return NULL;
     }
     
@@ -165,7 +164,7 @@ FB::variant ibrowserAPI::getAppList()
     
     if(INSTPROXY_E_SUCCESS != instproxy_browse(instproxy_client,client_opts,&node))
     {
-        FB::script_error("instproxy_browse error");
+        throw FB::script_error("instproxy_browse error");
         return NULL;
     }
     
@@ -177,7 +176,20 @@ FB::variant ibrowserAPI::getAppList()
     return xml_doc;
 }
 
-FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId)
+FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback)
+{
+    if(callback)
+    {
+        boost::thread t(boost::bind(&ibrowserAPI::getSbservicesIconPngdataThread,
+                                    this, bundleId, callback));
+        return true;
+    }else{
+        return getSbservicesIconPngdataThread(bundleId,callback);
+    }
+    
+}
+
+FB::variant ibrowserAPI::getSbservicesIconPngdataThread(const std::string& bundleId,const FB::JSObjectPtr& callback)
 {
     if(bundleId.empty())
         return NULL;
@@ -185,12 +197,18 @@ FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId)
     uint64_t size = 0;
     if (SBSERVICES_E_SUCCESS != sbservices_get_icon_pngdata(sbservices_client,bundleId.c_str(),&data,&size))
     {
-        FB::script_error("get_sbservices_icon_pngdata error");
+        throw FB::script_error("get_sbservices_icon_pngdata error");
         return NULL;
     }
     char *base64 = base64encode(data,size);
     free(data);
-    return base64;
+    
+    if(callback){
+        callback->InvokeAsync("", FB::variant_list_of(base64));
+        return NULL;
+    }
+    else
+        return base64;
 }
 
 #ifdef WIN32
@@ -229,7 +247,7 @@ FB::variant ibrowserAPI::uploadFileThread(const std::string& fileName, const FB:
     const char *file_name=fileName.c_str();
     
     char target_file[1024];
-    sprintf(target_file, "/Downloads/%s", basename((char *)file_name));
+    sprintf(target_file, "%s/%s",uploadFileDir.c_str(), basename((char *)file_name));
     uint64_t target_file_handle = 0;
     if (AFC_E_SUCCESS != afc_file_open(afc_client, target_file, AFC_FOPEN_WRONLY, &target_file_handle)){
         printf("afc_file_open %s error!\n", target_file);

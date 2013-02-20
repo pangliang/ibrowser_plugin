@@ -37,16 +37,15 @@
 }
 
 #app_list .app{
-    height: 80px;
+    float: left;
 }
 
 #app_list .icon{
-    float: left;
-    height: 80px;
+    height: 50px;
 }
 
 #app_list #icon{
-    height: 80px;
+    height: 50px;
 }
 
 #install_app_buttion {
@@ -56,7 +55,7 @@
     height: 50px;
     text-align: center;
     color: #0C7823;
-    font-size: 20px;
+    font-size: 10px;
     font-weight: bold;
     line-height: 52px;
     cursor: pointer;
