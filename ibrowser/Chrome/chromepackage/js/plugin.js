@@ -51,18 +51,22 @@ function Plugin(plugin)
         console.log(result);
     }
 
-    this.uploadFile=function(){
-        var result=plugin.upload_file();
+    this.uploadFile=function(fileName,succCallback,processCallback){
+        var result=plugin.uploadFile(fileName,succCallback,processCallback);
         return result;
     }
 
-    this.installPackage=function(fileName){
-        var result=plugin.install_package(fileName);
+    this.installPackage=function(fileName,callback){
+        var result=plugin.installPackage(fileName,callback);
         return result;
     }
 
     this.getSbservicesIconPngData=function(bundleId){
         var result=plugin.getSbservicesIconPngdata(bundleId);
         return "data:image/png;base64,"+result;
+    }
+
+    this.openDialog=function(){
+        return plugin.openDialog();
     }
 }

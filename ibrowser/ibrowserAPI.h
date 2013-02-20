@@ -22,6 +22,7 @@ extern "C"{
 #ifndef H_ibrowserAPI
 #define H_ibrowserAPI
 
+
 class ibrowserAPI : public FB::JSAPIAuto
 {
 public:
@@ -46,6 +47,9 @@ public:
         registerMethod("getDeviceInfo", make_method(this, &ibrowserAPI::getDeviceInfo));
         registerMethod("getAppList",      make_method(this, &ibrowserAPI::getAppList));
         registerMethod("getSbservicesIconPngdata", make_method(this, &ibrowserAPI::getSbservicesIconPngdata));
+        registerMethod("openDialog", make_method(this, &ibrowserAPI::openDialog));
+        registerMethod("uploadFile", make_method(this, &ibrowserAPI::uploadFile));
+        registerMethod("installPackage", make_method(this, &ibrowserAPI::installPackage));
         
         // Read-write property
         registerProperty("testString",
@@ -87,6 +91,13 @@ public:
     FB::variant getDeviceInfo(const std::string& domain);
     FB::variant getAppList();
     FB::variant getSbservicesIconPngdata(const std::string& bundleId);
+    FB::variant openDialog();
+    FB::variant uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback);
+    FB::variant uploadFileThread(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback);
+    FB::variant installPackage(const std::string& fileName, const FB::JSObjectPtr& callback);
+    FB::variant installPackageThread(const std::string& fileName, const FB::JSObjectPtr& callback);
+    static void installCallback(const char *operation, plist_t status, void *user_data);
+    static FB::JSObjectPtr installPackageCallback;
     
     // Event helpers
     FB_JSAPI_EVENT(test, 0, ());
@@ -106,6 +117,7 @@ private:
     lockdownd_client_t 	lockdownd_client = NULL;
     sbservices_client_t sbservices_client = NULL;
     afc_client_t afc_client = NULL;
+    
 };
 
 #endif // H_ibrowserAPI

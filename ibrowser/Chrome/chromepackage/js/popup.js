@@ -2,6 +2,11 @@
 $(function(){
 
     var plugin=new Plugin(document.getElementById("pluginId"));
+    
+    function basename(path) {
+        return path.replace(/\\/g,'/').replace( /.*\//, '');
+    }
+    
     $("#tabs li").on("click",function(){
         $("#tabs li.active").removeClass("active");
         $(this).addClass("active");
@@ -23,7 +28,7 @@ $(function(){
     });
 
     $("#tab_app_list").on("click",function(){
-        $("#app_list > *:not(':first,:last')").html("");
+        $("#app_list > *:not(':first,:last')").remove();
         var p= $.extend({},plugin.getAppList());
         console.log(p);
         if(p){
@@ -37,19 +42,46 @@ $(function(){
                 div.attr("id",app["CFBundleDisplayName"]);
                 var pngdata=plugin.getSbservicesIconPngData(app["CFBundleIdentifier"]);
                 div.find("#icon").attr("src",pngdata);
-                $("#app_list_temp").after(div);
+                $("#app_list_temp").before(div);
             });
         }
     });
 
     $("#install_app_buttion").on("click",function(){
-        var pkg_path=plugin.uploadFile();
-        console.log(pkg_path);
-        if(pkg_path && "" != pkg_path)
-            plugin.installPackage(pkg_path);
+        var selectFile=plugin.openDialog();
+        $("#install_app_buttion #selTip").html("正在传输文件到手机..."+basename(selectFile));
+        var pkg_path=plugin.uploadFile(
+            selectFile,
+            function(pkgName){
+                if(pkgName && "" != pkgName)
+                {
+                    $("#install_app_buttion #selTip").html("传输完成, 安装..."+basename(selectFile));
+                    plugin.installPackage(
+                        pkgName,
+                        function(xml){
+                            var p= $.plist(xml);
+                            console.log(p);
+                            if(p.error)
+                            {
+                                $("#install_app_buttion #selTip").html("安装"+basename(selectFile)+"失败,"+ p.error);
+                            }else if(p.Status == "Complete"){
+                                $("#install_app_buttion #selTip").html("安装成功..."+basename(selectFile));
+                                $("#install_app_buttion #progressBar").width("100%");
+                            } else{
+                                $("#install_app_buttion #selTip").html("传输完成, 安装..."+basename(selectFile)+"..."+ p.Status);
+                                $("#install_app_buttion #progressBar").width(p.PercentComplete+"%");
+                            }
+                        }
+                    );
+                }else{
+                    $("#install_app_buttion #selTip").html("上传失败!");
+                }
+            },
+            function(proc){
+                $("#install_app_buttion #progressBar").width(proc*100+"%");
+            }
+        );
+        
     });
 
-    //$("#tab_device_info").click();
-    //plugin.uploadFile("/Volumes/h_win/mac_downloads/Clear-v1.2.1.ipa");
-    //plugin.installPackage("/Downloads/Clear-v1.2.1.ipa");
 });

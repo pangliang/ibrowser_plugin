@@ -257,8 +257,6 @@ void install_callback(const char *operation, plist_t status, void *user_data) {
     uint32_t xml_length;
     plist_to_xml(status, &xml_doc, &xml_length);
     printf("install_callback:%s\n%s\n",xml_doc);
-
-
 }
 
 int install_package(char **args, uint32_t argCount, char *result)

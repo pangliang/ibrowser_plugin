@@ -30,9 +30,55 @@
     font-weight: bold;
 }
 
-.app{
-    float:left;
+/* app_list */
+
+#app_list #app_list_temp{
+    height: 0px;
 }
+
+#app_list .app{
+    height: 80px;
+}
+
+#app_list .icon{
+    float: left;
+    height: 80px;
+}
+
+#app_list #icon{
+    height: 80px;
+}
+
+#install_app_buttion {
+    margin-top: 5px;
+    border: 1px solid #0E774A;
+    background-color: #E9F4E9;
+    height: 50px;
+    text-align: center;
+    color: #0C7823;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 52px;
+    cursor: pointer;
+}
+
+#install_app_buttion #selTip {
+    margin-top: -50px;
+    position: absolute;
+    width: 100%;
+}
+
+#install_app_buttion #progressBar {
+    display: block;
+    position: relative;
+    height: 50px;
+    background: #B1D632;
+    text-align: center;
+    color: #fff;
+}
+
+
+/* app_list end */
 
 #install_app_buttion {
     cursor: pointer;
