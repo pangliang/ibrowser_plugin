@@ -24,10 +24,19 @@ extern "C"{
 
 #define F_SUCC  const boost::optional<FB::JSObjectPtr>& scb
 #define F_ERRO  const boost::optional<FB::JSObjectPtr>& ecb
-#define F_CB F_SUCC,F_ERRO
-#define CB_USE scb,ecb
-#define SUCC(a1,args...)    if(scb)(*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args ));
-#define ERRO(msg)   if(ecb)(*ecb)->InvokeAsync("", FB::variant_list_of(msg));
+#define F_T_FLAG    boost::optional<bool> noThread
+#define F_ADD F_SUCC,F_ERRO,F_T_FLAG
+#define SUCC(a1,args...)    if(scb){(*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args ));return true;}
+#define ERRO(msg)   if(ecb){(*ecb)->InvokeAsync("", FB::variant_list_of(msg));return NULL;}
+#define THREAD(fun,args...)                                         \
+    do{                                                             \
+        if(!noThread && scb && (*scb)->isValid() )                                               \
+        {                                                           \
+            boost::thread t(boost::bind(fun,this, ##args,scb,ecb,true));    \
+            return true;                                            \
+        }                                                           \
+    }                                                               \
+    while(0)
 
 class ibrowserAPI : public FB::JSAPIAuto
 {
@@ -93,14 +102,14 @@ public:
     // Method echo
     FB::variant echo(const FB::variant& msg);
     
-    FB::variant init(F_CB);
+    FB::variant init(F_ADD);
     FB::variant clean();
-    FB::variant getDeviceInfo(const std::string& domain,F_CB);
-    FB::variant getAppList(F_CB);
-    FB::variant getSbservicesIconPngdata(const std::string& bundleId,F_CB,boost::optional<bool> noThread);
-    FB::variant openDialog(F_SUCC, boost::optional<bool> noThread);
-    FB::variant uploadFile(const std::string& fileName, F_CB, const boost::optional<FB::JSObjectPtr>& processCallback,boost::optional<bool> noThread);
-    FB::variant installPackage(const std::string& fileName, F_CB,boost::optional<bool> noThread);
+    FB::variant getDeviceInfo(const std::string& domain,F_ADD);
+    FB::variant getAppList(F_ADD);
+    FB::variant getSbservicesIconPngdata(const std::string& bundleId,F_ADD);
+    FB::variant openDialog(F_ADD);
+    FB::variant uploadFile(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& processCallback, F_ADD);
+    FB::variant installPackage(const std::string& fileName, F_ADD);
     static void installCallback(const char *operation, plist_t status, void *user_data);
     
     // Event helpers

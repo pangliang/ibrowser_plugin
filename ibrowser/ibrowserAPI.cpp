@@ -20,8 +20,11 @@
 #define RESULT_BUFF_SIZE 1024000
 #define CLIENT_LABEL "ibrowser"
 
-FB::variant ibrowserAPI::init(F_CB)
+FB::variant ibrowserAPI::init(F_ADD)
 {
+    
+    THREAD(&ibrowserAPI::init);
+    
     uint16_t port = 0;
     
     if (NULL == device)
@@ -125,7 +128,7 @@ FB::variant ibrowserAPI::clean()
 }
 
 
-FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_CB)
+FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_ADD)
 {
     
     plist_t node = NULL;
@@ -154,7 +157,7 @@ FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_CB)
     return xml_doc;
 }
 
-FB::variant ibrowserAPI::getAppList(F_CB)
+FB::variant ibrowserAPI::getAppList(F_ADD)
 {
     char *xml_doc=NULL;
     uint32_t xml_length=0;
@@ -177,13 +180,9 @@ FB::variant ibrowserAPI::getAppList(F_CB)
     return xml_doc;
 }
 
-FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_CB,boost::optional<bool> noThread)
+FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_ADD)
 {
-    if(!noThread)
-    {
-        boost::thread t(boost::bind(&ibrowserAPI::getSbservicesIconPngdata,this, bundleId, CB_USE,true));
-        return true;
-    }
+    THREAD(&ibrowserAPI::getSbservicesIconPngdata, bundleId);
     
     if(bundleId.empty())
         return NULL;
@@ -206,13 +205,10 @@ FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_
 #ifdef WIN32
 #else
 #include <cocoa/Cocoa.h>
-FB::variant ibrowserAPI::openDialog(F_SUCC, boost::optional<bool> noThread)
+FB::variant ibrowserAPI::openDialog(F_ADD)
 {
     //有安装在进行时, 文件框会卡住
-    if(!noThread){
-        boost::thread t(boost::bind(&ibrowserAPI::openDialog,this, scb ,true));
-        return true;
-    }
+    THREAD(&ibrowserAPI::openDialog);
     
     NSOpenPanel* openDlg = [NSOpenPanel openPanel];
     
@@ -233,13 +229,10 @@ FB::variant ibrowserAPI::openDialog(F_SUCC, boost::optional<bool> noThread)
 }
 #endif
 
-FB::variant ibrowserAPI::uploadFile(const std::string& fileName, F_CB, const boost::optional<FB::JSObjectPtr>& processCallback, boost::optional<bool> noThread)
+FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& processCallback, F_ADD)
 {
-    if(!noThread)
-    {
-        boost::thread t(boost::bind(&ibrowserAPI::uploadFile,this, fileName, scb,ecb,processCallback, true));
-        return true;
-    }
+
+    THREAD(&ibrowserAPI::uploadFile,fileName,processCallback);
         
     if(fileName.empty())
         return NULL;
@@ -291,13 +284,9 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, F_CB, const boo
     return target_file;
 }
 
-FB::variant ibrowserAPI::installPackage(const std::string& fileName, F_CB,boost::optional<bool> noThread)
+FB::variant ibrowserAPI::installPackage(const std::string& fileName, F_ADD)
 {
-    if(!noThread)
-    {
-        boost::thread t(boost::bind(&ibrowserAPI::installPackage,this, fileName, CB_USE, true));
-        return true;
-    }
+    THREAD(&ibrowserAPI::installPackage,fileName);
     
     if(fileName.empty())
         return NULL;
