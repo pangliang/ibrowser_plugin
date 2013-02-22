@@ -20,14 +20,14 @@
 #define RESULT_BUFF_SIZE 1024000
 #define CLIENT_LABEL "ibrowser"
 
-FB::variant ibrowserAPI::init()
+FB::variant ibrowserAPI::init(F_CB)
 {
     uint16_t port = 0;
     
     if (NULL == device)
     {
         if (IDEVICE_E_SUCCESS != idevice_new(&device, NULL)) {
-            throw FB::script_error("No device found, is it plugged in?\n");
+            ERRO("No device found, is it plugged in?");
             return false;
         }
     }
@@ -35,7 +35,7 @@ FB::variant ibrowserAPI::init()
     if (NULL == lockdownd_client)
     {
         if (LOCKDOWN_E_SUCCESS != (lockdownd_client_new_with_handshake(device, &lockdownd_client, CLIENT_LABEL))) {
-            throw FB::script_error("lockdownd_client_new_with_handshake fail!\n");
+            ERRO("lockdownd_client_new_with_handshake fail!");
             return false;
         }
     }
@@ -44,13 +44,13 @@ FB::variant ibrowserAPI::init()
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.mobile.installation_proxy",&port) || !port))
         {
-            throw FB::script_error("lockdownd_start_service com.apple.mobile.installation_proxy error");
+            ERRO("lockdownd_start_service com.apple.mobile.installation_proxy error");
             return false;
         }
         
         if(INSTPROXY_E_SUCCESS != instproxy_client_new(device,port,&instproxy_client) )
         {
-            throw FB::script_error("instproxy_client_new error");
+            ERRO("instproxy_client_new error");
             return false;
         }
     }
@@ -60,12 +60,12 @@ FB::variant ibrowserAPI::init()
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.afc",&port)) || !port)
         {
-            throw FB::script_error("lockdownd_start_service com.apple.afc error\n");
+            ERRO("lockdownd_start_service com.apple.afc error");
             return false;
         }
         
         if (afc_client_new(device, port, &afc_client) != AFC_E_SUCCESS) {
-            throw FB::script_error("Could not connect to AFC!\n");
+            ERRO("Could not connect to AFC!");
             return false;
         }
     }
@@ -74,16 +74,17 @@ FB::variant ibrowserAPI::init()
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.springboardservices",&port)) || !port)
         {
-            throw FB::script_error("lockdownd_start_service com.apple.springboardservices error\n");
+            ERRO("lockdownd_start_service com.apple.springboardservices error");
             return false;
         }
         
         if (sbservices_client_new(device, port, &sbservices_client) != AFC_E_SUCCESS) {
-            throw FB::script_error("sbservices_client_new error!\n");
+            ERRO("sbservices_client_new error!");
             return false;
         }
     }
     
+    SUCC();
     return true;
 
 }
@@ -124,12 +125,12 @@ FB::variant ibrowserAPI::clean()
 }
 
 
-FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain)
+FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_CB)
 {
     
     plist_t node = NULL;
     if(LOCKDOWN_E_SUCCESS != lockdownd_get_value(lockdownd_client, domain.empty()?NULL:domain.c_str(), NULL, &node) ) {
-        throw FB::script_error("ERROR: Unable to get_device_info");
+        ERRO("ERROR: Unable to get_device_info");
         return NULL;
     }
     
@@ -153,7 +154,7 @@ FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain)
     return xml_doc;
 }
 
-FB::variant ibrowserAPI::getAppList()
+FB::variant ibrowserAPI::getAppList(F_CB)
 {
     char *xml_doc=NULL;
     uint32_t xml_length=0;
@@ -164,7 +165,7 @@ FB::variant ibrowserAPI::getAppList()
     
     if(INSTPROXY_E_SUCCESS != instproxy_browse(instproxy_client,client_opts,&node))
     {
-        throw FB::script_error("instproxy_browse error");
+        ERRO("instproxy_browse error");
         return NULL;
     }
     
@@ -176,11 +177,11 @@ FB::variant ibrowserAPI::getAppList()
     return xml_doc;
 }
 
-FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback,boost::optional<bool> noThread)
+FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_CB,boost::optional<bool> noThread)
 {
     if(!noThread)
     {
-        boost::thread t(boost::bind(&ibrowserAPI::getSbservicesIconPngdata,this, bundleId, callback,true));
+        boost::thread t(boost::bind(&ibrowserAPI::getSbservicesIconPngdata,this, bundleId, CB_USE,true));
         return true;
     }
     
@@ -190,14 +191,13 @@ FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,co
     uint64_t size = 0;
     if (SBSERVICES_E_SUCCESS != sbservices_get_icon_pngdata(sbservices_client,bundleId.c_str(),&data,&size))
     {
-        throw FB::script_error("get_sbservices_icon_pngdata error");
+        ERRO("get_sbservices_icon_pngdata error");
         return NULL;
     }
     char *base64 = base64encode(data,size);
     free(data);
     
-    if(callback)
-        callback->InvokeAsync("", FB::variant_list_of(base64));
+    SUCC(base64);
     
     return base64;
     
@@ -206,11 +206,11 @@ FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,co
 #ifdef WIN32
 #else
 #include <cocoa/Cocoa.h>
-FB::variant ibrowserAPI::openDialog(const FB::JSObjectPtr& callback, boost::optional<bool> noThread)
+FB::variant ibrowserAPI::openDialog(F_SUCC, boost::optional<bool> noThread)
 {
     //有安装在进行时, 文件框会卡住
     if(!noThread){
-        boost::thread t(boost::bind(&ibrowserAPI::openDialog,this, callback,true));
+        boost::thread t(boost::bind(&ibrowserAPI::openDialog,this, scb ,true));
         return true;
     }
     
@@ -223,31 +223,21 @@ FB::variant ibrowserAPI::openDialog(const FB::JSObjectPtr& callback, boost::opti
     [openDlg setAllowedFileTypes:[NSArray arrayWithObject:@"ipa"]]; //可以选择.png后缀的文件
     if ([openDlg runModal] == NSOKButton) {  //如果用户点OK
         std::vector<const char *> files;
-        
         for (id obj in [openDlg URLs])
-        {
             files.insert(files.end(),[[obj path] UTF8String]);
-        }
-        
-        if(callback && callback->isValid())
-        {
-            callback->InvokeAsync("", FB::variant_list_of(files));
-            return true;
-        }else{
-            return files;
-        }
-        
+        SUCC(files);
+        return files;
     }
     
     return false;
 }
 #endif
 
-FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback, boost::optional<bool> noThread)
+FB::variant ibrowserAPI::uploadFile(const std::string& fileName, F_CB, const boost::optional<FB::JSObjectPtr>& processCallback, boost::optional<bool> noThread)
 {
     if(!noThread)
     {
-        boost::thread t(boost::bind(&ibrowserAPI::uploadFile,this, fileName, succCallback,processCallback, true));
+        boost::thread t(boost::bind(&ibrowserAPI::uploadFile,this, fileName, scb,ecb,processCallback, true));
         return true;
     }
         
@@ -260,7 +250,7 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const FB::JSObj
     sprintf(target_file, "%s/%s",uploadFileDir.c_str(), basename((char *)file_name));
     uint64_t target_file_handle = 0;
     if (AFC_E_SUCCESS != afc_file_open(afc_client, target_file, AFC_FOPEN_WRONLY, &target_file_handle)){
-        printf("afc_file_open %s error!\n", target_file);
+        ERRO("afc_file_open error!");
         return NULL;
     }
     
@@ -268,8 +258,8 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const FB::JSObj
     if (!file_handle)
     {
         afc_remove_path(afc_client, target_file);
-        printf("open file %s error!\n",file_name);
-        return -1;
+        ERRO("open file error!");
+        return NULL;
     }
     
     off_t fileSize = 0;
@@ -285,44 +275,41 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const FB::JSObj
     {
         if (AFC_E_SUCCESS != afc_file_write(afc_client, target_file_handle, read_buf, bytes_read, &bytes_written) || bytes_read !=bytes_written)
         {
-            printf("afc_file_write %s error!\n", target_file);
-            return -1;
+            ERRO("afc_file_write error!");
+            return NULL;
         }
         
         memset(read_buf, 0, read_buf_size);
         
         doneSize = doneSize + bytes_read;
         if(processCallback && fileSize > 0)
-            processCallback->InvokeAsync("", FB::variant_list_of((double)doneSize/fileSize));
+            (*processCallback)->InvokeAsync("", FB::variant_list_of((double)doneSize/fileSize));
     }
     
-    if(succCallback)
-        succCallback->InvokeAsync("", FB::variant_list_of(target_file));
+    SUCC(target_file);
     
     return target_file;
 }
 
-FB::variant ibrowserAPI::installPackage(const std::string& fileName, const FB::JSObjectPtr& callback,boost::optional<bool> noThread)
+FB::variant ibrowserAPI::installPackage(const std::string& fileName, F_CB,boost::optional<bool> noThread)
 {
     if(!noThread)
     {
-        boost::thread t(boost::bind(&ibrowserAPI::installPackage,this, fileName, callback, true));
+        boost::thread t(boost::bind(&ibrowserAPI::installPackage,this, fileName, CB_USE, true));
         return true;
     }
     
-    if(fileName.empty())  
+    if(fileName.empty())
         return NULL;
     
     const char *file_name=fileName.c_str();
     
-    boost::function<void(const char *operation, plist_t status, FB::JSObjectPtr user_data)> f2=boost::bind(&ibrowserAPI::installCallback,_1, _2, (void*)"haha");
-    instproxy_status_cb_t haha=(instproxy_status_cb_t)&f2;
-    if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, haha, NULL))
+    callbackMap[std::string("installPackage")+fileName]=*scb;
+    if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback, (void*)(*scb).get()))
     {
-        printf("instproxy_install %s error\n",file_name);
+        ERRO("instproxy_install error");
         return false;
     }
-    printf("===%d\n",(int)callback.use_count());
     return true;
 }
 

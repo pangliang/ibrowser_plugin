@@ -42,6 +42,9 @@ $(function(){
                     div.find("#selTip").html("上传失败!");
                 }
             },
+            function(e){
+                console.log(e);
+            },
             function(proc){
                 div.find("#progressBar").width(proc*100+"%");
             }
@@ -67,7 +70,11 @@ $(function(){
     plugin.installPackage(
         "aklsdjfkasd",
         function(xml){
-            console.log(xml);
+            var p= $.plist(xml);
+            console.log(p);
+        },
+        function(e){
+            console.log(e);
         }
     );
 

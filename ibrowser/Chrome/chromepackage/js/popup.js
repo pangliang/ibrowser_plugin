@@ -1,4 +1,3 @@
-
 $(function(){
 
     var plugin=new Plugin(document.getElementById("pluginId"));

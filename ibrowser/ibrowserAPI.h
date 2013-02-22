@@ -22,6 +22,12 @@ extern "C"{
 #ifndef H_ibrowserAPI
 #define H_ibrowserAPI
 
+#define F_SUCC  const boost::optional<FB::JSObjectPtr>& scb
+#define F_ERRO  const boost::optional<FB::JSObjectPtr>& ecb
+#define F_CB F_SUCC,F_ERRO
+#define CB_USE scb,ecb
+#define SUCC(a1,args...)    if(scb)(*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args ));
+#define ERRO(msg)   if(ecb)(*ecb)->InvokeAsync("", FB::variant_list_of(msg));
 
 class ibrowserAPI : public FB::JSAPIAuto
 {
@@ -87,14 +93,14 @@ public:
     // Method echo
     FB::variant echo(const FB::variant& msg);
     
-    FB::variant init();
+    FB::variant init(F_CB);
     FB::variant clean();
-    FB::variant getDeviceInfo(const std::string& domain);
-    FB::variant getAppList();
-    FB::variant getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback,boost::optional<bool> noThread);
-    FB::variant openDialog(const FB::JSObjectPtr& callback, boost::optional<bool> noThread);
-    FB::variant uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback,boost::optional<bool> noThread);
-    FB::variant installPackage(const std::string& fileName, const FB::JSObjectPtr& callback,boost::optional<bool> noThread);
+    FB::variant getDeviceInfo(const std::string& domain,F_CB);
+    FB::variant getAppList(F_CB);
+    FB::variant getSbservicesIconPngdata(const std::string& bundleId,F_CB,boost::optional<bool> noThread);
+    FB::variant openDialog(F_SUCC, boost::optional<bool> noThread);
+    FB::variant uploadFile(const std::string& fileName, F_CB, const boost::optional<FB::JSObjectPtr>& processCallback,boost::optional<bool> noThread);
+    FB::variant installPackage(const std::string& fileName, F_CB,boost::optional<bool> noThread);
     static void installCallback(const char *operation, plist_t status, void *user_data);
     
     // Event helpers
@@ -117,6 +123,7 @@ private:
     sbservices_client_t sbservices_client = NULL;
     afc_client_t afc_client = NULL;
     
+    std::map<std::string,FB::JSObjectPtr> callbackMap;
 };
 
 #endif // H_ibrowserAPI

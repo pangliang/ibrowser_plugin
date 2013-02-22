@@ -10,7 +10,7 @@
     "browser_action": {
         "name": "Make this page red",
         "icons": ["icon.jpeg"],
-        "default_popup": "index.html"
+        "default_popup": "popup.html"
     }
     
 }
