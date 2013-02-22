@@ -11,12 +11,19 @@ iphone管理软件浏览器插件版
 *   获取基础信息
 *   获取电量信息
 *   获取硬盘容量
+*   获取以安装软件列表和信息
+*   获取软件icon
+*   上传文件
+*   安装APP
 
 ###待开发
+*   同时install多个app是不允许的
 *   后台监控手机的插入
 *   自动reinit
+*   指定上传目录
 *   获取软件照片电影占容量
-*   
+*   文件管理
+*   越狱手机的文件管理
 
 ###代码问题
 *   js回调函数是smart port, installPackage 本身就使用了异步返回,installCallback作为回调, 
@@ -33,9 +40,9 @@ iphone管理软件浏览器插件版
     
 * 创建
     
-            ./prepmac.sh /ibrowser_plugin/ibrowser
+            ./prepmac.sh ~/ibrowser_plugin/ibrowser
 
-* 打开工程在`firebreath-1.7/build/FireBreath.xcodeproj`, `ALL_BUILD`一次
-* 打开工程在`firebreath-1.7/build/projects/ibrowser/ibrowser.xcodeproj`, 修改所有target的`Architectures`为`32-bit Intel`
-* 把`firebreath-1.7/build/projects/ibrowser/Debug/ibrowser_x86_64.plugin` 链接到`ibrowser_plugin/ibrowser/Chrome/chromepackage`目录下
+* 打开工程在`build/FireBreath.xcodeproj`, `ALL_BUILD`一次
+* 打开工程在`build/projects/ibrowser/ibrowser.xcodeproj`, 修改所有target的`Architectures`为`32-bit Intel`
+* 把`build/projects/ibrowser/Debug/ibrowser_x86_64.plugin` 链接到`ibrowser_plugin/ibrowser/Chrome/chromepackage`目录下
  
