@@ -26,12 +26,17 @@ extern "C"{
 #define F_ERRO  const boost::optional<FB::JSObjectPtr>& ecb
 #define F_T_FLAG    boost::optional<bool> noThread
 #define F_ADD F_SUCC,F_ERRO,F_T_FLAG
-#define SUCC(a1,args...)    if(scb){(*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args ));return true;}
-#define ERRO(msg)   if(ecb){(*ecb)->InvokeAsync("", FB::variant_list_of(msg));return NULL;}
+#define SUCC(a1,args...)    \
+        if(scb && (*scb)->isValid()){ \
+            (*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args )); \
+            return true;    \
+        }
+#define ERRO(msg)   if(ecb && (*ecb)->isValid()){(*ecb)->InvokeAsync("", FB::variant_list_of(msg));return NULL;}
 #define THREAD(fun,args...)                                         \
     do{                                                             \
         if(!noThread && scb && (*scb)->isValid() )                                               \
         {                                                           \
+            printf("use thread:%s\n",__FUNCTION__);                 \
             boost::thread t(boost::bind(fun,this, ##args,scb,ecb,true));    \
             return true;                                            \
         }                                                           \

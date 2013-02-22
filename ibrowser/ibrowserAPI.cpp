@@ -293,12 +293,21 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, F_ADD)
     
     const char *file_name=fileName.c_str();
     
-    callbackMap[std::string("installPackage")+fileName]=*scb;
-    if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback, (void*)(*scb).get()))
-    {
-        ERRO("instproxy_install error");
-        return false;
+    if(scb){
+        callbackMap[std::string("installPackage")+fileName]=*scb;
+        if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback, (void*)(*scb).get()))
+        {
+            ERRO("instproxy_install error");
+            return false;
+        }
+    }else{
+        if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, NULL, NULL))
+        {
+            ERRO("instproxy_install error");
+            return false;
+        }
     }
+    
     return true;
 }
 
