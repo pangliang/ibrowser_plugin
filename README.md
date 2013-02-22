@@ -25,12 +25,22 @@ iphone管理软件浏览器插件版
 *   文件管理
 *   越狱手机的文件管理
 
-###代码问题
+##支持浏览器和平台
+
+###macos
+*   chrome   -- ok
+*   firefox  -- no
+
+###windows
+*   chrome   -- no
+*   firefox  -- no
+
+
+###已知BUG
 *   js回调函数是smart port, installPackage 本身就使用了异步返回,installCallback作为回调, 
 当退出installPackage 后js回调函数声明周期到, 被回收,  installCallback中就无法再回调js的回调函数.
 临时解决办法是使用一个`std::map<std::string,FB::JSObjectPtr> callbackMap`把js回调保存起来, 
 这样永远不清的话这个map会越来越大.
-
 
 ##创建Project
 
