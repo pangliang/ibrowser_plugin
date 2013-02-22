@@ -5,16 +5,35 @@ iphone管理软件浏览器插件版
 
 类似itools的ios管理软件, chrome, firefox浏览器插件版.
 
+##软件功能
+###完成:
+
+*   获取基础信息
+*   获取电量信息
+*   获取硬盘容量
+
+###待开发
+*   后台监控手机的插入
+*   自动reinit
+*   获取软件照片电影占容量
+*   
+
+###代码问题
+*   js回调函数是smart port, installPackage 本身就使用了异步返回,installCallback作为回调, 
+当退出installPackage 后js回调函数声明周期到, 被回收,  installCallback中就无法再回调js的回调函数.
+临时解决办法是使用一个`std::map<std::string,FB::JSObjectPtr> callbackMap`把js回调保存起来, 
+这样永远不清的话这个map会越来越大.
+
 
 ##创建Project
 
 * 下载firebreath
 
-      git clone git://github.com/firebreath/FireBreath.git -b firebreath-1.7 firebreath-1.7
+            git clone git://github.com/firebreath/FireBreath.git -b firebreath-1.7 firebreath-1.7
     
 * 创建
     
-      ./prepmac.sh /ibrowser_plugin/ibrowser
+            ./prepmac.sh /ibrowser_plugin/ibrowser
 
 * 打开工程在`firebreath-1.7/build/FireBreath.xcodeproj`, `ALL_BUILD`一次
 * 打开工程在`firebreath-1.7/build/projects/ibrowser/ibrowser.xcodeproj`, 修改所有target的`Architectures`为`32-bit Intel`
