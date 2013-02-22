@@ -50,40 +50,7 @@ $(function(){
     });
 
     $("#install_app_buttion").on("click",function(){
-        var selectFile=plugin.openDialog();
-        $("#install_app_buttion #selTip").html("正在传输文件到手机..."+basename(selectFile));
-        var pkg_path=plugin.uploadFile(
-            selectFile,
-            function(pkgName){
-                if(pkgName && "" != pkgName)
-                {
-                    $("#install_app_buttion #selTip").html("传输完成, 安装..."+basename(selectFile));
-                    plugin.installPackage(
-                        pkgName,
-                        function(xml){
-                            var p= $.plist(xml);
-                            console.log(p);
-                            if(p.error)
-                            {
-                                $("#install_app_buttion #selTip").html("安装"+basename(selectFile)+"失败,"+ p.error);
-                            }else if(p.Status == "Complete"){
-                                $("#install_app_buttion #selTip").html("安装成功..."+basename(selectFile));
-                                $("#install_app_buttion #progressBar").width("100%");
-                            } else{
-                                $("#install_app_buttion #selTip").html("传输完成, 安装..."+basename(selectFile)+"..."+ p.Status);
-                                $("#install_app_buttion #progressBar").width(p.PercentComplete+"%");
-                            }
-                        }
-                    );
-                }else{
-                    $("#install_app_buttion #selTip").html("上传失败!");
-                }
-            },
-            function(proc){
-                $("#install_app_buttion #progressBar").width(proc*100+"%");
-            }
-        );
-        
+        window.open("install.html","_blank","width=100");
     });
 
 });

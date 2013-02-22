@@ -176,21 +176,14 @@ FB::variant ibrowserAPI::getAppList()
     return xml_doc;
 }
 
-FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback)
+FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback,boost::optional<bool> noThread)
 {
-    if(callback)
+    if(!noThread)
     {
-        boost::thread t(boost::bind(&ibrowserAPI::getSbservicesIconPngdataThread,
-                                    this, bundleId, callback));
+        boost::thread t(boost::bind(&ibrowserAPI::getSbservicesIconPngdata,this, bundleId, callback,true));
         return true;
-    }else{
-        return getSbservicesIconPngdataThread(bundleId,callback);
     }
     
-}
-
-FB::variant ibrowserAPI::getSbservicesIconPngdataThread(const std::string& bundleId,const FB::JSObjectPtr& callback)
-{
     if(bundleId.empty())
         return NULL;
     char *data = NULL;
@@ -203,44 +196,61 @@ FB::variant ibrowserAPI::getSbservicesIconPngdataThread(const std::string& bundl
     char *base64 = base64encode(data,size);
     free(data);
     
-    if(callback){
+    if(callback)
         callback->InvokeAsync("", FB::variant_list_of(base64));
-        return NULL;
-    }
-    else
-        return base64;
+    
+    return base64;
+    
 }
 
 #ifdef WIN32
 #else
 #include <cocoa/Cocoa.h>
-FB::variant ibrowserAPI::openDialog()
+FB::variant ibrowserAPI::openDialog(const FB::JSObjectPtr& callback, boost::optional<bool> noThread)
 {
+    //有安装在进行时, 文件框会卡住
+    if(!noThread){
+        boost::thread t(boost::bind(&ibrowserAPI::openDialog,this, callback,true));
+        return true;
+    }
+    
     NSOpenPanel* openDlg = [NSOpenPanel openPanel];
-
+    
     [openDlg setCanChooseFiles:TRUE]; //确定可以选择文件
     [openDlg setCanChooseDirectories:FALSE]; //可以浏览目录
-    [openDlg setAllowsMultipleSelection:FALSE]; //不可以多选
+    [openDlg setAllowsMultipleSelection:TRUE]; //不可以多选
     [openDlg setAllowsOtherFileTypes:FALSE]; //不可以选择其他格式类型的文件
     [openDlg setAllowedFileTypes:[NSArray arrayWithObject:@"ipa"]]; //可以选择.png后缀的文件
     if ([openDlg runModal] == NSOKButton) {  //如果用户点OK
-        return [[[openDlg URL] path] UTF8String]; //获得选择的文件路径，这个地方我也GG很久，后来试出来这个。
-    }else{
-        return NULL;
+        std::vector<const char *> files;
+        
+        for (id obj in [openDlg URLs])
+        {
+            files.insert(files.end(),[[obj path] UTF8String]);
+        }
+        
+        if(callback && callback->isValid())
+        {
+            callback->InvokeAsync("", FB::variant_list_of(files));
+            return true;
+        }else{
+            return files;
+        }
+        
     }
+    
+    return false;
 }
 #endif
 
-FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback)
+FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback, boost::optional<bool> noThread)
 {
-    boost::thread t(boost::bind(&ibrowserAPI::uploadFileThread,
-                                this, fileName, succCallback,processCallback));
-    return true;
-}
-
-FB::variant ibrowserAPI::uploadFileThread(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback)
-{
-    
+    if(!noThread)
+    {
+        boost::thread t(boost::bind(&ibrowserAPI::uploadFile,this, fileName, succCallback,processCallback, true));
+        return true;
+    }
+        
     if(fileName.empty())
         return NULL;
     
@@ -251,7 +261,7 @@ FB::variant ibrowserAPI::uploadFileThread(const std::string& fileName, const FB:
     uint64_t target_file_handle = 0;
     if (AFC_E_SUCCESS != afc_file_open(afc_client, target_file, AFC_FOPEN_WRONLY, &target_file_handle)){
         printf("afc_file_open %s error!\n", target_file);
-        return -1;
+        return NULL;
     }
     
     FILE *file_handle= fopen(file_name, "r");
@@ -290,44 +300,42 @@ FB::variant ibrowserAPI::uploadFileThread(const std::string& fileName, const FB:
         succCallback->InvokeAsync("", FB::variant_list_of(target_file));
     
     return target_file;
-    
 }
 
-FB::variant ibrowserAPI::installPackage(const std::string& fileName, const FB::JSObjectPtr& callback)
+FB::variant ibrowserAPI::installPackage(const std::string& fileName, const FB::JSObjectPtr& callback,boost::optional<bool> noThread)
 {
-    boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,
-                                this, fileName, callback));
-    return true;
-}
-
-FB::JSObjectPtr ibrowserAPI::installPackageCallback;
-
-FB::variant ibrowserAPI::installPackageThread(const std::string& fileName, const FB::JSObjectPtr& callback)
-{
+    if(!noThread)
+    {
+        boost::thread t(boost::bind(&ibrowserAPI::installPackage,this, fileName, callback, true));
+        return true;
+    }
     
     if(fileName.empty())
         return NULL;
     
     const char *file_name=fileName.c_str();
-    installPackageCallback = callback;
-    if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback,NULL ))
+    
+    boost::function<void(const char *operation, plist_t status, FB::JSObjectPtr user_data)> f2=boost::bind(&ibrowserAPI::installCallback,_1, _2, (void*)"haha");
+    instproxy_status_cb_t haha=(instproxy_status_cb_t)&f2;
+    if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, haha, NULL))
     {
         printf("instproxy_install %s error\n",file_name);
         return false;
     }
+    printf("===%d\n",(int)callback.use_count());
     return true;
-    
 }
 
 void ibrowserAPI::installCallback(const char *operation, plist_t status, void *user_data) {
     char *xml_doc=NULL;
     uint32_t xml_length;
     plist_to_xml(status, &xml_doc, &xml_length);
-    
-    if(installPackageCallback)
+    if(user_data)
     {
-        installPackageCallback->InvokeAsync("", FB::variant_list_of(xml_doc));
+        boost::shared_ptr<FB::JSObject> callback = *(boost::shared_ptr<FB::JSObject>*)(user_data);
+        callback->InvokeAsync("", FB::variant_list_of(xml_doc));
     }
+    return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

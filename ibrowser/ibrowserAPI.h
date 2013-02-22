@@ -91,15 +91,11 @@ public:
     FB::variant clean();
     FB::variant getDeviceInfo(const std::string& domain);
     FB::variant getAppList();
-    FB::variant getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback);
-    FB::variant getSbservicesIconPngdataThread(const std::string& bundleId,const FB::JSObjectPtr& callback);
-    FB::variant openDialog();
-    FB::variant uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback);
-    FB::variant uploadFileThread(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback);
-    FB::variant installPackage(const std::string& fileName, const FB::JSObjectPtr& callback);
-    FB::variant installPackageThread(const std::string& fileName, const FB::JSObjectPtr& callback);
+    FB::variant getSbservicesIconPngdata(const std::string& bundleId,const FB::JSObjectPtr& callback,boost::optional<bool> noThread);
+    FB::variant openDialog(const FB::JSObjectPtr& callback, boost::optional<bool> noThread);
+    FB::variant uploadFile(const std::string& fileName, const FB::JSObjectPtr& succCallback, const FB::JSObjectPtr& processCallback,boost::optional<bool> noThread);
+    FB::variant installPackage(const std::string& fileName, const FB::JSObjectPtr& callback,boost::optional<bool> noThread);
     static void installCallback(const char *operation, plist_t status, void *user_data);
-    static FB::JSObjectPtr installPackageCallback;
     
     // Event helpers
     FB_JSAPI_EVENT(test, 0, ());

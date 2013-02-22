@@ -38,46 +38,22 @@
 
 #app_list .app{
     float: left;
-}
-
-#app_list .icon{
-    height: 50px;
-}
-
-#app_list #icon{
-    height: 50px;
-}
-
-#install_app_buttion {
-    margin-top: 5px;
-    border: 1px solid #0E774A;
-    background-color: #E9F4E9;
-    height: 50px;
+    margin: 10px;
     text-align: center;
-    color: #0C7823;
+}
+
+#app_list img.icon{
+    height: 50px;
+}
+
+
+#app_list .info{
     font-size: 10px;
-    font-weight: bold;
-    line-height: 52px;
-    cursor: pointer;
+    overflow: hidden;
 }
-
-#install_app_buttion #selTip {
-    margin-top: -50px;
-    position: absolute;
-    width: 100%;
-}
-
-#install_app_buttion #progressBar {
-    display: block;
-    position: relative;
-    height: 50px;
-    background: #B1D632;
-    text-align: center;
-    color: #fff;
-}
-
 
 /* app_list end */
+
 
 #install_app_buttion {
     cursor: pointer;

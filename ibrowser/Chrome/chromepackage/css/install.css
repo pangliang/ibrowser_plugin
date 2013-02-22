@@ -1,0 +1,27 @@
+.install_status {
+    margin-top: 5px;
+    border: 1px solid #0E774A;
+    background-color: #E9F4E9;
+    height: 50px;
+    text-align: center;
+    color: #0C7823;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 52px;
+    cursor: pointer;
+}
+
+#selTip {
+    margin-top: -50px;
+    position: absolute;
+    width: 100%;
+}
+
+#progressBar {
+    display: block;
+    position: relative;
+    height: 50px;
+    background: #B1D632;
+    text-align: center;
+    color: #fff;
+}

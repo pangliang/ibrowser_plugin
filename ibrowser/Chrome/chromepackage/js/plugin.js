@@ -59,7 +59,7 @@ function Plugin(plugin)
         }
 
         this.installPackage=function(fileName,callback){
-            var result=plugin.installPackage(fileName,callback);
+            var result=plugin.installPackage(fileName,callback,true);
             return result;
         }
 
@@ -68,8 +68,8 @@ function Plugin(plugin)
             return "data:image/png;base64,"+result;
         }
 
-        this.openDialog=function(){
-            return plugin.openDialog();
+        this.openDialog=function(callback){
+            return plugin.openDialog(callback);
         }
     }catch (e){
         console.log(e);
