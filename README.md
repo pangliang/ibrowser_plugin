@@ -21,6 +21,7 @@ iphone管理软件浏览器插件版
 *   同时install多个app是不允许的
 *   后台监控手机的插入
 *   自动reinit
+*   浏览器通知弹窗
 *   指定上传目录
 *   获取软件照片电影占容量
 *   文件管理
@@ -51,7 +52,7 @@ iphone管理软件浏览器插件版
     
 * 创建
     
-            ./prepmac.sh ~/ibrowser_plugin/ibrowser
+            prepmac.sh ~/ibrowser_plugin/ibrowser
 
 * 打开工程在`build/FireBreath.xcodeproj`, `ALL_BUILD`一次
 * 打开工程在`build/projects/ibrowser/ibrowser.xcodeproj`, 修改所有target的`Architectures`为`32-bit Intel`
