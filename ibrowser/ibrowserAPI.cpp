@@ -310,7 +310,7 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const FB::J
         return true;
     }
     
-    if(fileName.empty())
+    if(fileName.empty()) 
         return NULL;
     
     const char *file_name=fileName.c_str();
