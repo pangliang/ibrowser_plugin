@@ -19,6 +19,7 @@ iphone管理软件浏览器插件版
 ###开发计划(优先级高到低)
 *   将ibrowser中的文件放出到上一层
 *   同时install多个app是不允许的
+*   卸载软件
 *   后台监控手机的插入
 *   自动reinit
 *   浏览器通知弹窗
@@ -42,10 +43,11 @@ iphone管理软件浏览器插件版
 *   firefox  -- no
 
 
-###已知BUG
-*   js回调函数是smart port, installPackage 本身就使用了异步返回,installCallback作为回调, 
-当退出installPackage 后js回调函数声明周期到, 被回收,  installCallback中就无法再回调js的回调函数.
-临时解决办法是使用一个`std::map<std::string,FB::JSObjectPtr> callbackMap`把js回调保存起来, 
+##已知BUG
+*   js回调函数是smart port, instproxy_install 本身就使用了异步返回, 
+需要在instproxy_install的回调函数中调用js回调函数. 单离开installPackage函数, js声明周期到, 被回收,
+instproxy_install的回调函数中就无法再回调js的回调函数.
+临时解决办法是使用一个全局的`std::map<std::string,FB::JSObjectPtr> callbackMap`把js回调保存起来, 
 这样永远不清的话这个map会越来越大. 不过仅仅是不优雅, 没有谁只用会装个几十万个软件
 
 ##创建Project
