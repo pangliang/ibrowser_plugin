@@ -289,40 +289,33 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
     if(fileName.empty())
         return NULL;
     
+    THREAD(&ibrowserAPI::installPackage,fileName,pcb);
+
     const char *file_name=fileName.c_str();
+    int ret=0;
+    Call3back *req = new Call3back(*pcb,*scb,*ecb);
     
-    InstallRequest *req = new InstallRequest(this,file_name,*pcb,*scb,*ecb);
-    iReqList[file_name]=req;
+    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback, (void*)req)))
+    {
+        printf("installPackage %s sleep...\n",file_name);
+        sleep(1);
+    }
     
-    if(iReqList.size() == 1)
-        boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,this));
+    if(INSTPROXY_E_SUCCESS != ret)
+    {
+        ERRO(ret);
+        return false;
+    }
     
     return true;
     
-}
-
-void ibrowserAPI::installPackageThread()
-{
-    if(iReqList.size() > 0)
-    {
-        InstallRequest *next = iReqList.begin()->second;
-        if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, next->fileName, NULL, &ibrowserAPI::installCallback, (void*)next))
-        {
-            FB::JSObjectPtr ecb=next->ecb;
-            if(ecb && ecb->isValid()){
-                ecb->InvokeAsync("", FB::variant_list_of("instproxy_install error"));
-            }
-            next->ibrowser->iReqList.erase (next->fileName);
-            return;
-        }
-    }
 }
 
 void ibrowserAPI::installCallback(const char *operation, plist_t status, void *user_data) {
     char *xml_doc=NULL;
     uint32_t xml_length;
     
-    InstallRequest *req = (InstallRequest *)user_data;
+    Call3back *req = (Call3back *)user_data;
     
     FB::JSObjectPtr pcb = req->pcb;
     FB::JSObjectPtr scb = req->scb;
@@ -348,16 +341,12 @@ void ibrowserAPI::installCallback(const char *operation, plist_t status, void *u
             plist_get_string_val(subnode, &s);
             if(ecb)
                 ecb->InvokeAsync("", FB::variant_list_of(s));
-            req->ibrowser->iReqList.erase (req->fileName);
-            boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,req->ibrowser));
             
         }else if(strcmp(key, "Status") == 0){
             plist_get_string_val(subnode, &s);
             if(strcmp(s, "Complete") == 0){
                 if(scb)
                     scb->InvokeAsync("", FB::variant_list_of(NULL));
-                req->ibrowser->iReqList.erase (req->fileName);
-                boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,req->ibrowser));
             }
         }
 		plist_dict_next_item(status, it, &key, &subnode);

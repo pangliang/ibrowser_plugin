@@ -47,10 +47,9 @@ extern "C"{
 
 class ibrowserAPI;
 
-class InstallRequest{
+class Call3back{
 public:
-    InstallRequest(ibrowserAPI *ib,
-             const char *fn,
+    Call3back(
              FB::JSObjectPtr p,
              FB::JSObjectPtr s,
              FB::JSObjectPtr e){
@@ -61,8 +60,6 @@ public:
         ecb=e;
         
     }
-    ibrowserAPI *ibrowser;
-    const char *fileName;
     FB::JSObjectPtr pcb;
     FB::JSObjectPtr scb;
     FB::JSObjectPtr ecb;
@@ -162,7 +159,6 @@ private:
     sbservices_client_t sbservices_client = NULL;
     afc_client_t afc_client = NULL;
     
-    std::map<const char*,InstallRequest *> iReqList;
 };
 
 #endif // H_ibrowserAPI

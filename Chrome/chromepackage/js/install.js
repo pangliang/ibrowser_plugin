@@ -37,10 +37,12 @@ $(function(){
                             }
                         },
                         function(e){
+                            console.log(e);
                             div.find("#selTip").html("安装成功..."+fileName);
                             div.find("#progressBar").width("100%");
                         },
                         function(e){
+                            console.log(e);
                             div.find("#selTip").html("安装"+fileName+"失败,"+ e);
                         }
                     );
