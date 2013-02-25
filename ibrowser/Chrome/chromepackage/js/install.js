@@ -17,25 +17,31 @@ $(function(){
         div.find("#selTip").html("正在传输文件到手机..."+fileName);
         plugin.uploadFile(
             selectFile,
+            function(proc){
+                div.find("#progressBar").width(proc*100+"%");
+            },
             function(pkgName){
                 if(pkgName && "" != pkgName)
                 {
+                    console.log(pkgName);
                     div.find("#selTip").html("传输完成, 安装..."+fileName);
                     plugin.installPackage(
                         pkgName,
                         function(xml){
                             var p= $.plist(xml);
                             console.log(p);
-                            if(p.Error)
+                            if(!p.Error && p.Status != "Complete")
                             {
-                                div.find("#selTip").html("安装"+fileName+"失败,"+ p.Error);
-                            }else if(p.Status == "Complete"){
-                                div.find("#selTip").html("安装成功..."+fileName);
-                                div.find("#progressBar").width("100%");
-                            } else{
                                 div.find("#selTip").html("传输完成, 安装..."+fileName+"..."+ p.Status);
                                 div.find("#progressBar").width(p.PercentComplete+"%");
                             }
+                        },
+                        function(e){
+                            div.find("#selTip").html("安装成功..."+fileName);
+                            div.find("#progressBar").width("100%");
+                        },
+                        function(e){
+                            div.find("#selTip").html("安装"+fileName+"失败,"+ e);
                         }
                     );
                 }else{
@@ -44,10 +50,8 @@ $(function(){
             },
             function(e){
                 console.log(e);
-            },
-            function(proc){
-                div.find("#progressBar").width(proc*100+"%");
             }
+            
         );
     }
     
@@ -66,18 +70,5 @@ $(function(){
     });
 
     //select();
-
-    plugin.installPackage(
-        "aklsdjfkasd",
-        function(xml){
-            var p= $.plist(xml);
-            console.log(p);
-        },
-        function(e){
-            console.log(e);
-        },
-        true
-    );
-
     
 });

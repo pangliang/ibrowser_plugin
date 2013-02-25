@@ -29,19 +29,44 @@ extern "C"{
 #define SUCC(a1,args...)    \
         if(scb && (*scb)->isValid()){ \
             (*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args )); \
-            return true;    \
         }
-#define ERRO(msg)   if(ecb && (*ecb)->isValid()){(*ecb)->InvokeAsync("", FB::variant_list_of(msg));return NULL;}
+#define ERRO(msg)   \
+        if(ecb && (*ecb)->isValid()){ \
+            (*ecb)->InvokeAsync("", FB::variant_list_of(msg)); \
+        }
 #define THREAD(fun,args...)                                         \
     do{                                                             \
         if(!noThread && scb && (*scb)->isValid() )                                               \
         {                                                           \
-            printf("use thread:%s\n",__FUNCTION__);                 \
+            /*printf("use thread:%s\n",__FUNCTION__);*/                 \
             boost::thread t(boost::bind(fun,this, ##args,scb,ecb,true));    \
             return true;                                            \
         }                                                           \
     }                                                               \
     while(0)
+
+class ibrowserAPI;
+
+class InstallRequest{
+public:
+    InstallRequest(ibrowserAPI *ib,
+             const char *fn,
+             FB::JSObjectPtr p,
+             FB::JSObjectPtr s,
+             FB::JSObjectPtr e){
+        ibrowser=ib;
+        fileName=fn;
+        pcb=p;
+        scb=s;
+        ecb=e;
+        
+    }
+    ibrowserAPI *ibrowser;
+    const char *fileName;
+    FB::JSObjectPtr pcb;
+    FB::JSObjectPtr scb;
+    FB::JSObjectPtr ecb;
+};
 
 class ibrowserAPI : public FB::JSAPIAuto
 {
@@ -113,10 +138,10 @@ public:
     FB::variant getAppList(F_ADD);
     FB::variant getSbservicesIconPngdata(const std::string& bundleId,F_ADD);
     FB::variant openDialog(F_ADD);
-    FB::variant uploadFile(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& processCallback, F_ADD);
-    FB::variant installPackage(const std::string& fileName, F_ADD);
+    FB::variant uploadFile(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
+    FB::variant installPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     static void installCallback(const char *operation, plist_t status, void *user_data);
-    
+    void installPackageThread();
     // Event helpers
     FB_JSAPI_EVENT(test, 0, ());
     FB_JSAPI_EVENT(echo, 2, (const FB::variant&, const int));
@@ -137,7 +162,7 @@ private:
     sbservices_client_t sbservices_client = NULL;
     afc_client_t afc_client = NULL;
     
-    std::map<std::string,FB::JSObjectPtr> callbackMap;
+    std::map<const char*,InstallRequest *> iReqList;
 };
 
 #endif // H_ibrowserAPI

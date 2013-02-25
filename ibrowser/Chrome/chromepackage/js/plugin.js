@@ -1,7 +1,11 @@
 function Plugin(plugin)
 {
 
-    plugin.init(null);
+    plugin.init(function(e){
+        console.log(e);
+    },function(e){
+        console.log(e);
+    });
 
     this.readableFileSize=function(size) {
         var units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -52,8 +56,8 @@ function Plugin(plugin)
         return result;
     }
 
-    this.installPackage=function(fileName,succCallback,failCallback){
-        var result=plugin.installPackage(fileName,succCallback,failCallback);
+    this.installPackage=function(fileName,processCallback,succCallback,failCallback){
+        var result=plugin.installPackage(fileName,processCallback,succCallback,failCallback);
         return result;
     }
 

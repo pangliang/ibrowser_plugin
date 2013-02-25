@@ -87,7 +87,7 @@ FB::variant ibrowserAPI::init(F_ADD)
         }
     }
     
-    SUCC();
+    //SUCC();
     return true;
 
 }
@@ -208,7 +208,7 @@ FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_
 FB::variant ibrowserAPI::openDialog(F_ADD)
 {
     //有安装在进行时, 文件框会卡住
-    THREAD(&ibrowserAPI::openDialog);
+    //THREAD(&ibrowserAPI::openDialog);
     
     NSOpenPanel* openDlg = [NSOpenPanel openPanel];
     
@@ -229,13 +229,13 @@ FB::variant ibrowserAPI::openDialog(F_ADD)
 }
 #endif
 
-FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& processCallback, F_ADD)
+FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
 {
 
-    THREAD(&ibrowserAPI::uploadFile,fileName,processCallback);
-        
     if(fileName.empty())
         return NULL;
+    
+    THREAD(&ibrowserAPI::uploadFile,fileName,pcb);
     
     const char *file_name=fileName.c_str();
     
@@ -275,8 +275,8 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
         memset(read_buf, 0, read_buf_size);
         
         doneSize = doneSize + bytes_read;
-        if(processCallback && fileSize > 0)
-            (*processCallback)->InvokeAsync("", FB::variant_list_of((double)doneSize/fileSize));
+        if(pcb && fileSize > 0)
+            (*pcb)->InvokeAsync("", FB::variant_list_of((double)doneSize/fileSize));
     }
     
     SUCC(target_file);
@@ -284,42 +284,91 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
     return target_file;
 }
 
-FB::variant ibrowserAPI::installPackage(const std::string& fileName, F_ADD)
+FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
 {
-    THREAD(&ibrowserAPI::installPackage,fileName);
-    
     if(fileName.empty())
         return NULL;
     
     const char *file_name=fileName.c_str();
     
-    if(scb){
-        callbackMap[std::string("installPackage")+fileName]=*scb;
-        if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback, (void*)(*scb).get()))
-        {
-            ERRO("instproxy_install error");
-            return false;
-        }
-    }else{
-        if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, file_name, NULL, NULL, NULL))
-        {
-            ERRO("instproxy_install error");
-            return false;
-        }
-    }
+    InstallRequest *req = new InstallRequest(this,file_name,*pcb,*scb,*ecb);
+    iReqList[file_name]=req;
+    
+    if(iReqList.size() == 1)
+        boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,this));
     
     return true;
+    
+}
+
+void ibrowserAPI::installPackageThread()
+{
+    if(iReqList.size() > 0)
+    {
+        InstallRequest *next = iReqList.begin()->second;
+        if (INSTPROXY_E_SUCCESS != instproxy_install(instproxy_client, next->fileName, NULL, &ibrowserAPI::installCallback, (void*)next))
+        {
+            FB::JSObjectPtr ecb=next->ecb;
+            if(ecb && ecb->isValid()){
+                ecb->InvokeAsync("", FB::variant_list_of("instproxy_install error"));
+            }
+            next->ibrowser->iReqList.erase (next->fileName);
+            return;
+        }
+    }
 }
 
 void ibrowserAPI::installCallback(const char *operation, plist_t status, void *user_data) {
     char *xml_doc=NULL;
     uint32_t xml_length;
-    plist_to_xml(status, &xml_doc, &xml_length);
-    if(user_data)
+    
+    InstallRequest *req = (InstallRequest *)user_data;
+    
+    FB::JSObjectPtr pcb = req->pcb;
+    FB::JSObjectPtr scb = req->scb;
+    FB::JSObjectPtr ecb = req->ecb;
+    
+    if(pcb)
     {
-        boost::shared_ptr<FB::JSObject> callback = *(boost::shared_ptr<FB::JSObject>*)(user_data);
-        callback->InvokeAsync("", FB::variant_list_of(xml_doc));
+        plist_to_xml(status, &xml_doc, &xml_length);
+        pcb->InvokeAsync("", FB::variant_list_of(xml_doc));
+        free(xml_doc);
     }
+    
+    plist_dict_iter it = NULL;
+	char* key = NULL;
+    char*   s = NULL;
+	plist_t subnode = NULL;
+	plist_dict_new_iter(status, &it);
+	plist_dict_next_item(status, it, &key, &subnode);
+	while (subnode)
+	{
+		if(strcmp(key, "Error") == 0)
+        {
+            plist_get_string_val(subnode, &s);
+            if(ecb)
+                ecb->InvokeAsync("", FB::variant_list_of(s));
+            req->ibrowser->iReqList.erase (req->fileName);
+            boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,req->ibrowser));
+            
+        }else if(strcmp(key, "Status") == 0){
+            plist_get_string_val(subnode, &s);
+            if(strcmp(s, "Complete") == 0){
+                if(scb)
+                    scb->InvokeAsync("", FB::variant_list_of(NULL));
+                req->ibrowser->iReqList.erase (req->fileName);
+                boost::thread t(boost::bind(&ibrowserAPI::installPackageThread,req->ibrowser));
+            }
+        }
+		plist_dict_next_item(status, it, &key, &subnode);
+        
+	}
+
+    if(key)
+        free(key);
+    if(s)
+        free(s);
+	free(it);
     return;
 }
 
