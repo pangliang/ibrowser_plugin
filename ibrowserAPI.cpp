@@ -87,7 +87,7 @@ FB::variant ibrowserAPI::init(F_ADD)
         }
     }
     
-    //SUCC();
+    SUCC();
     return true;
 
 }
@@ -132,8 +132,9 @@ FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_ADD)
 {
     
     plist_t node = NULL;
-    if(LOCKDOWN_E_SUCCESS != lockdownd_get_value(lockdownd_client, domain.empty()?NULL:domain.c_str(), NULL, &node) ) {
-        ERRO("ERROR: Unable to get_device_info");
+    int ret = 0;
+    if(LOCKDOWN_E_SUCCESS != (ret = lockdownd_get_value(lockdownd_client, domain.empty()?NULL:domain.c_str(), NULL, &node)) ) {
+        ERRO("lockdownd_get_value error");
         return NULL;
     }
     
@@ -153,7 +154,7 @@ FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_ADD)
         // Invoke alert with some text
         return obj->Invoke("plist", FB::variant_list_of(xml_doc));
     }*/
-    
+    SUCC(xml_doc);
     return xml_doc;
 }
 
@@ -302,7 +303,7 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
     
     if(INSTPROXY_E_SUCCESS != ret)
     {
-        ERRO(ret);
+        ERRO("instproxy_install");
         return false;
     }
     
@@ -328,7 +329,7 @@ FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boo
     
     if(INSTPROXY_E_SUCCESS != ret)
     {
-        ERRO(ret);
+        ERRO("instproxy_uninstall");
         return false;
     }
     

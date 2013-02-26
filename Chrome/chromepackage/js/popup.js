@@ -1,6 +1,6 @@
 $(function(){
 
-    var plugin=new Plugin(document.getElementById("pluginId"));
+    var plugin=new Plugin(chrome.extension.getBackgroundPage().plugin);
     
     function basename(path) {
         return path.replace(/\\/g,'/').replace( /.*\//, '');

@@ -33,7 +33,8 @@ extern "C"{
 #define ERRO(msg)   \
         if(ecb && (*ecb)->isValid()){ \
             (*ecb)->InvokeAsync("", FB::variant_list_of(msg)); \
-        }
+        } \
+        throw FB::script_error(msg);
 #define THREAD(fun,args...)                                         \
     do{                                                             \
         if(!noThread && scb && (*scb)->isValid() )                                               \

@@ -23,6 +23,7 @@ iphone管理软件浏览器插件版
 *   后台监控手机的插入
 *   自动reinit
 *   浏览器通知弹窗
+*   出错信息,出错码
 *   指定上传目录
 *   获取软件照片电影占容量
 *   文件管理
@@ -43,15 +44,7 @@ iphone管理软件浏览器插件版
 *   chrome   -- no
 *   firefox  -- no
 
-
-##已知BUG
-*   js回调函数是smart port, instproxy_install 本身就使用了异步返回, 
-需要在instproxy_install的回调函数中调用js回调函数. 单离开installPackage函数, js声明周期到, 被回收,
-instproxy_install的回调函数中就无法再回调js的回调函数.
-临时解决办法是使用一个全局的`std::map<std::string,FB::JSObjectPtr> callbackMap`把js回调保存起来, 
-这样永远不清的话这个map会越来越大. 不过仅仅是不优雅, 没有谁只用会装个几十万个软件
-
-##创建Project
+##用firebreath创建Project
 
 * 下载firebreath
 
