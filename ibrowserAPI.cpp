@@ -322,7 +322,7 @@ FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boo
     
     while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_uninstall(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)req)))
     {
-        printf("installPackage %s sleep...\n",fileName.c_str());
+        printf("uninstallPackage %s sleep...\n",fileName.c_str());
         sleep(1);
     }
     

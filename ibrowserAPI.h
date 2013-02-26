@@ -91,7 +91,7 @@ public:
         registerMethod("openDialog", make_method(this, &ibrowserAPI::openDialog));
         registerMethod("uploadFile", make_method(this, &ibrowserAPI::uploadFile));
         registerMethod("installPackage", make_method(this, &ibrowserAPI::installPackage));
-        registerMethod("uninstallPackage", make_method(this, &ibrowserAPI::installPackage));
+        registerMethod("uninstallPackage", make_method(this, &ibrowserAPI::uninstallPackage));
         
         // Read-write property
         registerProperty("testString",

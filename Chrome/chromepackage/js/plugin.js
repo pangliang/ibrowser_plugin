@@ -61,6 +61,10 @@ function Plugin(plugin)
         return result;
     }
 
+    this.uninstallPackage=function(fileName,processCallback,succCallback,failCallback){
+        plugin.uninstallPackage(fileName,processCallback,succCallback,failCallback);
+    }
+
     this.getSbservicesIconPngData=function(bundleId,succCallback,failCallback){
         var result=plugin.getSbservicesIconPngdata(bundleId,succCallback,failCallback);
         return "data:image/png;base64,"+result;
