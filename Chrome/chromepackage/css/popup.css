@@ -43,7 +43,15 @@
 }
 
 #app_list img.icon{
-    height: 50px;
+    height: 60px;
+}
+
+#app_list img.delete{
+    position: absolute;
+    margin-left: -10px;
+    margin-top: -70px;
+    height: 30px;
+    display: block;
 }
 
 
@@ -57,4 +65,7 @@
 
 #install_app_buttion {
     cursor: pointer;
+    float: left;
+    margin: 10px;
+    text-align: center;
 }

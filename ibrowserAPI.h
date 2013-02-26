@@ -53,8 +53,6 @@ public:
              FB::JSObjectPtr p,
              FB::JSObjectPtr s,
              FB::JSObjectPtr e){
-        ibrowser=ib;
-        fileName=fn;
         pcb=p;
         scb=s;
         ecb=e;
@@ -93,6 +91,7 @@ public:
         registerMethod("openDialog", make_method(this, &ibrowserAPI::openDialog));
         registerMethod("uploadFile", make_method(this, &ibrowserAPI::uploadFile));
         registerMethod("installPackage", make_method(this, &ibrowserAPI::installPackage));
+        registerMethod("uninstallPackage", make_method(this, &ibrowserAPI::installPackage));
         
         // Read-write property
         registerProperty("testString",
@@ -137,8 +136,9 @@ public:
     FB::variant openDialog(F_ADD);
     FB::variant uploadFile(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant installPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
+    FB::variant uninstallPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     static void installCallback(const char *operation, plist_t status, void *user_data);
-    void installPackageThread();
+    
     // Event helpers
     FB_JSAPI_EVENT(test, 0, ());
     FB_JSAPI_EVENT(echo, 2, (const FB::variant&, const int));

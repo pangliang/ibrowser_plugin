@@ -25,31 +25,50 @@ $(function(){
             });
         }
     });
+    
+    
+    var pressTimer;
+    var longPressTime = 1000; //长按生效时间
+    function appOnClick(){
+        console.log($(this));
+    };
 
     $("#tab_app_list").on("click",function(){
         $("#app_list > *:not(':first,:last')").remove();
         var p= $.extend({},plugin.getAppList());
         console.log(p);
         if(p){
-            $.each(p,function(){
+            $.each(p,function(i,app){
                 var div=$("#app_list_temp").clone();
-                var app=this;
+                
+                //长按显示卸载icon
+                div.on("mousedown",function(){
+                    pressTimer = window.setTimeout(function() { 
+                        console.log("long press....");
+                        $("#app_list img.delete").show();
+                    },longPressTime)
+                }).on("mouseup",function(){
+                    clearTimeout(pressTimer);
+                    return false;
+                });
+                
                 div.find(".item").each(function(){
                     var infoName= $(this).attr("id");
                     $(this).html(app[infoName]);
                 });
-                div.attr("id",app["CFBundleDisplayName"]);
+                div.attr("id",app["CFBundleIdentifier"]);
                 plugin.getSbservicesIconPngData(app["CFBundleIdentifier"],function(data){
                     div.find("#icon").attr("src","data:image/png;base64,"+data);
                 });
                 
                 $("#app_list_temp").before(div);
+                div.show();
             });
         }
     });
 
     $("#install_app_buttion").on("click",function(){
-        window.open("install.html","_blank","width=100");
+        window.open("install.html","newwindow","width=800px,height=600px");
     });
 
 });

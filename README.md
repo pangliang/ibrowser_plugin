@@ -14,11 +14,12 @@ iphone管理软件浏览器插件版
 *   获取以安装软件列表和信息
 *   获取软件icon
 *   上传文件
-*   安装APP (可多次调用installPackage, 按顺序安装)
+*   安装APP (支持并发操作, 后台顺序安装)
+
 
 ###开发计划(优先级高到低)
-*   修改安装app流程为, while(ret == INSTPROXY_E_OP_IN_PROGRESS) 
 *   卸载软件
+*   iphone长按卸载UI
 *   后台监控手机的插入
 *   自动reinit
 *   浏览器通知弹窗

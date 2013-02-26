@@ -291,13 +291,38 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
     
     THREAD(&ibrowserAPI::installPackage,fileName,pcb);
 
-    const char *file_name=fileName.c_str();
     int ret=0;
     Call3back *req = new Call3back(*pcb,*scb,*ecb);
     
-    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_install(instproxy_client, file_name, NULL, &ibrowserAPI::installCallback, (void*)req)))
+    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_install(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)req)))
     {
-        printf("installPackage %s sleep...\n",file_name);
+        printf("installPackage %s sleep...\n",fileName.c_str());
+        sleep(1);
+    }
+    
+    if(INSTPROXY_E_SUCCESS != ret)
+    {
+        ERRO(ret);
+        return false;
+    }
+    
+    return true;
+    
+}
+
+FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
+{
+    if(fileName.empty())
+        return NULL;
+    
+    THREAD(&ibrowserAPI::uninstallPackage,fileName,pcb);
+    
+    int ret=0;
+    Call3back *req = new Call3back(*pcb,*scb,*ecb);
+    
+    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_uninstall(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)req)))
+    {
+        printf("installPackage %s sleep...\n",fileName.c_str());
         sleep(1);
     }
     
