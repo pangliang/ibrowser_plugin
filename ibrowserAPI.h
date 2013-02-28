@@ -27,24 +27,30 @@ extern "C"{
 #define F_T_FLAG    boost::optional<bool> noThread
 #define F_ADD F_SUCC,F_ERRO,F_T_FLAG
 #define SUCC(a1,args...)    \
+    do{ \
         if(scb && (*scb)->isValid()){ \
             (*scb)->InvokeAsync("", FB::variant_list_of( a1, ##args )); \
-        }
+        } \
+    }while(0)
 #define ERRO(msg)   \
+    do{ \
         if(ecb && (*ecb)->isValid()){ \
             (*ecb)->InvokeAsync("", FB::variant_list_of(msg)); \
         } \
-        throw FB::script_error(msg);
-#define THREAD(fun,args...)                                         \
-    do{                                                             \
-        if(!noThread && scb && (*scb)->isValid() )                                               \
-        {                                                           \
-            /*printf("use thread:%s\n",__FUNCTION__);*/                 \
-            boost::thread t(boost::bind(fun,this, ##args,scb,ecb,true));    \
-            return true;                                            \
-        }                                                           \
-    }                                                               \
-    while(0)
+        printf("error:%s\n",msg); \
+        clean(); \
+        return false; \
+    }while(0)
+#define THREAD(fun,args...) \
+    do{ \
+        if(!noThread && scb && (*scb)->isValid() ) \
+        { \
+            printf("use thread:%s\n",__FUNCTION__); \
+            boost::thread t(boost::bind(fun,this, ##args,scb,ecb,true)); \
+            return true; \
+        } \
+        if(!init(scb,ecb)) return false; \
+    }while(0)
 
 class ibrowserAPI;
 
@@ -84,8 +90,6 @@ public:
         registerMethod("echo",      make_method(this, &ibrowserAPI::echo));
         registerMethod("testEvent", make_method(this, &ibrowserAPI::testEvent));
         
-        registerMethod("init",      make_method(this, &ibrowserAPI::init));
-        registerMethod("clean",      make_method(this, &ibrowserAPI::clean));
         registerMethod("getDeviceInfo", make_method(this, &ibrowserAPI::getDeviceInfo));
         registerMethod("getAppList",      make_method(this, &ibrowserAPI::getAppList));
         registerMethod("getSbservicesIconPngdata", make_method(this, &ibrowserAPI::getSbservicesIconPngdata));
@@ -104,6 +108,8 @@ public:
         registerProperty("version",
                          make_property(this,
                                        &ibrowserAPI::get_version));
+        
+        printf("new ibrowserAPI\n");
         
         
     }
@@ -129,9 +135,8 @@ public:
     // Method echo
     FB::variant echo(const FB::variant& msg);
     
-    FB::variant init(F_ADD);
-    FB::variant clean();
-    FB::variant getDeviceInfo(const std::string& domain,F_ADD);
+    
+    FB::variant getDeviceInfo(const std::vector<std::string>& domain,F_ADD);
     FB::variant getAppList(F_ADD);
     FB::variant getSbservicesIconPngdata(const std::string& bundleId,F_ADD);
     FB::variant openDialog(F_ADD);
@@ -159,6 +164,10 @@ private:
     lockdownd_client_t 	lockdownd_client = NULL;
     sbservices_client_t sbservices_client = NULL;
     afc_client_t afc_client = NULL;
+    
+    
+    bool init(F_SUCC,F_ERRO);
+    void clean();
     
 };
 

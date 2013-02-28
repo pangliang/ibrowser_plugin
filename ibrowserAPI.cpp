@@ -20,26 +20,23 @@
 #define RESULT_BUFF_SIZE 1024000
 #define CLIENT_LABEL "ibrowser"
 
-FB::variant ibrowserAPI::init(F_ADD)
+bool ibrowserAPI::init(F_SUCC,F_ERRO)
 {
-    
-    THREAD(&ibrowserAPI::init);
     
     uint16_t port = 0;
     
     if (NULL == device)
     {
         if (IDEVICE_E_SUCCESS != idevice_new(&device, NULL)) {
-            ERRO("No device found, is it plugged in?");
-            return false;
+            ERRO("idevice_new");
         }
+        idevice_set_debug_level(1);
     }
     
     if (NULL == lockdownd_client)
     {
         if (LOCKDOWN_E_SUCCESS != (lockdownd_client_new_with_handshake(device, &lockdownd_client, CLIENT_LABEL))) {
-            ERRO("lockdownd_client_new_with_handshake fail!");
-            return false;
+            ERRO("lockdownd_client_new_with_handshake");
         }
     }
     
@@ -47,14 +44,12 @@ FB::variant ibrowserAPI::init(F_ADD)
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.mobile.installation_proxy",&port) || !port))
         {
-            ERRO("lockdownd_start_service com.apple.mobile.installation_proxy error");
-            return false;
+            ERRO("lockdownd_start_service com.apple.mobile.installation_proxy");
         }
         
         if(INSTPROXY_E_SUCCESS != instproxy_client_new(device,port,&instproxy_client) )
         {
-            ERRO("instproxy_client_new error");
-            return false;
+            ERRO("instproxy_client_new");
         }
     }
     
@@ -63,13 +58,11 @@ FB::variant ibrowserAPI::init(F_ADD)
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.afc",&port)) || !port)
         {
-            ERRO("lockdownd_start_service com.apple.afc error");
-            return false;
+            ERRO("lockdownd_start_service com.apple.afc");
         }
         
         if (afc_client_new(device, port, &afc_client) != AFC_E_SUCCESS) {
-            ERRO("Could not connect to AFC!");
-            return false;
+            ERRO("afc_client_new");
         }
     }
     
@@ -77,22 +70,19 @@ FB::variant ibrowserAPI::init(F_ADD)
     {
         if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.springboardservices",&port)) || !port)
         {
-            ERRO("lockdownd_start_service com.apple.springboardservices error");
-            return false;
+            ERRO("lockdownd_start_service com.apple.springboardservices");
         }
         
         if (sbservices_client_new(device, port, &sbservices_client) != AFC_E_SUCCESS) {
-            ERRO("sbservices_client_new error!");
-            return false;
+            ERRO("sbservices_client_new");
         }
     }
     
-    SUCC();
     return true;
 
 }
 
-FB::variant ibrowserAPI::clean()
+void ibrowserAPI::clean()
 {
     if (NULL != device)
     {
@@ -124,42 +114,43 @@ FB::variant ibrowserAPI::clean()
         afc_client = NULL;
     }
     
-    return true;
 }
 
 
-FB::variant ibrowserAPI::getDeviceInfo(const std::string& domain,F_ADD)
+FB::variant ibrowserAPI::getDeviceInfo(const std::vector<std::string>& domains,F_ADD)
 {
     
-    plist_t node = NULL;
-    int ret = 0;
-    if(LOCKDOWN_E_SUCCESS != (ret = lockdownd_get_value(lockdownd_client, domain.empty()?NULL:domain.c_str(), NULL, &node)) ) {
-        ERRO("lockdownd_get_value error");
-        return NULL;
-    }
+    THREAD(&ibrowserAPI::getDeviceInfo, domains);
     
-    char *xml_doc=NULL;
-    uint32_t xml_length;
-    plist_to_xml(node, &xml_doc, &xml_length);
-    plist_free(node);
+    std::vector<std::string> result;
+    
+    for(int i=0;i<domains.size();i++)
+    {
+        std::string domain = domains[i];
+        plist_t node = NULL;
+        int ret = 0;
+        if(LOCKDOWN_E_SUCCESS != (ret = lockdownd_get_value(lockdownd_client, domain.empty()?NULL:domain.c_str(), NULL, &node)) ) {
+            ERRO("lockdownd_get_value");
+        }
+        
+        char *xml_doc=NULL;
+        uint32_t xml_length;
+        plist_to_xml(node, &xml_doc, &xml_length);
+        plist_free(node);
+        
+        result.insert(result.end(),std::string(xml_doc));
+        free(xml_doc);
+    }
 
-    /*
-    FB::DOM::WindowPtr window = m_host->getDOMWindow();
-
-    // Check if the DOM Window has an alert peroperty
-    if (window && window->getJSObject()->HasProperty("jQuery")) {
-        // Create a reference to alert
-        FB::JSObjectPtr obj = window->getProperty<FB::JSObjectPtr>("jQuery");
-
-        // Invoke alert with some text
-        return obj->Invoke("plist", FB::variant_list_of(xml_doc));
-    }*/
-    SUCC(xml_doc);
-    return xml_doc;
+    SUCC(result);
+    
+    return result;
 }
 
 FB::variant ibrowserAPI::getAppList(F_ADD)
 {
+    THREAD(&ibrowserAPI::getAppList);
+    
     char *xml_doc=NULL;
     uint32_t xml_length=0;
     plist_t node = NULL;
@@ -169,14 +160,15 @@ FB::variant ibrowserAPI::getAppList(F_ADD)
     
     if(INSTPROXY_E_SUCCESS != instproxy_browse(instproxy_client,client_opts,&node))
     {
-        ERRO("instproxy_browse error");
-        return NULL;
+        ERRO("instproxy_browse");
     }
     
     instproxy_client_options_free(client_opts);
     
     plist_to_xml(node, &xml_doc, &xml_length);
     plist_free(node);
+    
+    SUCC(xml_doc);
     
     return xml_doc;
 }
@@ -192,7 +184,6 @@ FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_
     if (SBSERVICES_E_SUCCESS != sbservices_get_icon_pngdata(sbservices_client,bundleId.c_str(),&data,&size))
     {
         ERRO("get_sbservices_icon_pngdata error");
-        return NULL;
     }
     char *base64 = base64encode(data,size);
     free(data);
@@ -234,7 +225,7 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
 {
 
     if(fileName.empty())
-        return NULL;
+        return false;
     
     THREAD(&ibrowserAPI::uploadFile,fileName,pcb);
     
@@ -245,7 +236,6 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
     uint64_t target_file_handle = 0;
     if (AFC_E_SUCCESS != afc_file_open(afc_client, target_file, AFC_FOPEN_WRONLY, &target_file_handle)){
         ERRO("afc_file_open error!");
-        return NULL;
     }
     
     FILE *file_handle= fopen(file_name, "r");
@@ -253,7 +243,6 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
     {
         afc_remove_path(afc_client, target_file);
         ERRO("open file error!");
-        return NULL;
     }
     
     off_t fileSize = 0;
@@ -270,7 +259,6 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
         if (AFC_E_SUCCESS != afc_file_write(afc_client, target_file_handle, read_buf, bytes_read, &bytes_written) || bytes_read !=bytes_written)
         {
             ERRO("afc_file_write error!");
-            return NULL;
         }
         
         memset(read_buf, 0, read_buf_size);
@@ -288,7 +276,7 @@ FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::op
 FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
 {
     if(fileName.empty())
-        return NULL;
+        return false;
     
     THREAD(&ibrowserAPI::installPackage,fileName,pcb);
 
@@ -304,7 +292,6 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
     if(INSTPROXY_E_SUCCESS != ret)
     {
         ERRO("instproxy_install");
-        return false;
     }
     
     return true;
@@ -314,7 +301,7 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
 FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
 {
     if(fileName.empty())
-        return NULL;
+        return false;
     
     THREAD(&ibrowserAPI::uninstallPackage,fileName,pcb);
     
@@ -330,7 +317,6 @@ FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boo
     if(INSTPROXY_E_SUCCESS != ret)
     {
         ERRO("instproxy_uninstall");
-        return false;
     }
     
     return true;

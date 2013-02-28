@@ -12,18 +12,24 @@ $(function(){
     
     function init()
     {
-        console.log("init..."+new Date().getTime());
+        try{
+            console.log("init..."+new Date().getTime());
+
+            plugin=document.getElementById("pluginId");
+            plugin.init(function(){
+                checkTime=10*1000;
+                window.clearInterval(int);
+                //int=self.setInterval(init,checkTime);
+            },function(e){
+                console.log(e);
+                //checkTime=3*1000;
+                //window.clearInterval(int);
+                //int=self.setInterval(init,checkTime);
+            });
+        }catch(e){
+            console.log(e.toString());
+        }
         
-        plugin=document.getElementById("pluginId");
-        plugin.init(function(){
-            checkTime=10*1000;
-            window.clearInterval(int);
-            int=self.setInterval(init,checkTime);
-        },function(e){
-            checkTime=3*1000;
-            window.clearInterval(int);
-            int=self.setInterval(init,checkTime);
-        });
     }
 
     int=self.setInterval(init,checkTime);
