@@ -77,7 +77,15 @@ $(function(){
                             $("#app_list img.delete").on("click",function(){
                                 var appid=$(this).attr("id");
                                 plugin.uninstallPackage(appid,function(){},function(){
-                                    div.hide();
+                                    var divid=appid.replace(new RegExp("\\.","gm"),"\\.");
+                                    var displayName=$("div#"+divid+" #CFBundleDisplayName").html();
+                                    var notification = webkitNotifications.createNotification(
+                                        '/icon.jpeg',  
+                                        '卸载成功!',  
+                                        displayName+'已被卸载!' 
+                                    );
+                                    notification.show();
+                                    $("div#"+divid).hide();
                                 },function(e){
                                     console.log(e);
                                 });
@@ -125,5 +133,7 @@ $(function(){
     $("#install_app_buttion").on("click",function(){
         window.open("install.html","newwindow","width=800px,height=600px");
     });
+
+    $("#tab_device_info").click();
 
 });

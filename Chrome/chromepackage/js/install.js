@@ -40,6 +40,13 @@ $(function(){
                             console.log(e);
                             div.find("#selTip").html("安装成功..."+fileName);
                             div.find("#progressBar").width("100%");
+
+                            var notification = webkitNotifications.createNotification(
+                                '/icon.jpeg',
+                                '安装成功!',
+                                fileName+'已被安装!'
+                            );
+                            notification.show();
                         },
                         function(e){
                             console.log(e);

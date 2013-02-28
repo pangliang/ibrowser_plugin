@@ -1,8 +1,9 @@
 {
-    "name": "我的扩展程序",
+    "name": "ibrowser",
     "version": "0.1.0",
     "manifest_version": 2,
     "permissions": [
+        "notifications",
         "alarms",
         "tabs",
         "http://*/*"
