@@ -116,6 +116,25 @@ void ibrowserAPI::clean()
     
 }
 
+FB::variant ibrowserAPI::setIdeviceEventCallback(const FB::JSObjectPtr& callback,F_ADD)
+{
+    Callback *cb = new Callback();
+    cb->set("callback",callback);
+    
+    if(IDEVICE_E_SUCCESS != idevice_event_subscribe(&ibrowserAPI::ideviceEventCallback, (void *)cb))
+        ERRO("idevice_event_subscribe");
+    
+    return true;
+}
+
+void ibrowserAPI::ideviceEventCallback(const idevice_event_t *event, void *user_data)
+{
+    Callback *cb = (Callback *)user_data;
+    FB::JSObjectPtr callback=cb->get("callback");
+    if(callback && callback->isValid())
+        callback->InvokeAsync("", FB::variant_list_of( event->event ));
+}
+
 
 FB::variant ibrowserAPI::getDeviceInfo(const std::vector<std::string>& domains,F_ADD)
 {
@@ -281,9 +300,12 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
     THREAD(&ibrowserAPI::installPackage,fileName,pcb);
 
     int ret=0;
-    Call3back *req = new Call3back(*pcb,*scb,*ecb);
+    Callback *cb = new Callback();
+    cb->set("pcb",*pcb);
+    cb->set("scb",*scb);
+    cb->set("ecb",*ecb);
     
-    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_install(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)req)))
+    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_install(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)cb)))
     {
         printf("installPackage %s sleep...\n",fileName.c_str());
         sleep(1);
@@ -306,9 +328,12 @@ FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boo
     THREAD(&ibrowserAPI::uninstallPackage,fileName,pcb);
     
     int ret=0;
-    Call3back *req = new Call3back(*pcb,*scb,*ecb);
+    Callback *cb = new Callback();
+    cb->set("pcb",*pcb);
+    cb->set("scb",*scb);
+    cb->set("ecb",*ecb);
     
-    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_uninstall(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)req)))
+    while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_uninstall(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)cb)))
     {
         printf("uninstallPackage %s sleep...\n",fileName.c_str());
         sleep(1);
@@ -327,11 +352,11 @@ void ibrowserAPI::installCallback(const char *operation, plist_t status, void *u
     char *xml_doc=NULL;
     uint32_t xml_length;
     
-    Call3back *req = (Call3back *)user_data;
+    Callback *cb = (Callback *)user_data;
     
-    FB::JSObjectPtr pcb = req->pcb;
-    FB::JSObjectPtr scb = req->scb;
-    FB::JSObjectPtr ecb = req->ecb;
+    FB::JSObjectPtr pcb = cb->get("pcb");
+    FB::JSObjectPtr scb = cb->get("scb");
+    FB::JSObjectPtr ecb = cb->get("ecb");
     
     if(pcb)
     {

@@ -54,20 +54,19 @@ extern "C"{
 
 class ibrowserAPI;
 
-class Call3back{
+class Callback{
 public:
-    Call3back(
-             FB::JSObjectPtr p,
-             FB::JSObjectPtr s,
-             FB::JSObjectPtr e){
-        pcb=p;
-        scb=s;
-        ecb=e;
-        
+    void set(const char* fn,FB::JSObjectPtr op)
+    {
+        list[fn]=op;
     }
-    FB::JSObjectPtr pcb;
-    FB::JSObjectPtr scb;
-    FB::JSObjectPtr ecb;
+    FB::JSObjectPtr get(const char* fn)
+    {
+        return list[fn];
+    }
+    
+private:
+    std::map<const char*,FB::JSObjectPtr> list;
 };
 
 class ibrowserAPI : public FB::JSAPIAuto
@@ -97,6 +96,7 @@ public:
         registerMethod("uploadFile", make_method(this, &ibrowserAPI::uploadFile));
         registerMethod("installPackage", make_method(this, &ibrowserAPI::installPackage));
         registerMethod("uninstallPackage", make_method(this, &ibrowserAPI::uninstallPackage));
+        registerMethod("setIdeviceEventCallback", make_method(this, &ibrowserAPI::setIdeviceEventCallback));
         
         // Read-write property
         registerProperty("testString",
@@ -143,7 +143,12 @@ public:
     FB::variant uploadFile(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant installPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant uninstallPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
+    FB::variant setIdeviceEventCallback(const FB::JSObjectPtr& callback,F_ADD);
+    
+    
     static void installCallback(const char *operation, plist_t status, void *user_data);
+    static void ideviceEventCallback(const idevice_event_t *event, void *user_data);
+    
     
     // Event helpers
     FB_JSAPI_EVENT(test, 0, ());
