@@ -2,20 +2,6 @@ $(function(){
 
     var plugin=chrome.extension.getBackgroundPage().plugin;
     
-    function basename(path) {
-        return path.replace(/\\/g,'/').replace( /.*\//, '');
-    }
-    
-    function readableFileSize(size) {
-        var units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        var i = 0;
-        while(size >= 1024) {
-            size /= 1024;
-            ++i;
-        }
-        return size.toFixed(2) + ' ' + units[i];
-    }
-    
     $("#tabs li").on("click",function(){
         $("#tabs li.active").removeClass("active");
         $(this).addClass("active");
@@ -35,13 +21,13 @@ $(function(){
             }
             console.log(p);
             if(p){
-                p.TotalDataAvailable= readableFileSize(p.TotalDataAvailable);
-                p.TotalDataCapacity= readableFileSize(p.TotalDataCapacity);
-                p.TotalDiskCapacity= readableFileSize(p.TotalDiskCapacity);
-                p.TotalSystemAvailable= readableFileSize(p.TotalSystemAvailable);
-                p.TotalSystemCapacity= readableFileSize(p.TotalSystemCapacity);
-                p.AmountDataAvailable= readableFileSize(p.AmountDataAvailable);
-                p.AmountDataReserved= readableFileSize(p.AmountDataReserved);
+                p.TotalDataAvailable= tools.fsizeFormat(p.TotalDataAvailable);
+                p.TotalDataCapacity= tools.fsizeFormat(p.TotalDataCapacity);
+                p.TotalDiskCapacity= tools.fsizeFormat(p.TotalDiskCapacity);
+                p.TotalSystemAvailable= tools.fsizeFormat(p.TotalSystemAvailable);
+                p.TotalSystemCapacity= tools.fsizeFormat(p.TotalSystemCapacity);
+                p.AmountDataAvailable= tools.fsizeFormat(p.AmountDataAvailable);
+                p.AmountDataReserved= tools.fsizeFormat(p.AmountDataReserved);
                 
                 $("#device_info").find(".item").each(function(){
                     var infoName= $(this).attr("id");
@@ -79,12 +65,7 @@ $(function(){
                                 plugin.uninstallPackage(appid,function(){},function(){
                                     var divid=appid.replace(new RegExp("\\.","gm"),"\\.");
                                     var displayName=$("div#"+divid+" #CFBundleDisplayName").html();
-                                    var notification = webkitNotifications.createNotification(
-                                        '/icon.jpeg',  
-                                        '卸载成功!',  
-                                        displayName+'已被卸载!' 
-                                    );
-                                    notification.show();
+                                    tools.deskNotify("卸载成功!",displayName+"已从您的手机卸载")
                                     $("div#"+divid).hide();
                                 },function(e){
                                     console.log(e);

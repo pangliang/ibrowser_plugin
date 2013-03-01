@@ -13,13 +13,7 @@ $(function(){
         console.log("setIdeviceEventCallback",event);
 
         if(event == 1){
-            var notification = webkitNotifications.createNotification(
-                '/icon.jpeg',  // icon url - can be relative
-                '一枚Iphone连接到了电脑!',  // notification title
-                '你可以使用ibrowser对其进行管理咯!'  // notification body text
-            );
-            notification.show();
+            tools.deskNotify('一枚Iphone连接到了电脑!','你可以使用ibrowser对其进行管理咯!' );
         }
-        
     });
 });

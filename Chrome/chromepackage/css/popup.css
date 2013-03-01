@@ -1,3 +1,6 @@
+body{
+    width: 320px;
+}
 
 #header{
     font-size:12px;
@@ -40,6 +43,7 @@
     float: left;
     margin: 10px;
     text-align: center;
+    width: 57px;
 }
 
 #app_list img.icon{
