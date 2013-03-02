@@ -12,7 +12,7 @@ $(function(){
     });
 
     $("#tab_device_info").on("click",function(){
-        plugin.getDeviceInfo(new Array("","com.apple.mobile.battery","com.apple.disk_usage"),function(rs){
+        plugin.getDeviceInfo(new Array("","com.apple.mobile.battery","com.apple.disk_usage.factory"),function(rs){
             var p=null;
             for(index in rs)
             {
@@ -28,6 +28,11 @@ $(function(){
                 p.TotalSystemCapacity= tools.fsizeFormat(p.TotalSystemCapacity);
                 p.AmountDataAvailable= tools.fsizeFormat(p.AmountDataAvailable);
                 p.AmountDataReserved= tools.fsizeFormat(p.AmountDataReserved);
+
+                p.NotesUsage= tools.fsizeFormat(p.NotesUsage);
+                p.PhotoUsage= tools.fsizeFormat(p.PhotoUsage);
+                p.VoicemailUsage= tools.fsizeFormat(p.VoicemailUsage);
+                p.WebAppCacheUsage= tools.fsizeFormat(p.WebAppCacheUsage);
                 
                 $("#device_info").find(".item").each(function(){
                     var infoName= $(this).attr("id");

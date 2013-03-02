@@ -2,7 +2,7 @@
     "name": "ibrowser",
     "version": "0.1.2",
     "manifest_version": 2,
-    "update_url":"http://127.0.0.1:4000/ibrowser/updates.html",
+    "update_url":"http://liang8305.github.com/ibrowser/updates.html",
     
     "permissions": [
         "notifications",
