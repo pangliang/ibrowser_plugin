@@ -23,7 +23,7 @@
 bool ibrowserAPI::init(F_SUCC,F_ERRO)
 {
     
-    uint16_t port = 0;
+    lockdownd_service_descriptor_t service = NULL;
     
     if (NULL == device)
     {
@@ -42,12 +42,12 @@ bool ibrowserAPI::init(F_SUCC,F_ERRO)
     
     if (NULL == instproxy_client)
     {
-        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.mobile.installation_proxy",&port) || !port))
+        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.mobile.installation_proxy",&service) || !service->port))
         {
             ERRO("lockdownd_start_service com.apple.mobile.installation_proxy");
         }
         
-        if(INSTPROXY_E_SUCCESS != instproxy_client_new(device,port,&instproxy_client) )
+        if(INSTPROXY_E_SUCCESS != instproxy_client_new(device,service,&instproxy_client) )
         {
             ERRO("instproxy_client_new");
         }
@@ -56,24 +56,24 @@ bool ibrowserAPI::init(F_SUCC,F_ERRO)
     
     if (NULL == afc_client)
     {
-        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.afc",&port)) || !port)
+        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.afc",&service)) || !service->port)
         {
             ERRO("lockdownd_start_service com.apple.afc");
         }
         
-        if (afc_client_new(device, port, &afc_client) != AFC_E_SUCCESS) {
+        if (afc_client_new(device, service, &afc_client) != AFC_E_SUCCESS) {
             ERRO("afc_client_new");
         }
     }
     
     if (NULL == sbservices_client)
     {
-        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.springboardservices",&port)) || !port)
+        if(LOCKDOWN_E_SUCCESS != (lockdownd_start_service(lockdownd_client,"com.apple.springboardservices",&service)) || !service->port)
         {
             ERRO("lockdownd_start_service com.apple.springboardservices");
         }
         
-        if (sbservices_client_new(device, port, &sbservices_client) != AFC_E_SUCCESS) {
+        if (sbservices_client_new(device, service, &sbservices_client) != AFC_E_SUCCESS) {
             ERRO("sbservices_client_new");
         }
     }

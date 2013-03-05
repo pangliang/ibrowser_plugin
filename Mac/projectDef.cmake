@@ -38,8 +38,8 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PROJECT_NAME}
     ${PLUGIN_INTERNAL_DEPS}
     "${CMAKE_CURRENT_SOURCE_DIR}/libs/libimobiledevice.dylib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libplist.1.dylib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libusbmuxd.2.dylib"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libplist.1.1.8.dylib"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libusbmuxd.1.0.8.dylib"
     )
 
 #To create a DMG, include the following file

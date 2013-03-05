@@ -17,6 +17,7 @@ extern "C"{
 #include <libimobiledevice/installation_proxy.h>
 #include <libimobiledevice/afc.h>
 #include <libimobiledevice/sbservices.h>
+#include <libimobiledevice/service.h>
 }
 
 #ifndef H_ibrowserAPI
