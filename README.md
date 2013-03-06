@@ -5,6 +5,16 @@ iphone管理软件浏览器插件版
 
 类似itools的ios管理软件, chrome, firefox浏览器插件版.
 
+##如何使用
+1)下载
+
+	https://github.com/liang8305/ibrowser_plugin/raw/master/Chrome/chromepackage.crx
+
+2)安装
+
+	打开chrome -> 菜单 -> 工具 -> 扩展
+	将下载的.crx拖拽进chrome的扩展页面, 如果询问"是否添加" , 点击"添加"按钮即可
+
 ##软件功能
 ###完成:
 
