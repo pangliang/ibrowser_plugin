@@ -42,10 +42,10 @@
       </regional-settings>
       <environment>
         <environment-types>
-          <environment-type name="Development" description="Development environment" color="-2430209" />
-          <environment-type name="Test" description="Testing environment" color="-2621494" />
-          <environment-type name="Production" description="Productive environment" color="-11574" />
-          <environment-type name="Other" description="" color="-1576" />
+          <environment-type id="development" name="Development" description="Development environment" color="-2430209/-12234147" />
+          <environment-type id="test" name="Test" description="Testing environment" color="-2621494/-2621494" />
+          <environment-type id="production" name="Production" description="Productive environment" color="-11574/-10730428" />
+          <environment-type id="other" name="Other" description="" color="-1576/-11250621" />
         </environment-types>
         <visibility-settings>
           <connection-tabs value="true" />
