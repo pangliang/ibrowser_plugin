@@ -7,12 +7,31 @@
  */
 var plugin;
 $(function(){
+
+    chrome.runtime.onSuspend.addListener(function() {
+        log("chrome.runtime.onSuspend...");
+        chrome.runtime.reload();
+    });
+    
     plugin=document.getElementById("pluginId");
     
     plugin.setIdeviceEventCallback(function(event){
-        console.log("setIdeviceEventCallback",event);
+        log("setIdeviceEventCallback",event);
         if(event == 1){
-            tools.deskNotify('一枚Iphone连接到了电脑!','你可以使用ibrowser对其进行管理咯!' );
+            deskNotify('一枚Iphone连接到了电脑!','你可以使用ibrowser对其进行管理咯!' );
         }
     });
+
+    chrome.webRequest.onBeforeRequest.addListener(
+        function(info) {
+            log(info);
+            
+            return {
+                redirectUrl: chrome.runtime.getURL("download.html?file="+info.url)
+            };
+        },
+        {urls: ["*://*/*.ipa*"]},
+        ["blocking"]
+    );
+
 });

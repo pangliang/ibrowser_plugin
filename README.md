@@ -33,14 +33,15 @@ iphone管理软件浏览器插件版
 
 ###开发计划(优先级高到低)
 
+*   ipa文件下载钩子,自动安装(chrome.webRequest.onBeforeRequest.addListener)
 *   获取软件照片电影占容量
 *   文件管理
 *   越狱手机的文件管理
 *   指定上传目录
-*   下载的ipa文件自动安装
 *   win7平台兼容
 *   firefox兼容
 *   国际化
+*   ipa文件下载钩子,自动安装(使用chrome的downloads api)
 *   安装成功刷新软件列表 //弹出安装页, popup页会关闭, 暂时不实现
 
 ##支持浏览器和平台  

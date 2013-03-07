@@ -70,6 +70,14 @@ private:
     std::map<const char*,FB::JSObjectPtr> list;
 };
 
+struct DownloadConfig   //定义一个结构为了传递给my_fwrite函数.可用curl_easy_setopt的CURLOPT_WRITEDATA选项传递
+{
+    std::string filename;
+    FILE *stream;
+    FB::JSObjectPtr pcb;
+    size_t doneSize;
+};
+
 class ibrowserAPI : public FB::JSAPIAuto
 {
 public:
@@ -98,6 +106,7 @@ public:
         registerMethod("installPackage", make_method(this, &ibrowserAPI::installPackage));
         registerMethod("uninstallPackage", make_method(this, &ibrowserAPI::uninstallPackage));
         registerMethod("setIdeviceEventCallback", make_method(this, &ibrowserAPI::setIdeviceEventCallback));
+        registerMethod("downloadFile", make_method(this, &ibrowserAPI::downloadFile));
         
         // Read-write property
         registerProperty("testString",
@@ -145,8 +154,9 @@ public:
     FB::variant installPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant uninstallPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant setIdeviceEventCallback(const FB::JSObjectPtr& callback,F_ADD);
-    
-    
+    FB::variant downloadFile(const std::string& url,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
+    static int downloadWrite(void *buffer, size_t size, size_t nmemb, void *stream);
+    static int downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow);
     static void installCallback(const char *operation, plist_t status, void *user_data);
     static void ideviceEventCallback(const idevice_event_t *event, void *user_data);
     

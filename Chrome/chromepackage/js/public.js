@@ -7,27 +7,29 @@
  */
 
 
-tools={
-    deskNotify : function(title,msg){
-        var notification = webkitNotifications.createNotification(
-            '/icon.jpeg',
-            title,
-            msg
-        );
-        notification.show();
-    },
+function deskNotify(title, msg) {
+    var notification = webkitNotifications.createNotification(
+        'icon.jpeg',
+        title,
+        msg
+    );
+    notification.show();
+}
 
-    basename : function (path) {
-        return path.replace(/\\/g,'/').replace( /.*\//, '');
-    },
+function basename(path) {
+    return path.replace(/\\/g, '/').replace(/.*\//, '');
+}
 
-    fsizeFormat: function (size) {
-        var units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        var i = 0;
-        while(size >= 1024) {
-            size /= 1024;
-            ++i;
-        }
-        return size.toFixed(2) + ' ' + units[i];
-    },
+function fsizeFormat(size) {
+    var units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    var i = 0;
+    while (size >= 1024) {
+        size /= 1024;
+        ++i;
+    }
+    return size.toFixed(2) + ' ' + units[i];
+}
+
+function log(p1,p2,p3,p4,p5){
+    console.log(p1,p2,p3,p4,p5);
 }

@@ -2,17 +2,13 @@
 $(function(){
 
     var plugin=chrome.extension.getBackgroundPage().plugin;
-
-    function basename(path) {
-        return path.replace(/\\/g,'/').replace( /.*\//, '');
-    }
     
     var installList = new Array();
 
     function install()
     {
 
-        console.log(installList);
+        log(installList);
         
         var install = installList.pop();
         if(!install)
@@ -30,7 +26,7 @@ $(function(){
                 upload_succ(pkgName,div)
             },
             function(e){
-                console.log(e);
+                log(e);
             }
             
         );
@@ -46,7 +42,7 @@ $(function(){
                 pkgName,
                 function(xml){
                     var p= $.plist(xml);
-                    console.log(p);
+                    log(p);
                     if(!p.Error && p.Status != "Complete")
                     {
                         div.find("#selTip").html("传输完成, 安装..."+fileName+"..."+ p.Status);
@@ -54,18 +50,18 @@ $(function(){
                     }
                 },
                 function(e){
-                    console.log(e);
+                    log(e);
                     div.find("#selTip").html("安装成功..."+fileName);
                     div.find("#progressBar").width("100%");
 
                     install();
 
-                    tools.deskNotify('安装成功!',fileName+'已被安装!');
+                    deskNotify('安装成功!',fileName+'已被安装!');
 
 
                 },
                 function(e){
-                    console.log(e);
+                    log(e);
                     div.find("#selTip").html("安装"+fileName+"失败,"+ e);
 
                     install();
@@ -79,7 +75,7 @@ $(function(){
     function select()
     {
         plugin.openDialog(function(files){
-            console.log(files);
+            log(files);
             for(var i in files)
             {
                 var fileName=basename(files[i]);

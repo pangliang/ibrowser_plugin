@@ -17,6 +17,11 @@
 #include <stdlib.h>
 #include <libgen.h>
 
+extern "C"{
+#include <curl/curl.h>;
+#include <curl/easy.h>;
+}
+
 #define RESULT_BUFF_SIZE 1024000
 #define CLIENT_LABEL "ibrowser"
 
@@ -396,6 +401,66 @@ void ibrowserAPI::installCallback(const char *operation, plist_t status, void *u
         free(s);
 	free(it);
     return;
+}
+
+FB::variant ibrowserAPI::downloadFile(const std::string& url,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
+{
+    if(url.empty())
+        return false;
+    
+    THREAD(&ibrowserAPI::downloadFile,url,pcb);
+    
+    CURLcode res;
+    CURL *curl;
+    char *tmpName=tmpnam(NULL);
+    FILE *tmpFile=fopen(tmpName,"wb+");
+    
+    if(!tmpFile)
+        ERRO("create tmp file error");
+    
+    struct DownloadConfig cfg={url,tmpFile,*pcb, 0};
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    
+    curl = curl_easy_init();
+    if(curl)
+    {
+        curl_easy_setopt(curl, CURLOPT_URL,url.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &ibrowserAPI::downloadWrite);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &cfg);  //给相关函数的第四个参数 传递一个结构体的指针
+        //curl的进度条声明
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, FALSE);
+        //回调进度条函数
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, &ibrowserAPI::downloadProgress);
+        //设置进度条名称
+        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, &cfg);
+        res = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        
+    }
+    if(cfg.stream)
+        fclose(cfg.stream);
+    curl_global_cleanup();
+    
+    if(CURLE_OK != res )
+        ERRO(res);
+    
+    SUCC(tmpName);
+    
+    return true;
+}
+
+int ibrowserAPI::downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow)
+{
+    struct DownloadConfig *cfg=(struct DownloadConfig *)ptr;
+    if(cfg->pcb)
+        cfg->pcb->InvokeAsync("", FB::variant_list_of(rDlNow/rDlTotal));
+    return 0;
+}
+
+int ibrowserAPI::downloadWrite(void *buffer, size_t size, size_t nmemb, void *stream)
+{
+    struct DownloadConfig *cfg=(struct DownloadConfig *)stream;
+    return fwrite(buffer, size, nmemb, cfg->stream);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

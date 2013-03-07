@@ -19,20 +19,20 @@ $(function(){
                 p=$.extend(p, $.plist(rs[index]));
                 
             }
-            console.log(p);
+            log(p);
             if(p){
-                p.TotalDataAvailable= tools.fsizeFormat(p.TotalDataAvailable);
-                p.TotalDataCapacity= tools.fsizeFormat(p.TotalDataCapacity);
-                p.TotalDiskCapacity= tools.fsizeFormat(p.TotalDiskCapacity);
-                p.TotalSystemAvailable= tools.fsizeFormat(p.TotalSystemAvailable);
-                p.TotalSystemCapacity= tools.fsizeFormat(p.TotalSystemCapacity);
-                p.AmountDataAvailable= tools.fsizeFormat(p.AmountDataAvailable);
-                p.AmountDataReserved= tools.fsizeFormat(p.AmountDataReserved);
+                p.TotalDataAvailable= fsizeFormat(p.TotalDataAvailable);
+                p.TotalDataCapacity= fsizeFormat(p.TotalDataCapacity);
+                p.TotalDiskCapacity= fsizeFormat(p.TotalDiskCapacity);
+                p.TotalSystemAvailable= fsizeFormat(p.TotalSystemAvailable);
+                p.TotalSystemCapacity= fsizeFormat(p.TotalSystemCapacity);
+                p.AmountDataAvailable= fsizeFormat(p.AmountDataAvailable);
+                p.AmountDataReserved= fsizeFormat(p.AmountDataReserved);
 
-                p.NotesUsage= tools.fsizeFormat(p.NotesUsage);
-                p.PhotoUsage= tools.fsizeFormat(p.PhotoUsage);
-                p.VoicemailUsage= tools.fsizeFormat(p.VoicemailUsage);
-                p.WebAppCacheUsage= tools.fsizeFormat(p.WebAppCacheUsage);
+                p.NotesUsage= fsizeFormat(p.NotesUsage);
+                p.PhotoUsage= fsizeFormat(p.PhotoUsage);
+                p.VoicemailUsage= fsizeFormat(p.VoicemailUsage);
+                p.WebAppCacheUsage= fsizeFormat(p.WebAppCacheUsage);
                 
                 $("#device_info").find(".item").each(function(){
                     var infoName= $(this).attr("id");
@@ -48,14 +48,14 @@ $(function(){
     var pressTimer;
     var longPressTime = 400; //长按生效时间
     function appOnClick(){
-        console.log($(this));
+        log($(this));
     };
 
     $("#tab_app_list").on("click",function(){
         $("#app_list > *:not(':first,:last')").remove();
         plugin.getAppList(function(result){
             var p= $.plist(result);
-            console.log(p);
+            log(p);
             if(p){
                 $.each(p,function(i,app){
                     var div=$("#app_list_temp").clone();
@@ -63,17 +63,17 @@ $(function(){
                     //长按显示卸载icon
                     div.on("mousedown",function(){
                         pressTimer = window.setTimeout(function() {
-                            console.log("long press....");
+                            log("long press....");
                             $("#app_list img.delete").show();
                             $("#app_list img.delete").on("click",function(){
                                 var appid=$(this).attr("id");
                                 plugin.uninstallPackage(appid,function(){},function(){
                                     var divid=appid.replace(new RegExp("\\.","gm"),"\\.");
                                     var displayName=$("div#"+divid+" #CFBundleDisplayName").html();
-                                    tools.deskNotify("卸载成功!",displayName+"已从您的手机卸载")
+                                    deskNotify("卸载成功!",displayName+"已从您的手机卸载")
                                     $("div#"+divid).hide();
                                 },function(e){
-                                    console.log(e);
+                                    log(e);
                                 });
                                 return false;
                             });
@@ -84,7 +84,7 @@ $(function(){
                                 speed:80
                             }).trigger('startRumble');
                             $(document).on("mousedown",function(){
-                                console.log("document click");
+                                log("document click");
                                 $("#app_list img.delete").hide();
                                 $(".app").trigger('stopRumble');
                                 $(document).off("mousedown");
