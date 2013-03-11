@@ -33,7 +33,7 @@ iphone管理软件浏览器插件版
 
 ###开发计划(优先级高到低)
 
-*   ipa文件下载钩子,自动安装(chrome.webRequest.onBeforeRequest.addListener)
+*   ipa文件下载,安装,(
 *   获取软件照片电影占容量
 *   文件管理
 *   越狱手机的文件管理

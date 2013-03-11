@@ -154,7 +154,7 @@ public:
     FB::variant installPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant uninstallPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant setIdeviceEventCallback(const FB::JSObjectPtr& callback,F_ADD);
-    FB::variant downloadFile(const std::string& url,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
+    FB::variant downloadFile(const std::string& url,const std::string& target_file,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     static int downloadWrite(void *buffer, size_t size, size_t nmemb, void *stream);
     static int downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow);
     static void installCallback(const char *operation, plist_t status, void *user_data);

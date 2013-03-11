@@ -18,8 +18,8 @@
 #include <libgen.h>
 
 extern "C"{
-#include <curl/curl.h>;
-#include <curl/easy.h>;
+#include <curl/curl.h>
+#include <curl/easy.h>
 }
 
 #define RESULT_BUFF_SIZE 1024000
@@ -403,12 +403,12 @@ void ibrowserAPI::installCallback(const char *operation, plist_t status, void *u
     return;
 }
 
-FB::variant ibrowserAPI::downloadFile(const std::string& url,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
+FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& target_file,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
 {
-    if(url.empty())
-        return false;
+    if(url.empty() || target_file.empty())
+        ERRO("url or tartgetfile is empty!");
     
-    THREAD(&ibrowserAPI::downloadFile,url,pcb);
+    THREAD(&ibrowserAPI::downloadFile,url,target_file,pcb);
     
     CURLcode res;
     CURL *curl;
@@ -418,8 +418,11 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const boost::option
     if(!tmpFile)
         ERRO("create tmp file error");
     
+    printf("%s\n%s\n%s\n",tmpName,url.c_str(),target_file.c_str());
+    
     struct DownloadConfig cfg={url,tmpFile,*pcb, 0};
     curl_global_init(CURL_GLOBAL_DEFAULT);
+    
     
     curl = curl_easy_init();
     if(curl)
@@ -437,14 +440,23 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const boost::option
         curl_easy_cleanup(curl);
         
     }
+    
+    
     if(cfg.stream)
         fclose(cfg.stream);
     curl_global_cleanup();
     
     if(CURLE_OK != res )
-        ERRO(res);
-    
-    SUCC(tmpName);
+        ERRO((char *)res);
+    else
+    {
+        rename(tmpName,target_file.c_str());
+        char cmd[1024];
+        sprintf(cmd,"mv %s %s",tmpName,target_file.c_str());
+        system(cmd);
+        
+        SUCC(url);
+    }
     
     return true;
 }
@@ -453,7 +465,7 @@ int ibrowserAPI::downloadProgress(void* ptr, double rDlTotal, double rDlNow, dou
 {
     struct DownloadConfig *cfg=(struct DownloadConfig *)ptr;
     if(cfg->pcb)
-        cfg->pcb->InvokeAsync("", FB::variant_list_of(rDlNow/rDlTotal));
+        cfg->pcb->InvokeAsync("", FB::variant_list_of(rDlTotal)(rDlNow));
     return 0;
 }
 

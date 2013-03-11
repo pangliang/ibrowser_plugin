@@ -6,6 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
+function getUrlParam(name)
+{
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r!=null) return unescape(r[2]); return null;
+}
 
 function deskNotify(title, msg) {
     var notification = webkitNotifications.createNotification(

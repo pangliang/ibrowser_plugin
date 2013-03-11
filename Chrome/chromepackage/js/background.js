@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var plugin;
+var downloadList=new Array();
 $(function(){
 
     chrome.runtime.onSuspend.addListener(function() {
@@ -21,11 +22,32 @@ $(function(){
             deskNotify('一枚Iphone连接到了电脑!','你可以使用ibrowser对其进行管理咯!' );
         }
     });
+    
+    function download(info)
+    {
+        info.status='downloading';
+        info.target="/Volumes/h_win/mac_downloads/"+basename(info.url).split('?')[0];
+        downloadList.push(info);
+        
+        plugin.downloadFile("lkajsdkfjdsa",info.target,
+            function(rDlTotal,rDlNow){
+                info.rDlTotal=rDlTotal;
+                info.rDlNow=rDlNow;
+            },
+            function(p){
+                info.status='已完成';
+            },
+            function(p){
+                log(p);
+                info.status='下载失败:'+p;
+            }
+        );
+    }
 
     chrome.webRequest.onBeforeRequest.addListener(
         function(info) {
             log(info);
-            
+            download(info);
             return {
                 redirectUrl: chrome.runtime.getURL("download.html?file="+info.url)
             };

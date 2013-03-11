@@ -1,0 +1,30 @@
+
+
+.download_list_item {
+    margin-top: 5px;
+    border: 1px solid #0E774A;
+    background-color: #E9F4E9;
+    height: 50px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.download_list_item .status{
+    margin: 5px;
+}
+
+.download_list_item #fileName{
+    float: left;
+    font-size: 15px;
+    margin-right: 100px;
+}
+
+.download_list_item #speed{
+    font-size: 15px;
+}
+
+.download_list_item #url{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
