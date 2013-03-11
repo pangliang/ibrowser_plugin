@@ -410,42 +410,64 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
     
     THREAD(&ibrowserAPI::downloadFile,url,target_file,pcb);
     
-    CURLcode res;
-    CURL *curl;
-    char *tmpName=tmpnam(NULL);
-    FILE *tmpFile=fopen(tmpName,"wb+");
+    printf("======%s\n",url.c_str());
     
-    if(!tmpFile)
-        ERRO("create tmp file error");
+    curl_global_init(CURL_GLOBAL_ALL);
     
-    printf("%s\n%s\n%s\n",tmpName,url.c_str(),target_file.c_str());
+    long fileSize = -1;
+    CURL *fileSizeCurl = curl_easy_init();
+    curl_easy_setopt(fileSizeCurl, CURLOPT_URL,url.c_str());
+    curl_easy_setopt(fileSizeCurl, CURLOPT_HEADER, 1);
+    curl_easy_setopt(fileSizeCurl, CURLOPT_NOBODY, 1);
+    curl_easy_perform(fileSizeCurl);
+    curl_easy_getinfo(fileSizeCurl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &fileSize);
+    curl_easy_cleanup(fileSizeCurl);
     
-    struct DownloadConfig cfg={url,tmpFile,*pcb, 0};
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    
-    
-    curl = curl_easy_init();
-    if(curl)
+    if(0 >= fileSize)
     {
-        curl_easy_setopt(curl, CURLOPT_URL,url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &ibrowserAPI::downloadWrite);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &cfg);  //给相关函数的第四个参数 传递一个结构体的指针
-        //curl的进度条声明
-        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, FALSE);
-        //回调进度条函数
-        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, &ibrowserAPI::downloadProgress);
-        //设置进度条名称
-        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, &cfg);
-        res = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
+        printf("==========%d\n",fileSize);
+        //ERRO("get file size error");
+        fileSize =  4327440;
+    }
         
+    
+    char *tmpName=tmpnam(NULL);
+    long partSize=fileSize/10;
+    pthread_t threads[10];
+    long done=0;
+    for(int i=0;i<10;i++)
+    {
+        long start=partSize*i;
+        long end=0;
+        if(i<10)
+            end=partSize*(i+1);
+        else
+            end=fileSize;
+        printf("rrrrrrrrr====%d-%d\n",start,end);
+        FILE *tmpFile=fopen(target_file.c_str(),"wb+");
+        if(!tmpFile)
+            ERRO("create tmp file error");
+        fseek(tmpFile,start,SEEK_SET);
+        
+        DownloadConfig *cfg=new DownloadConfig();
+        cfg->url=url;
+        cfg->stream=tmpFile;
+        cfg->pcb=*pcb;
+        cfg->start=start;
+        cfg->end=end;
+        cfg->done=&done;
+        
+        pthread_create(&threads[i],NULL,&ibrowserAPI::downloadThread,cfg);
     }
     
+    for(int i=0; i< 10; i++) {
+        pthread_join(threads[i], NULL);
+        printf("Thread %d terminated\n", i);
+    }
     
-    if(cfg.stream)
-        fclose(cfg.stream);
     curl_global_cleanup();
     
+    /*
     if(CURLE_OK != res )
         ERRO((char *)res);
     else
@@ -457,21 +479,54 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
         
         SUCC(url);
     }
-    
+    */
     return true;
+}
+
+void *ibrowserAPI::downloadThread(void *data)
+{
+    DownloadConfig *cfg=(DownloadConfig *)data;
+    CURLcode res;
+    CURL *curl;
+    curl = curl_easy_init();
+    printf("=========111111\n");
+    if(curl)
+    {
+        char range[512];
+        sprintf(range,"%ld-%ld",cfg->start,cfg->end);
+        printf("range:%s\n",range);
+        curl_easy_setopt(curl, CURLOPT_URL,cfg->url.c_str());
+        curl_easy_setopt(curl, CURLOPT_RANGE,range);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &ibrowserAPI::downloadWrite);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, cfg);  //给相关函数的第四个参数 传递一个结构体的指针
+        //curl的进度条声明
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, FALSE);
+        //回调进度条函数
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, &ibrowserAPI::downloadProgress);
+        //设置进度条名称
+        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, cfg);
+        res = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        
+    }
+    printf("=========2222222222\n");
+    if(cfg->stream)
+        fclose(cfg->stream);
+    return NULL;
 }
 
 int ibrowserAPI::downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow)
 {
-    struct DownloadConfig *cfg=(struct DownloadConfig *)ptr;
+    DownloadConfig *cfg=(DownloadConfig *)ptr;
+    *(cfg->done)+=rDlNow;
     if(cfg->pcb)
-        cfg->pcb->InvokeAsync("", FB::variant_list_of(rDlTotal)(rDlNow));
+        cfg->pcb->InvokeAsync("", FB::variant_list_of(rDlTotal)(*(cfg->done)));
     return 0;
 }
 
 int ibrowserAPI::downloadWrite(void *buffer, size_t size, size_t nmemb, void *stream)
 {
-    struct DownloadConfig *cfg=(struct DownloadConfig *)stream;
+    DownloadConfig *cfg=(DownloadConfig *)stream;
     return fwrite(buffer, size, nmemb, cfg->stream);
 }
 

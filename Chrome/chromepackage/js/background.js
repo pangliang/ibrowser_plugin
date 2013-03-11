@@ -29,7 +29,7 @@ $(function(){
         info.target="/Volumes/h_win/mac_downloads/"+basename(info.url).split('?')[0];
         downloadList.push(info);
         
-        plugin.downloadFile("lkajsdkfjdsa",info.target,
+        plugin.downloadFile(info.url,info.target,
             function(rDlTotal,rDlNow){
                 info.rDlTotal=rDlTotal;
                 info.rDlNow=rDlNow;
@@ -38,7 +38,6 @@ $(function(){
                 info.status='已完成';
             },
             function(p){
-                log(p);
                 info.status='下载失败:'+p;
             }
         );
