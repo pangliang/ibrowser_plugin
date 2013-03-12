@@ -414,7 +414,7 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
     
     curl_global_init(CURL_GLOBAL_ALL);
     
-    long fileSize = -1;
+    double fileSize = -1;
     CURL *fileSizeCurl = curl_easy_init();
     curl_easy_setopt(fileSizeCurl, CURLOPT_URL,url.c_str());
     curl_easy_setopt(fileSizeCurl, CURLOPT_HEADER, 1);
@@ -423,78 +423,57 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
     curl_easy_getinfo(fileSizeCurl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &fileSize);
     curl_easy_cleanup(fileSizeCurl);
     
+    printf("==========%f\n",fileSize);
     if(0 >= fileSize)
     {
-        printf("==========%d\n",fileSize);
-        //ERRO("get file size error");
-        fileSize =  4327440;
+        ERRO("get file size error");
     }
-        
     
     char *tmpName=tmpnam(NULL);
-    long partSize=fileSize/10;
-    pthread_t threads[10];
-    long done=0;
-    for(int i=0;i<10;i++)
+    double partSize=fileSize/this->downloadThreads;
+    pthread_t threads[this->downloadThreads];
+    std::vector<double> counter;
+    for(int i=0;i<this->downloadThreads;i++)
     {
-        long start=partSize*i;
-        long end=0;
-        if(i<10)
+        double start=partSize*i;
+        double end=0;
+        if(i<this->downloadThreads)
             end=partSize*(i+1);
         else
             end=fileSize;
-        printf("rrrrrrrrr====%d-%d\n",start,end);
         FILE *tmpFile=fopen(target_file.c_str(),"wb+");
         if(!tmpFile)
             ERRO("create tmp file error");
         fseek(tmpFile,start,SEEK_SET);
-        
-        DownloadConfig *cfg=new DownloadConfig();
-        cfg->url=url;
-        cfg->stream=tmpFile;
-        cfg->pcb=*pcb;
-        cfg->start=start;
-        cfg->end=end;
-        cfg->done=&done;
+        counter.push_back(0);
+        DownloadConfig *cfg=new DownloadConfig(i,url,tmpFile,*pcb,fileSize,start,end,&counter);
         
         pthread_create(&threads[i],NULL,&ibrowserAPI::downloadThread,cfg);
     }
     
-    for(int i=0; i< 10; i++) {
+    for(int i=0; i< this->downloadThreads; i++) {
         pthread_join(threads[i], NULL);
-        printf("Thread %d terminated\n", i);
     }
     
     curl_global_cleanup();
     
-    /*
-    if(CURLE_OK != res )
-        ERRO((char *)res);
-    else
-    {
-        rename(tmpName,target_file.c_str());
-        char cmd[1024];
-        sprintf(cmd,"mv %s %s",tmpName,target_file.c_str());
-        system(cmd);
-        
-        SUCC(url);
-    }
-    */
+    //rename(tmpName,target_file.c_str());
+    //char cmd[1024];
+    //sprintf(cmd,"mv %s %s",tmpName,target_file.c_str());
+    //system(cmd);
+    SUCC(url);
     return true;
 }
 
 void *ibrowserAPI::downloadThread(void *data)
 {
     DownloadConfig *cfg=(DownloadConfig *)data;
-    CURLcode res;
     CURL *curl;
-    curl = curl_easy_init();
-    printf("=========111111\n");
-    if(curl)
+    long http_code = 0;
+    while(http_code != 206 && http_code != 200 && (curl = curl_easy_init()))
     {
         char range[512];
-        sprintf(range,"%ld-%ld",cfg->start,cfg->end);
-        printf("range:%s\n",range);
+        sprintf(range,"%.0f-%.0f",cfg->start,cfg->end);
         curl_easy_setopt(curl, CURLOPT_URL,cfg->url.c_str());
         curl_easy_setopt(curl, CURLOPT_RANGE,range);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &ibrowserAPI::downloadWrite);
@@ -505,11 +484,16 @@ void *ibrowserAPI::downloadThread(void *data)
         curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, &ibrowserAPI::downloadProgress);
         //设置进度条名称
         curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, cfg);
-        res = curl_easy_perform(curl);
+        curl_easy_perform(curl);
+            
+        curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+        printf("===http_code:%ld\n",http_code);
         curl_easy_cleanup(curl);
         
+        sleep(3);
+            
     }
-    printf("=========2222222222\n");
+    
     if(cfg->stream)
         fclose(cfg->stream);
     return NULL;
@@ -518,9 +502,15 @@ void *ibrowserAPI::downloadThread(void *data)
 int ibrowserAPI::downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow)
 {
     DownloadConfig *cfg=(DownloadConfig *)ptr;
-    *(cfg->done)+=rDlNow;
+    cfg->counter->at(cfg->id)=rDlNow;
+    double done=0;
+    int len=cfg->counter->size();
+    for(int i=0;i<len;i++)
+    {
+        done+=cfg->counter->at(i);
+    }
     if(cfg->pcb)
-        cfg->pcb->InvokeAsync("", FB::variant_list_of(rDlTotal)(*(cfg->done)));
+        cfg->pcb->InvokeAsync("", FB::variant_list_of(cfg->total)(done));
     return 0;
 }
 

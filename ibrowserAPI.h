@@ -73,12 +73,32 @@ private:
 class DownloadConfig   //定义一个结构为了传递给my_fwrite函数.可用curl_easy_setopt的CURLOPT_WRITEDATA选项传递
 {
 public:
+    DownloadConfig(int id,
+                   std::string url,
+                   FILE *stream,
+                   FB::JSObjectPtr pcb,
+                   double total,
+                   double start,
+                   double end,
+                   std::vector<double> *counter)
+    {
+        this->id=id;
+        this->url=url;
+        this->stream=stream;
+        this->pcb=pcb;
+        this->total=total;
+        this->start=start;
+        this->end=end;
+        this->counter=counter;
+    }
+    int id;
     std::string url;
     FILE *stream;
     FB::JSObjectPtr pcb;
-    long start;
-    long end;
-    long *done=0;
+    double total;
+    double start;
+    double end;
+    std::vector<double> *counter;
     
 };
 
@@ -179,6 +199,7 @@ private:
 
     std::string m_testString;
     std::string uploadFileDir = "/Downloads";
+    unsigned int downloadThreads=10;
     
     idevice_t device = NULL;
     instproxy_client_t instproxy_client = NULL;
