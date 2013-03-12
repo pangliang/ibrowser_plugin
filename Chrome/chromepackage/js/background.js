@@ -25,17 +25,52 @@ $(function () {
 
     function download(info, filename) {
         info.status = 'downloading';
-        info.target = "/Volumes/h_win/mac_downloads/" + filename;
+        info.filename=filename;
         downloadList.push(info);
 
-        plugin.downloadFile(info.url, info.target,
+        deskNotify('下载', "开始为您下载"+filename);
+
+        plugin.downloadFile(info.url,info.filename,
             function (rDlTotal, rDlNow) {
                 info.rDlTotal = rDlTotal;
                 info.rDlNow = rDlNow;
+                info.progressBar=rDlNow/rDlTotal;
             },
-            function (p) {
-                info.status = '已完成';
+            function (file) {
+                info.status = '下载完成, 正在上传至手机...';
                 deskNotify('下载完成, 开始安装...', filename+"下载完成, 马上为您安装....");
+                
+                plugin.uploadFile(
+                    file,
+                    function(proc){info.progressBar=proc;},
+                    function(pkgName){
+                        plugin.installPackage(
+                            pkgName,
+                            function(xml){
+                                var p= $.plist(xml);
+                                if(!p.Error && p.Status != "Complete")
+                                {
+                                    info.progressBar=p.PercentComplete/100;
+                                    info.status="传输完成, 安装..."+fileName+"..."+ p.Status;
+                                }
+                            },
+                            function(e){
+                                info.status = '安装成功!';
+                                deskNotify('安装成功!',filename+'已被安装!');
+                                info.progressBar=100;
+                            },
+                            function(e){
+                                info.status = '安装失败:'+e;
+                                deskNotify('安装失败', filename+"安装错误:"+e);
+                            }
+                        );
+                    },
+                    function(e){
+                        info.status = '上传失败:'+e;
+                        deskNotify('安装失败', filename+"上传错误:"+e);
+                    }
+
+                );
             },
             function (p) {
                 info.status = '下载失败:' + p;

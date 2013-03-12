@@ -23,6 +23,8 @@ extern "C"{
 #ifndef H_ibrowserAPI
 #define H_ibrowserAPI
 
+#define log(fmt, args...)   printf(fmt,##args);printf("\n")
+
 #define F_SUCC  const boost::optional<FB::JSObjectPtr>& scb
 #define F_ERRO  const boost::optional<FB::JSObjectPtr>& ecb
 #define F_T_FLAG    boost::optional<bool> noThread
@@ -77,7 +79,7 @@ public:
                    std::string url,
                    FILE *stream,
                    FB::JSObjectPtr pcb,
-                   double total,
+                   double filesize,
                    double start,
                    double end,
                    std::vector<double> *counter)
@@ -86,7 +88,7 @@ public:
         this->url=url;
         this->stream=stream;
         this->pcb=pcb;
-        this->total=total;
+        this->filesize=filesize;
         this->start=start;
         this->end=end;
         this->counter=counter;
@@ -95,10 +97,21 @@ public:
     std::string url;
     FILE *stream;
     FB::JSObjectPtr pcb;
-    double total;
+    double filesize;
     double start;
     double end;
     std::vector<double> *counter;
+    
+    double getDownloadedSize()
+    {
+        double done=0;
+        int len=this->counter->size();
+        for(int i=0;i<len;i++)
+        {
+            done+=this->counter->at(i);
+        }
+        return done;
+    }
     
 };
 
@@ -178,7 +191,7 @@ public:
     FB::variant installPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant uninstallPackage(const std::string& fileName,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     FB::variant setIdeviceEventCallback(const FB::JSObjectPtr& callback,F_ADD);
-    FB::variant downloadFile(const std::string& url,const std::string& target_file,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
+    FB::variant downloadFile(const std::string& url,const std::string& filename,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD);
     static void* downloadThread(void *data);
     static int downloadWrite(void *buffer, size_t size, size_t nmemb, void *stream);
     static int downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow);

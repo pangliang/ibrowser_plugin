@@ -42,7 +42,6 @@ $(function(){
                 pkgName,
                 function(xml){
                     var p= $.plist(xml);
-                    log(p);
                     if(!p.Error && p.Status != "Complete")
                     {
                         div.find("#selTip").html("传输完成, 安装..."+fileName+"..."+ p.Status);

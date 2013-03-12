@@ -10,7 +10,9 @@
 }
 
 .download_list_item .status{
-    margin: 5px;
+    margin: 10px;
+    margin-top: -45px;
+    position: absolute;
 }
 
 .download_list_item #fileName{
@@ -27,4 +29,13 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.download_list_item #progressBar {
+    display: block;
+    position: relative;
+    height: 50px;
+    background: #B1D632;
+    text-align: center;
+    color: #fff;
 }

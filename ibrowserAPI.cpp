@@ -312,7 +312,7 @@ FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost
     
     while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_install(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)cb)))
     {
-        printf("installPackage %s sleep...\n",fileName.c_str());
+        log("installPackage %s sleep...",fileName.c_str());
         sleep(1);
     }
     
@@ -340,7 +340,7 @@ FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boo
     
     while (INSTPROXY_E_OP_IN_PROGRESS == (ret = instproxy_uninstall(instproxy_client, fileName.c_str(), NULL, &ibrowserAPI::installCallback, (void*)cb)))
     {
-        printf("uninstallPackage %s sleep...\n",fileName.c_str());
+        log("uninstallPackage %s sleep...",fileName.c_str());
         sleep(1);
     }
     
@@ -403,14 +403,12 @@ void ibrowserAPI::installCallback(const char *operation, plist_t status, void *u
     return;
 }
 
-FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& target_file,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
+FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& filename,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)
 {
-    if(url.empty() || target_file.empty())
-        ERRO("url or tartgetfile is empty!");
+    if(url.empty() || filename.empty())
+        ERRO("url or filename is empty!");
     
-    THREAD(&ibrowserAPI::downloadFile,url,target_file,pcb);
-    
-    printf("======%s\n",url.c_str());
+    THREAD(&ibrowserAPI::downloadFile,url,filename,pcb);
     
     curl_global_init(CURL_GLOBAL_ALL);
     
@@ -423,13 +421,17 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
     curl_easy_getinfo(fileSizeCurl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &fileSize);
     curl_easy_cleanup(fileSizeCurl);
     
-    printf("==========%f\n",fileSize);
+    log("download file size:%.0f",fileSize);
     if(0 >= fileSize)
     {
         ERRO("get file size error");
     }
     
-    char *tmpName=tmpnam(NULL);
+    char tmpName[1024];
+    sprintf(tmpName,"%s/%s",dirname(tmpnam(NULL)),filename.c_str());
+    
+    log("start download, save file:%s, use %d threads",tmpName,this->downloadThreads);
+    
     double partSize=fileSize/this->downloadThreads;
     pthread_t threads[this->downloadThreads];
     std::vector<double> counter;
@@ -437,17 +439,18 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
     {
         double start=partSize*i;
         double end=0;
-        if(i<this->downloadThreads)
-            end=partSize*(i+1);
+        if(i+1<this->downloadThreads)
+            end=partSize*(i+1)-1;
         else
             end=fileSize;
-        FILE *tmpFile=fopen(target_file.c_str(),"wb+");
+        FILE *tmpFile=fopen(tmpName,"wb+");
         if(!tmpFile)
             ERRO("create tmp file error");
         fseek(tmpFile,start,SEEK_SET);
         counter.push_back(0);
-        DownloadConfig *cfg=new DownloadConfig(i,url,tmpFile,*pcb,fileSize,start,end,&counter);
         
+        log("threadid:%d,range:%.0f-%.0f",i,start,end);
+        DownloadConfig *cfg=new DownloadConfig(i,url,tmpFile,*pcb,fileSize,start,end,&counter);
         pthread_create(&threads[i],NULL,&ibrowserAPI::downloadThread,cfg);
     }
     
@@ -457,11 +460,22 @@ FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& 
     
     curl_global_cleanup();
     
-    //rename(tmpName,target_file.c_str());
-    //char cmd[1024];
-    //sprintf(cmd,"mv %s %s",tmpName,target_file.c_str());
-    //system(cmd);
-    SUCC(url);
+    double downloadSize=0;
+    int len=counter.size();
+    for(int i=0;i<len;i++)
+    {
+        downloadSize+=counter.at(i);
+    }
+    //downloadSize+=1;
+    log("downloadSize:%.0f",downloadSize);
+    if(downloadSize == fileSize)
+    {
+        SUCC(tmpName);
+    }else{
+        ERRO("download error");
+    }
+    
+    
     return true;
 }
 
@@ -470,28 +484,34 @@ void *ibrowserAPI::downloadThread(void *data)
     DownloadConfig *cfg=(DownloadConfig *)data;
     CURL *curl;
     long http_code = 0;
-    while(http_code != 206 && http_code != 200 && (curl = curl_easy_init()))
+    while((curl = curl_easy_init()))
     {
         char range[512];
         sprintf(range,"%.0f-%.0f",cfg->start,cfg->end);
         curl_easy_setopt(curl, CURLOPT_URL,cfg->url.c_str());
         curl_easy_setopt(curl, CURLOPT_RANGE,range);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &ibrowserAPI::downloadWrite);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, cfg);  //给相关函数的第四个参数 传递一个结构体的指针
-        //curl的进度条声明
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, cfg);
         curl_easy_setopt(curl, CURLOPT_NOPROGRESS, FALSE);
-        //回调进度条函数
         curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, &ibrowserAPI::downloadProgress);
-        //设置进度条名称
         curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, cfg);
-        curl_easy_perform(curl);
-            
+        if(CURLE_OK != curl_easy_perform(curl))
+            break;
+
         curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
-        printf("===http_code:%ld\n",http_code);
         curl_easy_cleanup(curl);
         
-        sleep(3);
-            
+        log("threadid:%d,http_code:%ld",cfg->id, http_code);
+        if(http_code != 206 && http_code != 200 )
+        {
+            sleep(3);
+            if(cfg->getDownloadedSize() <= 0)
+                break;  //其他线程也无法下载数据, 此资源不可下载;
+            log("anther thread down size:%.0f, try again...",cfg->getDownloadedSize());
+        }else{
+            //下载完成
+            break;
+        }
     }
     
     if(cfg->stream)
@@ -503,14 +523,9 @@ int ibrowserAPI::downloadProgress(void* ptr, double rDlTotal, double rDlNow, dou
 {
     DownloadConfig *cfg=(DownloadConfig *)ptr;
     cfg->counter->at(cfg->id)=rDlNow;
-    double done=0;
-    int len=cfg->counter->size();
-    for(int i=0;i<len;i++)
-    {
-        done+=cfg->counter->at(i);
-    }
+    double done=cfg->getDownloadedSize();
     if(cfg->pcb)
-        cfg->pcb->InvokeAsync("", FB::variant_list_of(cfg->total)(done));
+        cfg->pcb->InvokeAsync("", FB::variant_list_of(cfg->filesize)(done));
     return 0;
 }
 
