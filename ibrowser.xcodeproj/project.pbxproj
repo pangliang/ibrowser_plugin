@@ -1,0 +1,340 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		81159D3417000CF7007B7066 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81159D3217000CF7007B7066 /* InfoPlist.strings */; };
+		81159D3D17000D2F007B7066 /* ibrowser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81159D3B17000D2F007B7066 /* ibrowser.cpp */; };
+		81159D49170010AB007B7066 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81159D48170010AB007B7066 /* Cocoa.framework */; };
+		81159D4B1700119A007B7066 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81159D4A1700119A007B7066 /* Foundation.framework */; };
+		81159D4D1700126D007B7066 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81159D4C1700126D007B7066 /* WebKit.framework */; };
+		81E95A3E17002A3200B44BEA /* libusbmuxd.1.0.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E95A3B17002A3200B44BEA /* libusbmuxd.1.0.8.dylib */; };
+		81E95A3F17002A3200B44BEA /* libplist.1.1.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */; };
+		81E95A4017002A3200B44BEA /* libimobiledevice.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E95A3D17002A3200B44BEA /* libimobiledevice.4.dylib */; };
+		81E95A4217002A5000B44BEA /* libusbmuxd.1.0.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81E95A3B17002A3200B44BEA /* libusbmuxd.1.0.8.dylib */; };
+		81E95A4317002A5000B44BEA /* libplist.1.1.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */; };
+		81E95A4417002A5000B44BEA /* libimobiledevice.4.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81E95A3D17002A3200B44BEA /* libimobiledevice.4.dylib */; };
+		81E95A4717004BC900B44BEA /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E95A4517004BC900B44BEA /* Plugin.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		81E95A4117002A4500B44BEA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				81E95A4217002A5000B44BEA /* libusbmuxd.1.0.8.dylib in CopyFiles */,
+				81E95A4317002A5000B44BEA /* libplist.1.1.8.dylib in CopyFiles */,
+				81E95A4417002A5000B44BEA /* libimobiledevice.4.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		81159D2A17000CF7007B7066 /* ibrowser.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ibrowser.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		81159D3117000CF7007B7066 /* ibrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ibrowser-Info.plist"; sourceTree = "<group>"; };
+		81159D3317000CF7007B7066 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		81159D3517000CF7007B7066 /* ibrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ibrowser-Prefix.pch"; sourceTree = "<group>"; };
+		81159D3B17000D2F007B7066 /* ibrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibrowser.cpp; sourceTree = "<group>"; };
+		81159D3C17000D2F007B7066 /* ibrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibrowser.h; sourceTree = "<group>"; };
+		81159D4117000FAC007B7066 /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functions.h; sourceTree = "<group>"; };
+		81159D4217000FE0007B7066 /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
+		81159D4417000FF2007B7066 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		81159D4517001032007B7066 /* ibrowserAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibrowserAPI.cpp; sourceTree = "<group>"; };
+		81159D4617001032007B7066 /* ibrowserAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibrowserAPI.h; sourceTree = "<group>"; };
+		81159D48170010AB007B7066 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		81159D4A1700119A007B7066 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		81159D4C1700126D007B7066 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		81E95A3B17002A3200B44BEA /* libusbmuxd.1.0.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libusbmuxd.1.0.8.dylib; path = libs/libusbmuxd.1.0.8.dylib; sourceTree = "<group>"; };
+		81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libplist.1.1.8.dylib; path = libs/libplist.1.1.8.dylib; sourceTree = "<group>"; };
+		81E95A3D17002A3200B44BEA /* libimobiledevice.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libimobiledevice.4.dylib; path = libs/libimobiledevice.4.dylib; sourceTree = "<group>"; };
+		81E95A4517004BC900B44BEA /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		81E95A4617004BC900B44BEA /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
+		81E95A481700809700B44BEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		81159D2717000CF7007B7066 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81E95A3E17002A3200B44BEA /* libusbmuxd.1.0.8.dylib in Frameworks */,
+				81E95A3F17002A3200B44BEA /* libplist.1.1.8.dylib in Frameworks */,
+				81E95A4017002A3200B44BEA /* libimobiledevice.4.dylib in Frameworks */,
+				81159D4D1700126D007B7066 /* WebKit.framework in Frameworks */,
+				81159D4B1700119A007B7066 /* Foundation.framework in Frameworks */,
+				81159D49170010AB007B7066 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		81159D1F17000CF7007B7066 = {
+			isa = PBXGroup;
+			children = (
+				81E95A481700809700B44BEA /* AppKit.framework */,
+				81E95A3B17002A3200B44BEA /* libusbmuxd.1.0.8.dylib */,
+				81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */,
+				81E95A3D17002A3200B44BEA /* libimobiledevice.4.dylib */,
+				81159D4C1700126D007B7066 /* WebKit.framework */,
+				81159D4A1700119A007B7066 /* Foundation.framework */,
+				81159D48170010AB007B7066 /* Cocoa.framework */,
+				81159D2F17000CF7007B7066 /* ibrowser */,
+				81159D2C17000CF7007B7066 /* Frameworks */,
+				81159D2B17000CF7007B7066 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		81159D2B17000CF7007B7066 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81159D2A17000CF7007B7066 /* ibrowser.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		81159D2C17000CF7007B7066 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81159D2F17000CF7007B7066 /* ibrowser */ = {
+			isa = PBXGroup;
+			children = (
+				81159D4517001032007B7066 /* ibrowserAPI.cpp */,
+				81159D4617001032007B7066 /* ibrowserAPI.h */,
+				81159D4417000FF2007B7066 /* base64.h */,
+				81159D3017000CF7007B7066 /* Supporting Files */,
+				81159D3B17000D2F007B7066 /* ibrowser.cpp */,
+				81159D3C17000D2F007B7066 /* ibrowser.h */,
+				81159D4117000FAC007B7066 /* functions.h */,
+				81159D4217000FE0007B7066 /* functions.cpp */,
+				81E95A4517004BC900B44BEA /* Plugin.cpp */,
+				81E95A4617004BC900B44BEA /* Plugin.h */,
+			);
+			path = ibrowser;
+			sourceTree = "<group>";
+		};
+		81159D3017000CF7007B7066 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				81159D3117000CF7007B7066 /* ibrowser-Info.plist */,
+				81159D3217000CF7007B7066 /* InfoPlist.strings */,
+				81159D3517000CF7007B7066 /* ibrowser-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		81159D2917000CF7007B7066 /* ibrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81159D3817000CF7007B7066 /* Build configuration list for PBXNativeTarget "ibrowser" */;
+			buildPhases = (
+				81159D2617000CF7007B7066 /* Sources */,
+				81159D2717000CF7007B7066 /* Frameworks */,
+				81159D2817000CF7007B7066 /* Resources */,
+				81E95A4117002A4500B44BEA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ibrowser;
+			productName = ibrowser;
+			productReference = 81159D2A17000CF7007B7066 /* ibrowser.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		81159D2117000CF7007B7066 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = liangwei;
+			};
+			buildConfigurationList = 81159D2417000CF7007B7066 /* Build configuration list for PBXProject "ibrowser" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 81159D1F17000CF7007B7066;
+			productRefGroup = 81159D2B17000CF7007B7066 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				81159D2917000CF7007B7066 /* ibrowser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		81159D2817000CF7007B7066 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81159D3417000CF7007B7066 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		81159D2617000CF7007B7066 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81159D3D17000D2F007B7066 /* ibrowser.cpp in Sources */,
+				81E95A4717004BC900B44BEA /* Plugin.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		81159D3217000CF7007B7066 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				81159D3317000CF7007B7066 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		81159D3617000CF7007B7066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		81159D3717000CF7007B7066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		81159D3917000CF7007B7066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ibrowser/ibrowser-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"XP_MACOSX=1",
+				);
+				HEADER_SEARCH_PATHS = include;
+				INFOPLIST_FILE = "ibrowser/ibrowser-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		81159D3A17000CF7007B7066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ibrowser/ibrowser-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "XP_MACOSX=1";
+				HEADER_SEARCH_PATHS = include;
+				INFOPLIST_FILE = "ibrowser/ibrowser-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		81159D2417000CF7007B7066 /* Build configuration list for PBXProject "ibrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81159D3617000CF7007B7066 /* Debug */,
+				81159D3717000CF7007B7066 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81159D3817000CF7007B7066 /* Build configuration list for PBXNativeTarget "ibrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81159D3917000CF7007B7066 /* Debug */,
+				81159D3A17000CF7007B7066 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 81159D2117000CF7007B7066 /* Project object */;
+}
