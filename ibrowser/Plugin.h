@@ -12,14 +12,29 @@
 #include <WebKit/npapi.h>
 #include <WebKit/npfunctions.h>
 #include <WebKit/npruntime.h>
-#include <boost/bind.hpp>
-#include <boost/function.hpp>
 #include <string>
-#include <map>
+#include <unordered_map>
 
-#include "NPObjectAPI.h"
+extern "C"{
+#include <libimobiledevice/libimobiledevice.h>
+#include <libimobiledevice/lockdown.h>
+#include <libimobiledevice/installation_proxy.h>
+#include <libimobiledevice/afc.h>
+#include <libimobiledevice/sbservices.h>
+#include <libimobiledevice/service.h>
+}
 
 using namespace std;
+
+#define RESULT_BUFF_SIZE 1024000
+#define CLIENT_LABEL "ibrowser"
+
+#define ERRO(msg)   \
+    do{ \
+        printf("error:%s\n",msg); \
+        clean(); \
+        throw msg; \
+    }while(0)
 
 class Callback{
 public:
@@ -48,26 +63,37 @@ public:
     }
     
 private:
-    map<string,NPObject*> list;
+    unordered_map<string,NPObject*> list;
 };
-typedef boost::function< bool(const NPVariant *args, uint32_t argCount, NPVariant *result )> fun;
+
 class Plugin
 {
-    
+    typedef bool (Plugin::*fun) (const NPVariant *args, uint32_t argCount, NPVariant *result );
 public:
-    Plugin(NPP npp,NPNetscapeFuncs* browser):npp(npp),browser(browser){
-        
+    Plugin(NPNetscapeFuncs* browser):browser(browser){
+        registerMethod("setIdeviceEventCallback",&Plugin::setIdeviceEventCallback);
+        registerMethod("getDeviceInfo",&Plugin::getDeviceInfo);
     }
     void registerMethod(string,fun);
     bool hasMethod(NPObject *obj, NPIdentifier methodName);
-    bool call(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result);
+    bool invoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result);
     
+    bool getDeviceInfo(const NPVariant *args, uint32_t argCount, NPVariant *result);
+    bool setIdeviceEventCallback(const NPVariant *args, uint32_t argCount, NPVariant *result);
+    static void ideviceEventCallback(const idevice_event_t *event, void *user_data);
                        
-protected:
-    NPP npp;
+private:
     NPNetscapeFuncs* browser;
-    map<string, fun> INVOKE_FUNCTIONS ;
+    unordered_map<string, fun> INVOKE_FUNCTIONS ;
     
+    bool init();
+    void clean();
+    
+    idevice_t device ;
+    instproxy_client_t instproxy_client ;
+    lockdownd_client_t 	lockdownd_client ;
+    sbservices_client_t sbservices_client;
+    afc_client_t afc_client;
 };
 
 #endif /* defined(__ibrowser__Plugin__) */

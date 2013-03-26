@@ -10,9 +10,9 @@
 #import <WebKit/npfunctions.h>
 #import <WebKit/npruntime.h>
 
-#include "IbrowserAPI.h"
+#include "Plugin.h"
 
-static IbrowserAPI* plugin=NULL;
+static Plugin* plugin=NULL;
 static NPNetscapeFuncs* browser=NULL;
 
 extern "C"{
@@ -63,6 +63,7 @@ static struct NPClass scriptablePluginClass = {
 NPError NP_Initialize(NPNetscapeFuncs* browserFuncs)
 {
     browser=browserFuncs;
+    plugin = new Plugin(browserFuncs);
     return NPERR_NO_ERROR;
 }
 
@@ -93,12 +94,27 @@ void NP_Shutdown(void)
     
 }
 
+
+#define STRINGN_TO_NPVARIANT(_val, _len, _v)                                  \
+NP_BEGIN_MACRO                                                                \
+(_v).type = NPVariantType_String;                                         \
+NPString str = { _val, (uint32_t)(_len) };                                  \
+(_v).value.stringValue = str;                                             \
+NP_END_MACRO
+
+#define STRINGZ_TO_NPVARIANT(_val, _v)                                        \
+NP_BEGIN_MACRO                                                                \
+(_v).type = NPVariantType_String;                                         \
+NPString str = { _val, (uint32_t)(strlen(_val)) };                          \
+(_v).value.stringValue = str;                                             \
+NP_END_MACRO
+
 bool pluginHasMethod(NPObject *obj, NPIdentifier methodName) {
     return plugin->hasMethod(obj,methodName);
 }
 
 bool pluginInvoke(NPObject *obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
-    return plugin->call(obj, methodName, args, argCount, result);
+    return plugin->invoke(obj, methodName, args, argCount, result);
 }
 
 bool hasProperty(NPObject *obj, NPIdentifier propertyName) {
@@ -114,9 +130,6 @@ bool getProperty(NPObject *obj, NPIdentifier propertyName, NPVariant *result) {
 //NPP Functions Implements
 NPError NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char* argn[], char* argv[], NPSavedData* saved)
 {
-    
-    plugin = new IbrowserAPI(instance,browser);
-    
     if(!instance->pdata) {
         instance->pdata = browser->createobject(instance, &scriptablePluginClass);
     }
