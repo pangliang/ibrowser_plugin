@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'ibrowser' target in the 'ibrowser' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif
