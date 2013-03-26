@@ -22,6 +22,9 @@ $(function () {
         }
     });
 
+    var rs=plugin.getDeviceInfo(new Array("com.apple.mobile.battery","","com.apple.disk_usage.factory"));
+    console.log(rs);
+
     function download(info, filename) {
         info.status = 'downloading';
         info.filename=filename;

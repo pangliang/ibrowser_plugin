@@ -12,7 +12,7 @@ $(function(){
     });
 
     $("#tab_device_info").on("click",function(){
-        plugin.getDeviceInfo(new Array("com.apple.mobile.battery","aa","com.apple.disk_usage.factory"),function(rs){
+        var rs=plugin.getDeviceInfo(new Array("com.apple.mobile.battery","aa","com.apple.disk_usage.factory"),function(rs){
             var p=null;
             for(index in rs)
             {
@@ -40,6 +40,8 @@ $(function(){
                 });
             }
         });
+        
+        console.log(rs);
         
         
     });

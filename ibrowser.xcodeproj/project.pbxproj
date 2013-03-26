@@ -19,6 +19,8 @@
 		81E95A4317002A5000B44BEA /* libplist.1.1.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */; };
 		81E95A4417002A5000B44BEA /* libimobiledevice.4.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81E95A3D17002A3200B44BEA /* libimobiledevice.4.dylib */; };
 		81E95A4717004BC900B44BEA /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E95A4517004BC900B44BEA /* Plugin.cpp */; };
+		81F7D83117014F810086B42F /* libdyncall_s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81F7D83017014F810086B42F /* libdyncall_s.a */; };
+		81F7D83817017C7D0086B42F /* IbrowserAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81F7D83617017C7D0086B42F /* IbrowserAPI.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,20 +45,22 @@
 		81159D3517000CF7007B7066 /* ibrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ibrowser-Prefix.pch"; sourceTree = "<group>"; };
 		81159D3B17000D2F007B7066 /* ibrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibrowser.cpp; sourceTree = "<group>"; };
 		81159D3C17000D2F007B7066 /* ibrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibrowser.h; sourceTree = "<group>"; };
-		81159D4117000FAC007B7066 /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functions.h; sourceTree = "<group>"; };
-		81159D4217000FE0007B7066 /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
 		81159D4417000FF2007B7066 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
-		81159D4517001032007B7066 /* ibrowserAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibrowserAPI.cpp; sourceTree = "<group>"; };
-		81159D4617001032007B7066 /* ibrowserAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibrowserAPI.h; sourceTree = "<group>"; };
+		81159D4517001032007B7066 /* ibrowserAPI_bak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibrowserAPI_bak.cpp; sourceTree = "<group>"; };
+		81159D4617001032007B7066 /* ibrowserAPI_bak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibrowserAPI_bak.h; sourceTree = "<group>"; };
 		81159D48170010AB007B7066 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		81159D4A1700119A007B7066 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		81159D4C1700126D007B7066 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		8167E85E17018B48007D7772 /* NPObjectAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPObjectAPI.h; sourceTree = "<group>"; };
 		81E95A3B17002A3200B44BEA /* libusbmuxd.1.0.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libusbmuxd.1.0.8.dylib; path = libs/libusbmuxd.1.0.8.dylib; sourceTree = "<group>"; };
 		81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libplist.1.1.8.dylib; path = libs/libplist.1.1.8.dylib; sourceTree = "<group>"; };
 		81E95A3D17002A3200B44BEA /* libimobiledevice.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libimobiledevice.4.dylib; path = libs/libimobiledevice.4.dylib; sourceTree = "<group>"; };
 		81E95A4517004BC900B44BEA /* Plugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
 		81E95A4617004BC900B44BEA /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		81E95A481700809700B44BEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		81F7D83017014F810086B42F /* libdyncall_s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdyncall_s.a; path = libs/libdyncall_s.a; sourceTree = "<group>"; };
+		81F7D83617017C7D0086B42F /* IbrowserAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IbrowserAPI.cpp; sourceTree = "<group>"; };
+		81F7D83717017C7D0086B42F /* IbrowserAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IbrowserAPI.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81F7D83117014F810086B42F /* libdyncall_s.a in Frameworks */,
 				81E95A3E17002A3200B44BEA /* libusbmuxd.1.0.8.dylib in Frameworks */,
 				81E95A3F17002A3200B44BEA /* libplist.1.1.8.dylib in Frameworks */,
 				81E95A4017002A3200B44BEA /* libimobiledevice.4.dylib in Frameworks */,
@@ -79,6 +84,7 @@
 		81159D1F17000CF7007B7066 = {
 			isa = PBXGroup;
 			children = (
+				81F7D83017014F810086B42F /* libdyncall_s.a */,
 				81E95A481700809700B44BEA /* AppKit.framework */,
 				81E95A3B17002A3200B44BEA /* libusbmuxd.1.0.8.dylib */,
 				81E95A3C17002A3200B44BEA /* libplist.1.1.8.dylib */,
@@ -110,16 +116,17 @@
 		81159D2F17000CF7007B7066 /* ibrowser */ = {
 			isa = PBXGroup;
 			children = (
-				81159D4517001032007B7066 /* ibrowserAPI.cpp */,
-				81159D4617001032007B7066 /* ibrowserAPI.h */,
+				81159D4517001032007B7066 /* ibrowserAPI_bak.cpp */,
+				81159D4617001032007B7066 /* ibrowserAPI_bak.h */,
 				81159D4417000FF2007B7066 /* base64.h */,
 				81159D3017000CF7007B7066 /* Supporting Files */,
 				81159D3B17000D2F007B7066 /* ibrowser.cpp */,
 				81159D3C17000D2F007B7066 /* ibrowser.h */,
-				81159D4117000FAC007B7066 /* functions.h */,
-				81159D4217000FE0007B7066 /* functions.cpp */,
 				81E95A4517004BC900B44BEA /* Plugin.cpp */,
 				81E95A4617004BC900B44BEA /* Plugin.h */,
+				81F7D83617017C7D0086B42F /* IbrowserAPI.cpp */,
+				81F7D83717017C7D0086B42F /* IbrowserAPI.h */,
+				8167E85E17018B48007D7772 /* NPObjectAPI.h */,
 			);
 			path = ibrowser;
 			sourceTree = "<group>";
@@ -199,6 +206,7 @@
 			files = (
 				81159D3D17000D2F007B7066 /* ibrowser.cpp in Sources */,
 				81E95A4717004BC900B44BEA /* Plugin.cpp in Sources */,
+				81F7D83817017C7D0086B42F /* IbrowserAPI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,8 +279,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ibrowser/ibrowser-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -280,7 +290,10 @@
 					"$(inherited)",
 					"XP_MACOSX=1",
 				);
-				HEADER_SEARCH_PATHS = include;
+				HEADER_SEARCH_PATHS = (
+					include,
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = "ibrowser/ibrowser-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -288,6 +301,7 @@
 					"\"$(SRCROOT)/libs\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "x86_64 i386";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -296,12 +310,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ibrowser/ibrowser-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "XP_MACOSX=1";
-				HEADER_SEARCH_PATHS = include;
+				HEADER_SEARCH_PATHS = (
+					include,
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = "ibrowser/ibrowser-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LIBRARY_SEARCH_PATHS = (
@@ -309,6 +328,7 @@
 					"\"$(SRCROOT)/libs\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "x86_64 i386";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
