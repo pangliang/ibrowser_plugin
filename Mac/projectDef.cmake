@@ -37,8 +37,8 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 # add library dependencies here; leave ${PLUGIN_INTERNAL_DEPS} there unless you know what you're doing!
 target_link_libraries(${PROJECT_NAME}
     ${PLUGIN_INTERNAL_DEPS}
-    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libimobiledevice.a"
-    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libplist.a"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libimobiledevice.4.dylib"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/libplist.1.1.8.dylib"
     "${CMAKE_CURRENT_SOURCE_DIR}/libs/libusbmuxd.1.0.8.dylib"
     )
 
