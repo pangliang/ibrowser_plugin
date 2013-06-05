@@ -1,0 +1,489 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+$.plist	Chrome/chromepackage/js/jquery.plist.js	/^    $.plist = function(xml) {$/;"	f
+AFC_E_DIR_NOT_EMPTY	include/libimobiledevice/afc.h	/^#define AFC_E_DIR_NOT_EMPTY /;"	d
+AFC_E_END_OF_DATA	include/libimobiledevice/afc.h	/^#define AFC_E_END_OF_DATA /;"	d
+AFC_E_INTERNAL_ERROR	include/libimobiledevice/afc.h	/^#define AFC_E_INTERNAL_ERROR /;"	d
+AFC_E_INVALID_ARG	include/libimobiledevice/afc.h	/^#define AFC_E_INVALID_ARG /;"	d
+AFC_E_IO_ERROR	include/libimobiledevice/afc.h	/^#define AFC_E_IO_ERROR /;"	d
+AFC_E_MUX_ERROR	include/libimobiledevice/afc.h	/^#define AFC_E_MUX_ERROR /;"	d
+AFC_E_NOT_ENOUGH_DATA	include/libimobiledevice/afc.h	/^#define AFC_E_NOT_ENOUGH_DATA /;"	d
+AFC_E_NO_MEM	include/libimobiledevice/afc.h	/^#define AFC_E_NO_MEM /;"	d
+AFC_E_NO_RESOURCES	include/libimobiledevice/afc.h	/^#define AFC_E_NO_RESOURCES /;"	d
+AFC_E_NO_SPACE_LEFT	include/libimobiledevice/afc.h	/^#define AFC_E_NO_SPACE_LEFT /;"	d
+AFC_E_OBJECT_BUSY	include/libimobiledevice/afc.h	/^#define AFC_E_OBJECT_BUSY /;"	d
+AFC_E_OBJECT_EXISTS	include/libimobiledevice/afc.h	/^#define AFC_E_OBJECT_EXISTS /;"	d
+AFC_E_OBJECT_IS_DIR	include/libimobiledevice/afc.h	/^#define AFC_E_OBJECT_IS_DIR /;"	d
+AFC_E_OBJECT_NOT_FOUND	include/libimobiledevice/afc.h	/^#define AFC_E_OBJECT_NOT_FOUND /;"	d
+AFC_E_OP_HEADER_INVALID	include/libimobiledevice/afc.h	/^#define AFC_E_OP_HEADER_INVALID /;"	d
+AFC_E_OP_INTERRUPTED	include/libimobiledevice/afc.h	/^#define AFC_E_OP_INTERRUPTED /;"	d
+AFC_E_OP_IN_PROGRESS	include/libimobiledevice/afc.h	/^#define AFC_E_OP_IN_PROGRESS /;"	d
+AFC_E_OP_NOT_SUPPORTED	include/libimobiledevice/afc.h	/^#define AFC_E_OP_NOT_SUPPORTED /;"	d
+AFC_E_OP_TIMEOUT	include/libimobiledevice/afc.h	/^#define AFC_E_OP_TIMEOUT /;"	d
+AFC_E_OP_WOULD_BLOCK	include/libimobiledevice/afc.h	/^#define AFC_E_OP_WOULD_BLOCK /;"	d
+AFC_E_PERM_DENIED	include/libimobiledevice/afc.h	/^#define AFC_E_PERM_DENIED /;"	d
+AFC_E_READ_ERROR	include/libimobiledevice/afc.h	/^#define AFC_E_READ_ERROR /;"	d
+AFC_E_SERVICE_NOT_CONNECTED	include/libimobiledevice/afc.h	/^#define AFC_E_SERVICE_NOT_CONNECTED /;"	d
+AFC_E_SUCCESS	include/libimobiledevice/afc.h	/^#define AFC_E_SUCCESS /;"	d
+AFC_E_TOO_MUCH_DATA	include/libimobiledevice/afc.h	/^#define AFC_E_TOO_MUCH_DATA /;"	d
+AFC_E_UNKNOWN_ERROR	include/libimobiledevice/afc.h	/^#define AFC_E_UNKNOWN_ERROR /;"	d
+AFC_E_UNKNOWN_PACKET_TYPE	include/libimobiledevice/afc.h	/^#define AFC_E_UNKNOWN_PACKET_TYPE /;"	d
+AFC_E_WRITE_ERROR	include/libimobiledevice/afc.h	/^#define AFC_E_WRITE_ERROR /;"	d
+AFC_FOPEN_APPEND	include/libimobiledevice/afc.h	/^	AFC_FOPEN_APPEND   = 0x00000005, \/**< a   O_WRONLY | O_APPEND | O_CREAT *\/$/;"	e	enum:__anon1
+AFC_FOPEN_RDAPPEND	include/libimobiledevice/afc.h	/^	AFC_FOPEN_RDAPPEND = 0x00000006  \/**< a+  O_RDWR   | O_APPEND | O_CREAT *\/$/;"	e	enum:__anon1
+AFC_FOPEN_RDONLY	include/libimobiledevice/afc.h	/^	AFC_FOPEN_RDONLY   = 0x00000001, \/**< r   O_RDONLY *\/$/;"	e	enum:__anon1
+AFC_FOPEN_RW	include/libimobiledevice/afc.h	/^	AFC_FOPEN_RW       = 0x00000002, \/**< r+  O_RDWR   | O_CREAT *\/$/;"	e	enum:__anon1
+AFC_FOPEN_WR	include/libimobiledevice/afc.h	/^	AFC_FOPEN_WR       = 0x00000004, \/**< w+  O_RDWR   | O_CREAT  | O_TRUNC *\/$/;"	e	enum:__anon1
+AFC_FOPEN_WRONLY	include/libimobiledevice/afc.h	/^	AFC_FOPEN_WRONLY   = 0x00000003, \/**< w   O_WRONLY | O_CREAT  | O_TRUNC *\/$/;"	e	enum:__anon1
+AFC_HARDLINK	include/libimobiledevice/afc.h	/^	AFC_HARDLINK = 1,$/;"	e	enum:__anon2
+AFC_LOCK_EX	include/libimobiledevice/afc.h	/^	AFC_LOCK_EX = 2 | 4, \/**< exclusive lock *\/$/;"	e	enum:__anon3
+AFC_LOCK_SH	include/libimobiledevice/afc.h	/^	AFC_LOCK_SH = 1 | 4, \/**< shared lock *\/$/;"	e	enum:__anon3
+AFC_LOCK_UN	include/libimobiledevice/afc.h	/^	AFC_LOCK_UN = 8 | 4  \/**< unlock *\/$/;"	e	enum:__anon3
+AFC_SYMLINK	include/libimobiledevice/afc.h	/^	AFC_SYMLINK = 2$/;"	e	enum:__anon2
+Array	include/plist/Array.h	/^class Array : public Structure$/;"	c	namespace:PList
+Base64._keyStr	Chrome/chromepackage/js/Base64.js	/^    _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+\/=",$/;"	p
+Base64._utf8_decode	Chrome/chromepackage/js/Base64.js	/^    _utf8_decode : function (utftext) {$/;"	m
+Base64._utf8_encode	Chrome/chromepackage/js/Base64.js	/^    _utf8_encode : function (string) {$/;"	m
+Base64.decode	Chrome/chromepackage/js/Base64.js	/^    decode : function (input) {$/;"	m
+Base64.encode	Chrome/chromepackage/js/Base64.js	/^    encode : function (input) {$/;"	m
+Boolean	include/plist/Boolean.h	/^class Boolean : public Node$/;"	c	namespace:PList
+CLIENT_LABEL	ibrowserAPI.cpp	/^#define CLIENT_LABEL /;"	d	file:
+Callback	ibrowserAPI.h	/^class Callback{$/;"	c
+DIAGNOSTICS_RELAY_ACTION_FLAG_DISPLAY_FAIL	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_ACTION_FLAG_DISPLAY_FAIL /;"	d
+DIAGNOSTICS_RELAY_ACTION_FLAG_DISPLAY_PASS	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_ACTION_FLAG_DISPLAY_PASS /;"	d
+DIAGNOSTICS_RELAY_ACTION_FLAG_WAIT_FOR_DISCONNECT	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_ACTION_FLAG_WAIT_FOR_DISCONNECT /;"	d
+DIAGNOSTICS_RELAY_E_INVALID_ARG	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_E_INVALID_ARG /;"	d
+DIAGNOSTICS_RELAY_E_MUX_ERROR	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_E_MUX_ERROR /;"	d
+DIAGNOSTICS_RELAY_E_PLIST_ERROR	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_E_PLIST_ERROR /;"	d
+DIAGNOSTICS_RELAY_E_SUCCESS	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_E_SUCCESS /;"	d
+DIAGNOSTICS_RELAY_E_UNKNOWN_ERROR	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_E_UNKNOWN_ERROR /;"	d
+DIAGNOSTICS_RELAY_E_UNKNOWN_REQUEST	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_E_UNKNOWN_REQUEST /;"	d
+DIAGNOSTICS_RELAY_REQUEST_TYPE_ALL	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_REQUEST_TYPE_ALL /;"	d
+DIAGNOSTICS_RELAY_REQUEST_TYPE_GAS_GAUGE	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_REQUEST_TYPE_GAS_GAUGE /;"	d
+DIAGNOSTICS_RELAY_REQUEST_TYPE_NAND	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_REQUEST_TYPE_NAND /;"	d
+DIAGNOSTICS_RELAY_REQUEST_TYPE_WIFI	include/libimobiledevice/diagnostics_relay.h	/^#define DIAGNOSTICS_RELAY_REQUEST_TYPE_WIFI /;"	d
+Data	include/plist/Data.h	/^class Data : public Node$/;"	c	namespace:PList
+Date	include/plist/Date.h	/^class Date : public Node$/;"	c	namespace:PList
+Dictionary	include/plist/Dictionary.h	/^class Dictionary : public Structure$/;"	c	namespace:PList
+DownloadConfig	ibrowserAPI.h	/^    DownloadConfig(int id,$/;"	f	class:DownloadConfig
+DownloadConfig	ibrowserAPI.h	/^class DownloadConfig   \/\/定义一个结构为了传递给my_fwrite函数.可用curl_easy_setopt的CURLOPT_WRITEDATA选项传递$/;"	c
+ERRO	ibrowserAPI.h	/^#define ERRO(/;"	d
+FILE_RELAY_E_INVALID_ARG	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_INVALID_ARG /;"	d
+FILE_RELAY_E_INVALID_SOURCE	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_INVALID_SOURCE /;"	d
+FILE_RELAY_E_MUX_ERROR	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_MUX_ERROR /;"	d
+FILE_RELAY_E_PLIST_ERROR	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_PLIST_ERROR /;"	d
+FILE_RELAY_E_STAGING_EMPTY	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_STAGING_EMPTY /;"	d
+FILE_RELAY_E_SUCCESS	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_SUCCESS /;"	d
+FILE_RELAY_E_UNKNOWN_ERROR	include/libimobiledevice/file_relay.h	/^#define FILE_RELAY_E_UNKNOWN_ERROR /;"	d
+F_ADD	ibrowserAPI.h	/^#define F_ADD /;"	d
+F_ERRO	ibrowserAPI.h	/^#define F_ERRO /;"	d
+F_SUCC	ibrowserAPI.h	/^#define F_SUCC /;"	d
+F_T_FLAG	ibrowserAPI.h	/^#define F_T_FLAG /;"	d
+HEARTBEAT_E_INVALID_ARG	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_E_INVALID_ARG /;"	d
+HEARTBEAT_E_MUX_ERROR	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_E_MUX_ERROR /;"	d
+HEARTBEAT_E_PLIST_ERROR	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_E_PLIST_ERROR /;"	d
+HEARTBEAT_E_SSL_ERROR	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_E_SSL_ERROR /;"	d
+HEARTBEAT_E_SUCCESS	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_E_SUCCESS /;"	d
+HEARTBEAT_E_UNKNOWN_ERROR	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_E_UNKNOWN_ERROR /;"	d
+HEARTBEAT_SERVICE_NAME	include/libimobiledevice/heartbeat.h	/^#define HEARTBEAT_SERVICE_NAME /;"	d
+HOUSE_ARREST_E_CONN_FAILED	include/libimobiledevice/house_arrest.h	/^#define HOUSE_ARREST_E_CONN_FAILED /;"	d
+HOUSE_ARREST_E_INVALID_ARG	include/libimobiledevice/house_arrest.h	/^#define HOUSE_ARREST_E_INVALID_ARG /;"	d
+HOUSE_ARREST_E_INVALID_MODE	include/libimobiledevice/house_arrest.h	/^#define HOUSE_ARREST_E_INVALID_MODE /;"	d
+HOUSE_ARREST_E_PLIST_ERROR	include/libimobiledevice/house_arrest.h	/^#define HOUSE_ARREST_E_PLIST_ERROR /;"	d
+HOUSE_ARREST_E_SUCCESS	include/libimobiledevice/house_arrest.h	/^#define HOUSE_ARREST_E_SUCCESS /;"	d
+HOUSE_ARREST_E_UNKNOWN_ERROR	include/libimobiledevice/house_arrest.h	/^#define HOUSE_ARREST_E_UNKNOWN_ERROR /;"	d
+H_ibrowserAPI	ibrowserAPI.h	/^#define H_ibrowserAPI$/;"	d
+H_ibrowserPLUGIN	ibrowser.h	/^#define H_ibrowserPLUGIN$/;"	d
+IAFC_H	include/libimobiledevice/afc.h	/^#define IAFC_H$/;"	d
+IDEVICE_DEVICE_ADD	include/libimobiledevice/libimobiledevice.h	/^	IDEVICE_DEVICE_ADD = 1,$/;"	e	enum:idevice_event_type
+IDEVICE_DEVICE_REMOVE	include/libimobiledevice/libimobiledevice.h	/^	IDEVICE_DEVICE_REMOVE$/;"	e	enum:idevice_event_type
+IDEVICE_E_BAD_HEADER	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_BAD_HEADER /;"	d
+IDEVICE_E_INVALID_ARG	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_INVALID_ARG /;"	d
+IDEVICE_E_NOT_ENOUGH_DATA	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_NOT_ENOUGH_DATA /;"	d
+IDEVICE_E_NO_DEVICE	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_NO_DEVICE /;"	d
+IDEVICE_E_SSL_ERROR	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_SSL_ERROR /;"	d
+IDEVICE_E_SUCCESS	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_SUCCESS /;"	d
+IDEVICE_E_UNKNOWN_ERROR	include/libimobiledevice/libimobiledevice.h	/^#define IDEVICE_E_UNKNOWN_ERROR /;"	d
+IDIAGNOSTICS_RELAY_H	include/libimobiledevice/diagnostics_relay.h	/^#define IDIAGNOSTICS_RELAY_H$/;"	d
+IFILE_RELAY_H	include/libimobiledevice/file_relay.h	/^#define IFILE_RELAY_H$/;"	d
+IHEARTBEAT_H	include/libimobiledevice/heartbeat.h	/^#define IHEARTBEAT_H$/;"	d
+IHOUSE_ARREST_H	include/libimobiledevice/house_arrest.h	/^#define IHOUSE_ARREST_H$/;"	d
+IINSTALLATION_PROXY_H	include/libimobiledevice/installation_proxy.h	/^#define IINSTALLATION_PROXY_H$/;"	d
+ILOCKDOWN_H	include/libimobiledevice/lockdown.h	/^#define ILOCKDOWN_H$/;"	d
+IMISAGENT_H	include/libimobiledevice/misagent.h	/^#define IMISAGENT_H$/;"	d
+IMOBILEBACKUP2_H	include/libimobiledevice/mobilebackup2.h	/^#define IMOBILEBACKUP2_H$/;"	d
+IMOBILEBACKUP_H	include/libimobiledevice/mobilebackup.h	/^#define IMOBILEBACKUP_H$/;"	d
+IMOBILEDEVICE_H	include/libimobiledevice/libimobiledevice.h	/^#define IMOBILEDEVICE_H$/;"	d
+IMOBILESYNC_H	include/libimobiledevice/mobilesync.h	/^#define IMOBILESYNC_H$/;"	d
+IMOBILE_IMAGE_MOUNTER_H	include/libimobiledevice/mobile_image_mounter.h	/^#define IMOBILE_IMAGE_MOUNTER_H$/;"	d
+INOTIFICATION_PROXY_H	include/libimobiledevice/notification_proxy.h	/^#define INOTIFICATION_PROXY_H$/;"	d
+INSTPROXY_E_CONN_FAILED	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_CONN_FAILED /;"	d
+INSTPROXY_E_INVALID_ARG	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_INVALID_ARG /;"	d
+INSTPROXY_E_OP_FAILED	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_OP_FAILED /;"	d
+INSTPROXY_E_OP_IN_PROGRESS	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_OP_IN_PROGRESS /;"	d
+INSTPROXY_E_PLIST_ERROR	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_PLIST_ERROR /;"	d
+INSTPROXY_E_SUCCESS	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_SUCCESS /;"	d
+INSTPROXY_E_UNKNOWN_ERROR	include/libimobiledevice/installation_proxy.h	/^#define INSTPROXY_E_UNKNOWN_ERROR /;"	d
+IRESTORE_H	include/libimobiledevice/restore.h	/^#define IRESTORE_H$/;"	d
+ISB_SERVICES_H	include/libimobiledevice/sbservices.h	/^#define ISB_SERVICES_H$/;"	d
+ISCREENSHOTR_H	include/libimobiledevice/screenshotr.h	/^#define ISCREENSHOTR_H$/;"	d
+IWEBINSPECTOR_H	include/libimobiledevice/webinspector.h	/^#define IWEBINSPECTOR_H$/;"	d
+Integer	include/plist/Integer.h	/^class Integer : public Node$/;"	c	namespace:PList
+LIBPLISTXX_H	include/plist/plist++.h	/^#define LIBPLISTXX_H$/;"	d
+LIBPLIST_H	include/plist/plist.h	/^#define LIBPLIST_H$/;"	d
+LOCKDOWN_E_ACTIVATION_FAILED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_ACTIVATION_FAILED /;"	d
+LOCKDOWN_E_DICT_ERROR	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_DICT_ERROR /;"	d
+LOCKDOWN_E_GET_VALUE_PROHIBITED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_GET_VALUE_PROHIBITED /;"	d
+LOCKDOWN_E_INVALID_ACTIVATION_RECORD	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_INVALID_ACTIVATION_RECORD /;"	d
+LOCKDOWN_E_INVALID_ARG	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_INVALID_ARG /;"	d
+LOCKDOWN_E_INVALID_CONF	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_INVALID_CONF /;"	d
+LOCKDOWN_E_INVALID_HOST_ID	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_INVALID_HOST_ID /;"	d
+LOCKDOWN_E_INVALID_SERVICE	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_INVALID_SERVICE /;"	d
+LOCKDOWN_E_MUX_ERROR	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_MUX_ERROR /;"	d
+LOCKDOWN_E_NOT_ENOUGH_DATA	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_NOT_ENOUGH_DATA /;"	d
+LOCKDOWN_E_NO_RUNNING_SESSION	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_NO_RUNNING_SESSION /;"	d
+LOCKDOWN_E_PAIRING_FAILED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_PAIRING_FAILED /;"	d
+LOCKDOWN_E_PASSWORD_PROTECTED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_PASSWORD_PROTECTED /;"	d
+LOCKDOWN_E_PLIST_ERROR	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_PLIST_ERROR /;"	d
+LOCKDOWN_E_REMOVE_VALUE_PROHIBITED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_REMOVE_VALUE_PROHIBITED /;"	d
+LOCKDOWN_E_SET_VALUE_PROHIBITED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_SET_VALUE_PROHIBITED /;"	d
+LOCKDOWN_E_SSL_ERROR	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_SSL_ERROR /;"	d
+LOCKDOWN_E_START_SERVICE_FAILED	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_START_SERVICE_FAILED /;"	d
+LOCKDOWN_E_SUCCESS	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_SUCCESS /;"	d
+LOCKDOWN_E_UNKNOWN_ERROR	include/libimobiledevice/lockdown.h	/^#define LOCKDOWN_E_UNKNOWN_ERROR /;"	d
+MB_RESTORE_NOTIFY_SPRINGBOARD	include/libimobiledevice/mobilebackup.h	/^	MB_RESTORE_NOTIFY_SPRINGBOARD = 1 << 0,$/;"	e	enum:__anon5
+MB_RESTORE_PRESERVE_CAMERA_ROLL	include/libimobiledevice/mobilebackup.h	/^	MB_RESTORE_PRESERVE_CAMERA_ROLL = 1 << 2$/;"	e	enum:__anon5
+MB_RESTORE_PRESERVE_SETTINGS	include/libimobiledevice/mobilebackup.h	/^	MB_RESTORE_PRESERVE_SETTINGS = 1 << 1,$/;"	e	enum:__anon5
+MISAGENT_E_CONN_FAILED	include/libimobiledevice/misagent.h	/^#define MISAGENT_E_CONN_FAILED /;"	d
+MISAGENT_E_INVALID_ARG	include/libimobiledevice/misagent.h	/^#define MISAGENT_E_INVALID_ARG /;"	d
+MISAGENT_E_PLIST_ERROR	include/libimobiledevice/misagent.h	/^#define MISAGENT_E_PLIST_ERROR /;"	d
+MISAGENT_E_REQUEST_FAILED	include/libimobiledevice/misagent.h	/^#define MISAGENT_E_REQUEST_FAILED /;"	d
+MISAGENT_E_SUCCESS	include/libimobiledevice/misagent.h	/^#define MISAGENT_E_SUCCESS /;"	d
+MISAGENT_E_UNKNOWN_ERROR	include/libimobiledevice/misagent.h	/^#define MISAGENT_E_UNKNOWN_ERROR /;"	d
+MOBILEBACKUP2_E_BAD_VERSION	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_BAD_VERSION /;"	d
+MOBILEBACKUP2_E_INVALID_ARG	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_INVALID_ARG /;"	d
+MOBILEBACKUP2_E_MUX_ERROR	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_MUX_ERROR /;"	d
+MOBILEBACKUP2_E_NO_COMMON_VERSION	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_NO_COMMON_VERSION /;"	d
+MOBILEBACKUP2_E_PLIST_ERROR	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_PLIST_ERROR /;"	d
+MOBILEBACKUP2_E_REPLY_NOT_OK	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_REPLY_NOT_OK /;"	d
+MOBILEBACKUP2_E_SUCCESS	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_SUCCESS /;"	d
+MOBILEBACKUP2_E_UNKNOWN_ERROR	include/libimobiledevice/mobilebackup2.h	/^#define MOBILEBACKUP2_E_UNKNOWN_ERROR /;"	d
+MOBILEBACKUP_E_BAD_VERSION	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_BAD_VERSION /;"	d
+MOBILEBACKUP_E_INVALID_ARG	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_INVALID_ARG /;"	d
+MOBILEBACKUP_E_MUX_ERROR	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_MUX_ERROR /;"	d
+MOBILEBACKUP_E_PLIST_ERROR	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_PLIST_ERROR /;"	d
+MOBILEBACKUP_E_REPLY_NOT_OK	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_REPLY_NOT_OK /;"	d
+MOBILEBACKUP_E_SUCCESS	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_SUCCESS /;"	d
+MOBILEBACKUP_E_UNKNOWN_ERROR	include/libimobiledevice/mobilebackup.h	/^#define MOBILEBACKUP_E_UNKNOWN_ERROR /;"	d
+MOBILESYNC_E_BAD_VERSION	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_BAD_VERSION /;"	d
+MOBILESYNC_E_CANCELLED	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_CANCELLED /;"	d
+MOBILESYNC_E_INVALID_ARG	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_INVALID_ARG /;"	d
+MOBILESYNC_E_MUX_ERROR	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_MUX_ERROR /;"	d
+MOBILESYNC_E_NOT_READY	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_NOT_READY /;"	d
+MOBILESYNC_E_PLIST_ERROR	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_PLIST_ERROR /;"	d
+MOBILESYNC_E_SUCCESS	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_SUCCESS /;"	d
+MOBILESYNC_E_SYNC_REFUSED	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_SYNC_REFUSED /;"	d
+MOBILESYNC_E_UNKNOWN_ERROR	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_UNKNOWN_ERROR /;"	d
+MOBILESYNC_E_WRONG_DIRECTION	include/libimobiledevice/mobilesync.h	/^#define MOBILESYNC_E_WRONG_DIRECTION /;"	d
+MOBILESYNC_SYNC_TYPE_FAST	include/libimobiledevice/mobilesync.h	/^	MOBILESYNC_SYNC_TYPE_FAST, \/**< Fast-sync requires that only the changes made since the last synchronization should be reported by the computer. *\/$/;"	e	enum:__anon6
+MOBILESYNC_SYNC_TYPE_RESET	include/libimobiledevice/mobilesync.h	/^	MOBILESYNC_SYNC_TYPE_RESET \/**< Reset-sync signals that the computer should send all data again. *\/$/;"	e	enum:__anon6
+MOBILESYNC_SYNC_TYPE_SLOW	include/libimobiledevice/mobilesync.h	/^	MOBILESYNC_SYNC_TYPE_SLOW, \/**< Slow-sync requires that all data from the computer needs to be synchronized\/sent. *\/$/;"	e	enum:__anon6
+MOBILE_IMAGE_MOUNTER_E_CONN_FAILED	include/libimobiledevice/mobile_image_mounter.h	/^#define MOBILE_IMAGE_MOUNTER_E_CONN_FAILED /;"	d
+MOBILE_IMAGE_MOUNTER_E_INVALID_ARG	include/libimobiledevice/mobile_image_mounter.h	/^#define MOBILE_IMAGE_MOUNTER_E_INVALID_ARG /;"	d
+MOBILE_IMAGE_MOUNTER_E_PLIST_ERROR	include/libimobiledevice/mobile_image_mounter.h	/^#define MOBILE_IMAGE_MOUNTER_E_PLIST_ERROR /;"	d
+MOBILE_IMAGE_MOUNTER_E_SUCCESS	include/libimobiledevice/mobile_image_mounter.h	/^#define MOBILE_IMAGE_MOUNTER_E_SUCCESS /;"	d
+MOBILE_IMAGE_MOUNTER_E_UNKNOWN_ERROR	include/libimobiledevice/mobile_image_mounter.h	/^#define MOBILE_IMAGE_MOUNTER_E_UNKNOWN_ERROR /;"	d
+NP_ACTIVATION_STATE	include/libimobiledevice/notification_proxy.h	/^#define NP_ACTIVATION_STATE /;"	d
+NP_ADDRESS_BOOK_PREF_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_ADDRESS_BOOK_PREF_CHANGED /;"	d
+NP_APP_INSTALLED	include/libimobiledevice/notification_proxy.h	/^#define NP_APP_INSTALLED /;"	d
+NP_APP_UNINSTALLED	include/libimobiledevice/notification_proxy.h	/^#define NP_APP_UNINSTALLED /;"	d
+NP_ATTEMPTACTIVATION	include/libimobiledevice/notification_proxy.h	/^#define NP_ATTEMPTACTIVATION /;"	d
+NP_BACKUP_DOMAIN_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_BACKUP_DOMAIN_CHANGED /;"	d
+NP_BRICK_STATE	include/libimobiledevice/notification_proxy.h	/^#define NP_BRICK_STATE /;"	d
+NP_DEVICE_NAME_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_DEVICE_NAME_CHANGED /;"	d
+NP_DEV_IMAGE_MOUNTED	include/libimobiledevice/notification_proxy.h	/^#define NP_DEV_IMAGE_MOUNTED /;"	d
+NP_DISK_USAGE_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_DISK_USAGE_CHANGED /;"	d
+NP_DS_DOMAIN_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_DS_DOMAIN_CHANGED /;"	d
+NP_E_CONN_FAILED	include/libimobiledevice/notification_proxy.h	/^#define NP_E_CONN_FAILED /;"	d
+NP_E_INVALID_ARG	include/libimobiledevice/notification_proxy.h	/^#define NP_E_INVALID_ARG /;"	d
+NP_E_PLIST_ERROR	include/libimobiledevice/notification_proxy.h	/^#define NP_E_PLIST_ERROR /;"	d
+NP_E_SUCCESS	include/libimobiledevice/notification_proxy.h	/^#define NP_E_SUCCESS /;"	d
+NP_E_UNKNOWN_ERROR	include/libimobiledevice/notification_proxy.h	/^#define NP_E_UNKNOWN_ERROR /;"	d
+NP_HOST_ATTACHED	include/libimobiledevice/notification_proxy.h	/^#define NP_HOST_ATTACHED /;"	d
+NP_HOST_DETACHED	include/libimobiledevice/notification_proxy.h	/^#define NP_HOST_DETACHED /;"	d
+NP_ITDBPREP_DID_END	include/libimobiledevice/notification_proxy.h	/^#define NP_ITDBPREP_DID_END /;"	d
+NP_LANGUAGE_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_LANGUAGE_CHANGED /;"	d
+NP_PHONE_NUMBER_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_PHONE_NUMBER_CHANGED /;"	d
+NP_REGISTRATION_FAILED	include/libimobiledevice/notification_proxy.h	/^#define NP_REGISTRATION_FAILED /;"	d
+NP_SYNC_CANCEL_REQUEST	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_CANCEL_REQUEST /;"	d
+NP_SYNC_DID_FINISH	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_DID_FINISH /;"	d
+NP_SYNC_DID_START	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_DID_START /;"	d
+NP_SYNC_LOCK_REQUEST	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_LOCK_REQUEST /;"	d
+NP_SYNC_RESUME_REQUEST	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_RESUME_REQUEST /;"	d
+NP_SYNC_SUSPEND_REQUEST	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_SUSPEND_REQUEST /;"	d
+NP_SYNC_WILL_START	include/libimobiledevice/notification_proxy.h	/^#define NP_SYNC_WILL_START /;"	d
+NP_TIMEZONE_CHANGED	include/libimobiledevice/notification_proxy.h	/^#define NP_TIMEZONE_CHANGED /;"	d
+NP_TRUSTED_HOST_ATTACHED	include/libimobiledevice/notification_proxy.h	/^#define NP_TRUSTED_HOST_ATTACHED /;"	d
+Node	include/plist/Node.h	/^class Node$/;"	c	namespace:PList
+PLIST_API	include/plist/plist.h	/^#define PLIST_API /;"	d
+PLIST_API	include/plist/plist.h	/^#define PLIST_API$/;"	d
+PLIST_ARRAY	include/plist/plist.h	/^        PLIST_ARRAY,	\/**< Ordered array, structured type *\/$/;"	e	enum:__anon9
+PLIST_BOOLEAN	include/plist/plist.h	/^        PLIST_BOOLEAN,	\/**< Boolean, scalar type *\/$/;"	e	enum:__anon9
+PLIST_DATA	include/plist/plist.h	/^        PLIST_DATA,	\/**< Binary data, scalar type *\/$/;"	e	enum:__anon9
+PLIST_DATE	include/plist/plist.h	/^        PLIST_DATE,	\/**< Date, scalar type *\/$/;"	e	enum:__anon9
+PLIST_DICT	include/plist/plist.h	/^        PLIST_DICT,	\/**< Unordered dictionary (key\/value pair), structured type *\/$/;"	e	enum:__anon9
+PLIST_KEY	include/plist/plist.h	/^        PLIST_KEY,	\/**< Key in dictionaries (ASCII String), scalar type *\/$/;"	e	enum:__anon9
+PLIST_NONE	include/plist/plist.h	/^        PLIST_NONE	\/**< No type *\/$/;"	e	enum:__anon9
+PLIST_REAL	include/plist/plist.h	/^        PLIST_REAL,	\/**< Real, scalar type *\/$/;"	e	enum:__anon9
+PLIST_STRING	include/plist/plist.h	/^        PLIST_STRING,	\/**< ASCII string, scalar type *\/$/;"	e	enum:__anon9
+PLIST_UINT	include/plist/plist.h	/^        PLIST_UINT,	\/**< Unsigned integer, scalar type *\/$/;"	e	enum:__anon9
+PLIST__ARRAY_H	include/plist/Array.h	/^#define PLIST__ARRAY_H$/;"	d
+PLIST__BOOLEAN_H	include/plist/Boolean.h	/^#define PLIST__BOOLEAN_H$/;"	d
+PLIST__DATA_H	include/plist/Data.h	/^#define PLIST__DATA_H$/;"	d
+PLIST__DATE_H	include/plist/Date.h	/^#define PLIST__DATE_H$/;"	d
+PLIST__DICTIONARY_H	include/plist/Dictionary.h	/^#define PLIST__DICTIONARY_H$/;"	d
+PLIST__INTEGER_H	include/plist/Integer.h	/^#define PLIST__INTEGER_H$/;"	d
+PLIST__NODE_H	include/plist/Node.h	/^#define PLIST__NODE_H$/;"	d
+PLIST__REAL_H	include/plist/Real.h	/^#define PLIST__REAL_H$/;"	d
+PLIST__STRING_H	include/plist/String.h	/^#define PLIST__STRING_H$/;"	d
+PLIST__STRUCTURE_H	include/plist/Structure.h	/^#define PLIST__STRUCTURE_H$/;"	d
+PList	include/plist/Array.h	/^namespace PList$/;"	n
+PList	include/plist/Boolean.h	/^namespace PList$/;"	n
+PList	include/plist/Data.h	/^namespace PList$/;"	n
+PList	include/plist/Date.h	/^namespace PList$/;"	n
+PList	include/plist/Dictionary.h	/^namespace PList$/;"	n
+PList	include/plist/Integer.h	/^namespace PList$/;"	n
+PList	include/plist/Node.h	/^namespace PList$/;"	n
+PList	include/plist/Real.h	/^namespace PList$/;"	n
+PList	include/plist/String.h	/^namespace PList$/;"	n
+PList	include/plist/Structure.h	/^namespace PList$/;"	n
+PluginFactory	Factory.cpp	/^class PluginFactory : public FB::FactoryBase$/;"	c	file:
+RESTORE_E_DICT_ERROR	include/libimobiledevice/restore.h	/^#define RESTORE_E_DICT_ERROR /;"	d
+RESTORE_E_INVALID_ARG	include/libimobiledevice/restore.h	/^#define RESTORE_E_INVALID_ARG /;"	d
+RESTORE_E_INVALID_CONF	include/libimobiledevice/restore.h	/^#define RESTORE_E_INVALID_CONF /;"	d
+RESTORE_E_MUX_ERROR	include/libimobiledevice/restore.h	/^#define RESTORE_E_MUX_ERROR /;"	d
+RESTORE_E_NOT_ENOUGH_DATA	include/libimobiledevice/restore.h	/^#define RESTORE_E_NOT_ENOUGH_DATA /;"	d
+RESTORE_E_PLIST_ERROR	include/libimobiledevice/restore.h	/^#define RESTORE_E_PLIST_ERROR /;"	d
+RESTORE_E_START_RESTORE_FAILED	include/libimobiledevice/restore.h	/^#define RESTORE_E_START_RESTORE_FAILED /;"	d
+RESTORE_E_SUCCESS	include/libimobiledevice/restore.h	/^#define RESTORE_E_SUCCESS /;"	d
+RESTORE_E_UNKNOWN_ERROR	include/libimobiledevice/restore.h	/^#define RESTORE_E_UNKNOWN_ERROR /;"	d
+RESULT_BUFF_SIZE	ibrowserAPI.cpp	/^#define RESULT_BUFF_SIZE /;"	d	file:
+Real	include/plist/Real.h	/^class Real : public Node$/;"	c	namespace:PList
+SBSERVICES_E_CONN_FAILED	include/libimobiledevice/sbservices.h	/^#define SBSERVICES_E_CONN_FAILED /;"	d
+SBSERVICES_E_INVALID_ARG	include/libimobiledevice/sbservices.h	/^#define SBSERVICES_E_INVALID_ARG /;"	d
+SBSERVICES_E_PLIST_ERROR	include/libimobiledevice/sbservices.h	/^#define SBSERVICES_E_PLIST_ERROR /;"	d
+SBSERVICES_E_SUCCESS	include/libimobiledevice/sbservices.h	/^#define SBSERVICES_E_SUCCESS /;"	d
+SBSERVICES_E_UNKNOWN_ERROR	include/libimobiledevice/sbservices.h	/^#define SBSERVICES_E_UNKNOWN_ERROR /;"	d
+SBSERVICES_INTERFACE_ORIENTATION_LANDSCAPE_LEFT	include/libimobiledevice/sbservices.h	/^  SBSERVICES_INTERFACE_ORIENTATION_LANDSCAPE_LEFT         = 4$/;"	e	enum:__anon8
+SBSERVICES_INTERFACE_ORIENTATION_LANDSCAPE_RIGHT	include/libimobiledevice/sbservices.h	/^  SBSERVICES_INTERFACE_ORIENTATION_LANDSCAPE_RIGHT        = 3,$/;"	e	enum:__anon8
+SBSERVICES_INTERFACE_ORIENTATION_PORTRAIT	include/libimobiledevice/sbservices.h	/^  SBSERVICES_INTERFACE_ORIENTATION_PORTRAIT               = 1,$/;"	e	enum:__anon8
+SBSERVICES_INTERFACE_ORIENTATION_PORTRAIT_UPSIDE_DOWN	include/libimobiledevice/sbservices.h	/^  SBSERVICES_INTERFACE_ORIENTATION_PORTRAIT_UPSIDE_DOWN   = 2,$/;"	e	enum:__anon8
+SBSERVICES_INTERFACE_ORIENTATION_UNKNOWN	include/libimobiledevice/sbservices.h	/^  SBSERVICES_INTERFACE_ORIENTATION_UNKNOWN                = 0,$/;"	e	enum:__anon8
+SCREENSHOTR_E_BAD_VERSION	include/libimobiledevice/screenshotr.h	/^#define SCREENSHOTR_E_BAD_VERSION /;"	d
+SCREENSHOTR_E_INVALID_ARG	include/libimobiledevice/screenshotr.h	/^#define SCREENSHOTR_E_INVALID_ARG /;"	d
+SCREENSHOTR_E_MUX_ERROR	include/libimobiledevice/screenshotr.h	/^#define SCREENSHOTR_E_MUX_ERROR /;"	d
+SCREENSHOTR_E_PLIST_ERROR	include/libimobiledevice/screenshotr.h	/^#define SCREENSHOTR_E_PLIST_ERROR /;"	d
+SCREENSHOTR_E_SUCCESS	include/libimobiledevice/screenshotr.h	/^#define SCREENSHOTR_E_SUCCESS /;"	d
+SCREENSHOTR_E_UNKNOWN_ERROR	include/libimobiledevice/screenshotr.h	/^#define SCREENSHOTR_E_UNKNOWN_ERROR /;"	d
+SERVICE_CONSTRUCTOR	include/libimobiledevice/service.h	/^#define SERVICE_CONSTRUCTOR(/;"	d
+SERVICE_E_INVALID_ARG	include/libimobiledevice/service.h	/^#define SERVICE_E_INVALID_ARG /;"	d
+SERVICE_E_MUX_ERROR	include/libimobiledevice/service.h	/^#define SERVICE_E_MUX_ERROR /;"	d
+SERVICE_E_SSL_ERROR	include/libimobiledevice/service.h	/^#define SERVICE_E_SSL_ERROR /;"	d
+SERVICE_E_START_SERVICE_ERROR	include/libimobiledevice/service.h	/^#define SERVICE_E_START_SERVICE_ERROR /;"	d
+SERVICE_E_SUCCESS	include/libimobiledevice/service.h	/^#define SERVICE_E_SUCCESS /;"	d
+SERVICE_E_UNKNOWN_ERROR	include/libimobiledevice/service.h	/^#define SERVICE_E_UNKNOWN_ERROR /;"	d
+SERVICE_H	include/libimobiledevice/service.h	/^#define SERVICE_H$/;"	d
+SUCC	ibrowserAPI.h	/^#define SUCC(/;"	d
+StaticDeinitialize	ibrowser.cpp	/^void ibrowser::StaticDeinitialize()$/;"	f	class:ibrowser
+StaticInitialize	ibrowser.cpp	/^void ibrowser::StaticInitialize()$/;"	f	class:ibrowser
+String	include/plist/String.h	/^class String : public Node$/;"	c	namespace:PList
+Structure	include/plist/Structure.h	/^class Structure : public Node$/;"	c	namespace:PList
+THREAD	ibrowserAPI.h	/^#define THREAD(/;"	d
+WEBINSPECTOR_E_INVALID_ARG	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_E_INVALID_ARG /;"	d
+WEBINSPECTOR_E_MUX_ERROR	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_E_MUX_ERROR /;"	d
+WEBINSPECTOR_E_PLIST_ERROR	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_E_PLIST_ERROR /;"	d
+WEBINSPECTOR_E_SSL_ERROR	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_E_SSL_ERROR /;"	d
+WEBINSPECTOR_E_SUCCESS	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_E_SUCCESS /;"	d
+WEBINSPECTOR_E_UNKNOWN_ERROR	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_E_UNKNOWN_ERROR /;"	d
+WEBINSPECTOR_SERVICE_NAME	include/libimobiledevice/webinspector.h	/^#define WEBINSPECTOR_SERVICE_NAME /;"	d
+_array	include/plist/Array.h	/^    std::vector<Node*> _array;$/;"	m	class:PList::Array
+_map	include/plist/Dictionary.h	/^    std::map<std::string,Node*> _map;$/;"	m	class:PList::Dictionary
+_node	include/plist/Node.h	/^    plist_t _node;$/;"	m	class:PList::Node
+_parent	include/plist/Node.h	/^    Node* _parent;$/;"	m	class:PList::Node
+afc_client	ibrowserAPI.h	/^    afc_client_t afc_client = NULL;$/;"	m	class:ibrowserAPI
+afc_client_private	include/libimobiledevice/afc.h	/^typedef struct afc_client_private afc_client_private;$/;"	t	typeref:struct:afc_client_private
+afc_client_t	include/libimobiledevice/afc.h	/^typedef afc_client_private *afc_client_t; \/**< The client handle. *\/$/;"	t
+afc_error_t	include/libimobiledevice/afc.h	/^typedef int16_t afc_error_t;$/;"	t
+afc_file_mode_t	include/libimobiledevice/afc.h	/^} afc_file_mode_t;$/;"	t	typeref:enum:__anon1
+afc_link_type_t	include/libimobiledevice/afc.h	/^} afc_link_type_t;$/;"	t	typeref:enum:__anon2
+afc_lock_op_t	include/libimobiledevice/afc.h	/^} afc_lock_op_t;$/;"	t	typeref:enum:__anon3
+base64encode	base64.h	/^char* base64encode(const char *in_str, int in_len)$/;"	f
+clean	ibrowserAPI.cpp	/^void ibrowserAPI::clean()$/;"	f	class:ibrowserAPI
+computer_anchor	include/libimobiledevice/mobilesync.h	/^	char *computer_anchor;$/;"	m	struct:__anon7
+conn_type	include/libimobiledevice/libimobiledevice.h	/^	int conn_type; \/**< The connection type. Currently only 1 for usbmuxd. *\/$/;"	m	struct:__anon4
+connection	include/libimobiledevice/service.h	/^	idevice_connection_t connection;$/;"	m	struct:service_client_private
+counter	ibrowserAPI.h	/^    std::vector<double> *counter;$/;"	m	class:DownloadConfig
+createJSAPI	ibrowser.cpp	/^FB::JSAPIPtr ibrowser::createJSAPI()$/;"	f	class:ibrowser
+createPlugin	Factory.cpp	/^    FB::PluginCorePtr createPlugin(const std::string& mimetype)$/;"	f	class:PluginFactory
+deskNotify	Chrome/chromepackage/js/public.js	/^function deskNotify(title, msg) {$/;"	f
+device	ibrowserAPI.h	/^    idevice_t device = NULL;$/;"	m	class:ibrowserAPI
+device_anchor	include/libimobiledevice/mobilesync.h	/^	char *device_anchor;$/;"	m	struct:__anon7
+device_certificate	include/libimobiledevice/lockdown.h	/^	char *device_certificate; \/**< The device certificate *\/$/;"	m	struct:lockdownd_pair_record
+diagnostics_relay_client_private	include/libimobiledevice/diagnostics_relay.h	/^typedef struct diagnostics_relay_client_private diagnostics_relay_client_private;$/;"	t	typeref:struct:diagnostics_relay_client_private
+diagnostics_relay_client_t	include/libimobiledevice/diagnostics_relay.h	/^typedef diagnostics_relay_client_private *diagnostics_relay_client_t; \/**< The client handle. *\/$/;"	t
+diagnostics_relay_error_t	include/libimobiledevice/diagnostics_relay.h	/^typedef int16_t diagnostics_relay_error_t;$/;"	t
+downloadFile	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::downloadFile(const std::string& url,const std::string& filename,const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)$/;"	f	class:ibrowserAPI
+downloadProgress	ibrowserAPI.cpp	/^int ibrowserAPI::downloadProgress(void* ptr, double rDlTotal, double rDlNow, double rUlTotal, double rUlNow)$/;"	f	class:ibrowserAPI
+downloadThread	ibrowserAPI.cpp	/^void *ibrowserAPI::downloadThread(void *data)$/;"	f	class:ibrowserAPI
+downloadThreads	ibrowserAPI.h	/^    unsigned int downloadThreads=10;$/;"	m	class:ibrowserAPI
+downloadWrite	ibrowserAPI.cpp	/^int ibrowserAPI::downloadWrite(void *buffer, size_t size, size_t nmemb, void *stream)$/;"	f	class:ibrowserAPI
+echo	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::echo(const FB::variant& msg)$/;"	f	class:ibrowserAPI
+end	ibrowserAPI.h	/^    double end;$/;"	m	class:DownloadConfig
+event	include/libimobiledevice/libimobiledevice.h	/^	enum idevice_event_type event; \/**< The event type. *\/$/;"	m	struct:__anon4	typeref:enum:__anon4::idevice_event_type
+file_relay_client_private	include/libimobiledevice/file_relay.h	/^typedef struct file_relay_client_private file_relay_client_private;$/;"	t	typeref:struct:file_relay_client_private
+file_relay_client_t	include/libimobiledevice/file_relay.h	/^typedef file_relay_client_private *file_relay_client_t; \/**< The client handle. *\/$/;"	t
+file_relay_error_t	include/libimobiledevice/file_relay.h	/^typedef int16_t file_relay_error_t;$/;"	t
+filesize	ibrowserAPI.h	/^    double filesize;$/;"	m	class:DownloadConfig
+fn.jrumble	Chrome/chromepackage/js/jquery.jrumble.1.3.min.js	/^(function(f){f.fn.jrumble=function(g){var a=f.extend({x:2,y:2,rotation:1,speed:15,opacity:false,opacityMin:0.5},g);return this.each(function(){var b=f(this),h=a.x*2,i=a.y*2,k=a.rotation*2,g=a.speed===0?1:a.speed,m=a.opacity,n=a.opacityMin,l,j,o=function(){var e=Math.floor(Math.random()*(h+1))-h\/2,a=Math.floor(Math.random()*(i+1))-i\/2,c=Math.floor(Math.random()*(k+1))-k\/2,d=m?Math.random()+n:1,e=e===0&&h!==0?Math.random()<0.5?1:-1:e,a=a===0&&i!==0?Math.random()<0.5?1:-1:a;b.css("display")==="inline"&&(l=true,b.css("display","inline-block"));b.css({position:"relative",left:e+"px",top:a+"px","-ms-filter":"progid:DXImageTransform.Microsoft.Alpha(Opacity="+d*100+")",filter:"alpha(opacity="+d*100+")","-moz-opacity":d,"-khtml-opacity":d,opacity:d,"-webkit-transform":"rotate("+c+"deg)","-moz-transform":"rotate("+c+"deg)","-ms-transform":"rotate("+c+"deg)","-o-transform":"rotate("+c+"deg)",transform:"rotate("+c+"deg)"})},p={left:0,top:0,"-ms-filter":"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)",filter:"alpha(opacity=100)","-moz-opacity":1,"-khtml-opacity":1,opacity:1,"-webkit-transform":"rotate(0deg)","-moz-transform":"rotate(0deg)","-ms-transform":"rotate(0deg)","-o-transform":"rotate(0deg)",transform:"rotate(0deg)"};b.bind({startRumble:function(a){a.stopPropagation();clearInterval(j);j=setInterval(o,g)},stopRumble:function(a){a.stopPropagation();clearInterval(j);l&&b.css("display","inline");b.css(p)}})})}})(jQuery);/;"	f
+get	ibrowserAPI.h	/^    FB::JSObjectPtr get(const char* fn)$/;"	f	class:Callback
+getAppList	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::getAppList(F_ADD)$/;"	f	class:ibrowserAPI
+getDeviceInfo	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::getDeviceInfo(const std::vector<std::string>& domains,F_ADD)$/;"	f	class:ibrowserAPI
+getDownloadedSize	ibrowserAPI.h	/^    double getDownloadedSize()$/;"	f	class:DownloadConfig
+getFactoryInstance	Factory.cpp	/^FB::FactoryBasePtr getFactoryInstance()$/;"	f
+getPlugin	ibrowserAPI.cpp	/^ibrowserPtr ibrowserAPI::getPlugin()$/;"	f	class:ibrowserAPI
+getSbservicesIconPngdata	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::getSbservicesIconPngdata(const std::string& bundleId,F_ADD)$/;"	f	class:ibrowserAPI
+getUrlParam	Chrome/chromepackage/js/public.js	/^function getUrlParam(name)$/;"	f
+get_testString	ibrowserAPI.cpp	/^std::string ibrowserAPI::get_testString()$/;"	f	class:ibrowserAPI
+get_version	ibrowserAPI.cpp	/^std::string ibrowserAPI::get_version()$/;"	f	class:ibrowserAPI
+globalPluginDeinitialize	Factory.cpp	/^    void globalPluginDeinitialize()$/;"	f	class:PluginFactory
+globalPluginInitialize	Factory.cpp	/^    void globalPluginInitialize()$/;"	f	class:PluginFactory
+heartbeat_client_private	include/libimobiledevice/heartbeat.h	/^typedef struct heartbeat_client_private heartbeat_client_private;$/;"	t	typeref:struct:heartbeat_client_private
+heartbeat_client_t	include/libimobiledevice/heartbeat.h	/^typedef heartbeat_client_private *heartbeat_client_t; \/**< The client handle. *\/$/;"	t
+heartbeat_error_t	include/libimobiledevice/heartbeat.h	/^typedef int16_t heartbeat_error_t;$/;"	t
+host_certificate	include/libimobiledevice/lockdown.h	/^	char *host_certificate;   \/**< The host certificate *\/$/;"	m	struct:lockdownd_pair_record
+host_id	include/libimobiledevice/lockdown.h	/^	char *host_id;            \/**< A unique HostID for the host computer *\/$/;"	m	struct:lockdownd_pair_record
+house_arrest_client_private	include/libimobiledevice/house_arrest.h	/^typedef struct house_arrest_client_private house_arrest_client_private;$/;"	t	typeref:struct:house_arrest_client_private
+house_arrest_client_t	include/libimobiledevice/house_arrest.h	/^typedef house_arrest_client_private *house_arrest_client_t; \/**< The client handle. *\/$/;"	t
+house_arrest_error_t	include/libimobiledevice/house_arrest.h	/^typedef int16_t house_arrest_error_t;$/;"	t
+ibrowser	ibrowser.cpp	/^ibrowser::ibrowser()$/;"	f	class:ibrowser
+ibrowser	ibrowser.h	/^class ibrowser : public FB::PluginCore$/;"	c
+ibrowserAPI	ibrowserAPI.h	/^    ibrowserAPI(const ibrowserPtr& plugin, const FB::BrowserHostPtr& host) :$/;"	f	class:ibrowserAPI
+ibrowserAPI	ibrowserAPI.h	/^class ibrowserAPI : public FB::JSAPIAuto$/;"	c
+id	ibrowserAPI.h	/^    int id;$/;"	m	class:DownloadConfig
+ideviceEventCallback	ibrowserAPI.cpp	/^void ibrowserAPI::ideviceEventCallback(const idevice_event_t *event, void *user_data)$/;"	f	class:ibrowserAPI
+idevice_connection_private	include/libimobiledevice/libimobiledevice.h	/^typedef struct idevice_connection_private idevice_connection_private;$/;"	t	typeref:struct:idevice_connection_private
+idevice_connection_t	include/libimobiledevice/libimobiledevice.h	/^typedef idevice_connection_private *idevice_connection_t; \/**< The connection handle. *\/$/;"	t
+idevice_error_t	include/libimobiledevice/libimobiledevice.h	/^typedef int16_t idevice_error_t;$/;"	t
+idevice_event_cb_t	include/libimobiledevice/libimobiledevice.h	/^typedef void (*idevice_event_cb_t) (const idevice_event_t *event, void *user_data);$/;"	t
+idevice_event_t	include/libimobiledevice/libimobiledevice.h	/^} idevice_event_t;$/;"	t	typeref:struct:__anon4
+idevice_event_type	include/libimobiledevice/libimobiledevice.h	/^enum idevice_event_type {$/;"	g
+idevice_private	include/libimobiledevice/libimobiledevice.h	/^typedef struct idevice_private idevice_private;$/;"	t	typeref:struct:idevice_private
+idevice_t	include/libimobiledevice/libimobiledevice.h	/^typedef idevice_private *idevice_t; \/**< The device handle. *\/$/;"	t
+init	ibrowserAPI.cpp	/^bool ibrowserAPI::init(F_SUCC,F_ERRO)$/;"	f	class:ibrowserAPI
+installCallback	ibrowserAPI.cpp	/^void ibrowserAPI::installCallback(const char *operation, plist_t status, void *user_data) {$/;"	f	class:ibrowserAPI
+installPackage	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::installPackage(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)$/;"	f	class:ibrowserAPI
+instproxy_client	ibrowserAPI.h	/^    instproxy_client_t instproxy_client = NULL;$/;"	m	class:ibrowserAPI
+instproxy_client_private	include/libimobiledevice/installation_proxy.h	/^typedef struct instproxy_client_private instproxy_client_private;$/;"	t	typeref:struct:instproxy_client_private
+instproxy_client_t	include/libimobiledevice/installation_proxy.h	/^typedef instproxy_client_private *instproxy_client_t; \/**< The client handle. *\/$/;"	t
+instproxy_error_t	include/libimobiledevice/installation_proxy.h	/^typedef int16_t instproxy_error_t;$/;"	t
+instproxy_status_cb_t	include/libimobiledevice/installation_proxy.h	/^typedef void (*instproxy_status_cb_t) (const char *operation, plist_t status, void *user_data);$/;"	t
+int16_t	include/plist/plist.h	/^    typedef __int16 int16_t;$/;"	t
+int32_t	include/plist/plist.h	/^    typedef __int32 int32_t;$/;"	t
+int64_t	include/plist/plist.h	/^    typedef __int64 int64_t;$/;"	t
+int8_t	include/plist/plist.h	/^    typedef __int8 int8_t;$/;"	t
+isWindowless	ibrowser.h	/^    virtual bool isWindowless() { return false; }$/;"	f	class:ibrowser
+iterator	include/plist/Dictionary.h	/^    typedef std::map<std::string,Node*>::iterator iterator;$/;"	t	class:PList::Dictionary
+list	ibrowserAPI.h	/^    std::map<const char*,FB::JSObjectPtr> list;$/;"	m	class:Callback
+lockdownd_client	ibrowserAPI.h	/^    lockdownd_client_t 	lockdownd_client = NULL;$/;"	m	class:ibrowserAPI
+lockdownd_client_private	include/libimobiledevice/lockdown.h	/^typedef struct lockdownd_client_private lockdownd_client_private;$/;"	t	typeref:struct:lockdownd_client_private
+lockdownd_client_t	include/libimobiledevice/lockdown.h	/^typedef lockdownd_client_private *lockdownd_client_t; \/**< The client handle. *\/$/;"	t
+lockdownd_error_t	include/libimobiledevice/lockdown.h	/^typedef int16_t lockdownd_error_t;$/;"	t
+lockdownd_pair_record	include/libimobiledevice/lockdown.h	/^struct lockdownd_pair_record {$/;"	s
+lockdownd_pair_record_t	include/libimobiledevice/lockdown.h	/^typedef struct lockdownd_pair_record *lockdownd_pair_record_t;$/;"	t	typeref:struct:lockdownd_pair_record
+lockdownd_service_descriptor	include/libimobiledevice/lockdown.h	/^struct lockdownd_service_descriptor {$/;"	s
+lockdownd_service_descriptor_t	include/libimobiledevice/lockdown.h	/^typedef struct lockdownd_service_descriptor *lockdownd_service_descriptor_t;$/;"	t	typeref:struct:lockdownd_service_descriptor
+log	ibrowserAPI.h	/^#define log(/;"	d
+m_host	ibrowserAPI.h	/^    FB::BrowserHostPtr m_host;$/;"	m	class:ibrowserAPI
+m_plugin	ibrowserAPI.h	/^    ibrowserWeakPtr m_plugin;$/;"	m	class:ibrowserAPI
+m_testString	ibrowserAPI.h	/^    std::string m_testString;$/;"	m	class:ibrowserAPI
+misagent_client_private	include/libimobiledevice/misagent.h	/^typedef struct misagent_client_private misagent_client_private;$/;"	t	typeref:struct:misagent_client_private
+misagent_client_t	include/libimobiledevice/misagent.h	/^typedef misagent_client_private *misagent_client_t; \/**< The client handle. *\/$/;"	t
+misagent_error_t	include/libimobiledevice/misagent.h	/^typedef int16_t misagent_error_t;$/;"	t
+mobile_image_mounter_client_private	include/libimobiledevice/mobile_image_mounter.h	/^typedef struct mobile_image_mounter_client_private mobile_image_mounter_client_private;$/;"	t	typeref:struct:mobile_image_mounter_client_private
+mobile_image_mounter_client_t	include/libimobiledevice/mobile_image_mounter.h	/^typedef mobile_image_mounter_client_private *mobile_image_mounter_client_t; \/**< The client handle. *\/$/;"	t
+mobile_image_mounter_error_t	include/libimobiledevice/mobile_image_mounter.h	/^typedef int16_t mobile_image_mounter_error_t;$/;"	t
+mobilebackup2_client_private	include/libimobiledevice/mobilebackup2.h	/^typedef struct mobilebackup2_client_private mobilebackup2_client_private;$/;"	t	typeref:struct:mobilebackup2_client_private
+mobilebackup2_client_t	include/libimobiledevice/mobilebackup2.h	/^typedef mobilebackup2_client_private *mobilebackup2_client_t; \/**< The client handle. *\/$/;"	t
+mobilebackup2_error_t	include/libimobiledevice/mobilebackup2.h	/^typedef int16_t mobilebackup2_error_t;$/;"	t
+mobilebackup_client_private	include/libimobiledevice/mobilebackup.h	/^typedef struct mobilebackup_client_private mobilebackup_client_private;$/;"	t	typeref:struct:mobilebackup_client_private
+mobilebackup_client_t	include/libimobiledevice/mobilebackup.h	/^typedef mobilebackup_client_private *mobilebackup_client_t; \/**< The client handle. *\/$/;"	t
+mobilebackup_error_t	include/libimobiledevice/mobilebackup.h	/^typedef int16_t mobilebackup_error_t;$/;"	t
+mobilebackup_flags_t	include/libimobiledevice/mobilebackup.h	/^} mobilebackup_flags_t;$/;"	t	typeref:enum:__anon5
+mobilesync_anchors	include/libimobiledevice/mobilesync.h	/^} mobilesync_anchors;$/;"	t	typeref:struct:__anon7
+mobilesync_anchors_t	include/libimobiledevice/mobilesync.h	/^typedef mobilesync_anchors *mobilesync_anchors_t; \/**< Anchors used by the device and computer. *\/$/;"	t
+mobilesync_client_private	include/libimobiledevice/mobilesync.h	/^typedef struct mobilesync_client_private mobilesync_client_private;$/;"	t	typeref:struct:mobilesync_client_private
+mobilesync_client_t	include/libimobiledevice/mobilesync.h	/^typedef mobilesync_client_private *mobilesync_client_t; \/**< The client handle *\/$/;"	t
+mobilesync_error_t	include/libimobiledevice/mobilesync.h	/^typedef int16_t mobilesync_error_t;$/;"	t
+mobilesync_sync_type_t	include/libimobiledevice/mobilesync.h	/^} mobilesync_sync_type_t;$/;"	t	typeref:enum:__anon6
+np_client_private	include/libimobiledevice/notification_proxy.h	/^typedef struct np_client_private np_client_private;$/;"	t	typeref:struct:np_client_private
+np_client_t	include/libimobiledevice/notification_proxy.h	/^typedef np_client_private *np_client_t; \/**< The client handle. *\/$/;"	t
+np_error_t	include/libimobiledevice/notification_proxy.h	/^typedef int16_t np_error_t;$/;"	t
+np_notify_cb_t	include/libimobiledevice/notification_proxy.h	/^typedef void (*np_notify_cb_t) (const char *notification, void *user_data);$/;"	t
+onMouseDown	ibrowser.cpp	/^bool ibrowser::onMouseDown(FB::MouseDownEvent *evt, FB::PluginWindow *)$/;"	f	class:ibrowser
+onMouseMove	ibrowser.cpp	/^bool ibrowser::onMouseMove(FB::MouseMoveEvent *evt, FB::PluginWindow *)$/;"	f	class:ibrowser
+onMouseUp	ibrowser.cpp	/^bool ibrowser::onMouseUp(FB::MouseUpEvent *evt, FB::PluginWindow *)$/;"	f	class:ibrowser
+onPluginReady	ibrowser.cpp	/^void ibrowser::onPluginReady()$/;"	f	class:ibrowser
+onWindowAttached	ibrowser.cpp	/^bool ibrowser::onWindowAttached(FB::AttachedEvent *evt, FB::PluginWindow *)$/;"	f	class:ibrowser
+onWindowDetached	ibrowser.cpp	/^bool ibrowser::onWindowDetached(FB::DetachedEvent *evt, FB::PluginWindow *)$/;"	f	class:ibrowser
+openDialog	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::openDialog(F_ADD)$/;"	f	class:ibrowserAPI
+parseDate	Chrome/chromepackage/js/jquery.plist.js	/^    function parseDate(str) {$/;"	f
+parseDate.parse	Chrome/chromepackage/js/jquery.plist.js	/^    function parse(node) {$/;"	f
+parseDate.parseArray	Chrome/chromepackage/js/jquery.plist.js	/^    function parseArray(nodes) {$/;"	f
+parseDate.parseDict	Chrome/chromepackage/js/jquery.plist.js	/^    function parseDict(nodes) {$/;"	f
+pcb	ibrowserAPI.h	/^    FB::JSObjectPtr pcb;$/;"	m	class:DownloadConfig
+plist_dict_iter	include/plist/plist.h	/^    typedef void *plist_dict_iter;$/;"	t
+plist_t	include/plist/plist.h	/^    typedef void *plist_t;$/;"	t
+plist_type	include/plist/plist.h	/^    } plist_type;$/;"	t	typeref:enum:__anon9
+plugin	Chrome/chromepackage/js/background.js	/^var plugin;$/;"	v
+port	include/libimobiledevice/lockdown.h	/^	uint16_t port;$/;"	m	struct:lockdownd_service_descriptor
+restored_client_private	include/libimobiledevice/restore.h	/^typedef struct restored_client_private restored_client_private;$/;"	t	typeref:struct:restored_client_private
+restored_client_t	include/libimobiledevice/restore.h	/^typedef restored_client_private *restored_client_t; \/**< The client handle. *\/$/;"	t
+restored_error_t	include/libimobiledevice/restore.h	/^typedef int16_t restored_error_t;$/;"	t
+root_certificate	include/libimobiledevice/lockdown.h	/^	char *root_certificate;   \/**< The root certificate *\/$/;"	m	struct:lockdownd_pair_record
+sbservices_client	ibrowserAPI.h	/^    sbservices_client_t sbservices_client = NULL;$/;"	m	class:ibrowserAPI
+sbservices_client_private	include/libimobiledevice/sbservices.h	/^typedef struct sbservices_client_private sbservices_client_private;$/;"	t	typeref:struct:sbservices_client_private
+sbservices_client_t	include/libimobiledevice/sbservices.h	/^typedef sbservices_client_private *sbservices_client_t; \/**< The client handle. *\/$/;"	t
+sbservices_error_t	include/libimobiledevice/sbservices.h	/^typedef int16_t sbservices_error_t;$/;"	t
+sbservices_interface_orientation_t	include/libimobiledevice/sbservices.h	/^} sbservices_interface_orientation_t;$/;"	t	typeref:enum:__anon8
+screenshotr_client_private	include/libimobiledevice/screenshotr.h	/^typedef struct screenshotr_client_private screenshotr_client_private;$/;"	t	typeref:struct:screenshotr_client_private
+screenshotr_client_t	include/libimobiledevice/screenshotr.h	/^typedef screenshotr_client_private *screenshotr_client_t; \/**< The client handle. *\/$/;"	t
+screenshotr_error_t	include/libimobiledevice/screenshotr.h	/^typedef int16_t screenshotr_error_t;$/;"	t
+service_client_private	include/libimobiledevice/service.h	/^struct service_client_private {$/;"	s
+service_client_t	include/libimobiledevice/service.h	/^typedef struct service_client_private *service_client_t;$/;"	t	typeref:struct:service_client_private
+service_error_t	include/libimobiledevice/service.h	/^typedef int16_t service_error_t;$/;"	t
+set	ibrowserAPI.h	/^    void set(const char* fn,FB::JSObjectPtr op)$/;"	f	class:Callback
+setIdeviceEventCallback	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::setIdeviceEventCallback(const FB::JSObjectPtr& callback,F_ADD)$/;"	f	class:ibrowserAPI
+set_testString	ibrowserAPI.cpp	/^void ibrowserAPI::set_testString(const std::string& val)$/;"	f	class:ibrowserAPI
+shutdown	ibrowser.cpp	/^void ibrowser::shutdown()$/;"	f	class:ibrowser
+ssl_enabled	include/libimobiledevice/lockdown.h	/^	uint8_t ssl_enabled;$/;"	m	struct:lockdownd_service_descriptor
+start	ibrowserAPI.h	/^    double start;$/;"	m	class:DownloadConfig
+stream	ibrowserAPI.h	/^    FILE *stream;$/;"	m	class:DownloadConfig
+testEvent	ibrowserAPI.cpp	/^void ibrowserAPI::testEvent()$/;"	f	class:ibrowserAPI
+udid	include/libimobiledevice/libimobiledevice.h	/^	const char *udid; \/**< The device unique id. *\/$/;"	m	struct:__anon4
+uint16_t	include/plist/plist.h	/^    typedef unsigned __int16 uint16_t;$/;"	t
+uint32_t	include/plist/plist.h	/^    typedef unsigned __int32 uint32_t;$/;"	t
+uint64_t	include/plist/plist.h	/^    typedef unsigned __int64 uint64_t;$/;"	t
+uint8_t	include/plist/plist.h	/^    typedef unsigned __int8 uint8_t;$/;"	t
+uninstallPackage	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::uninstallPackage(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)$/;"	f	class:ibrowserAPI
+uploadFile	ibrowserAPI.cpp	/^FB::variant ibrowserAPI::uploadFile(const std::string& fileName, const boost::optional<FB::JSObjectPtr>& pcb, F_ADD)$/;"	f	class:ibrowserAPI
+uploadFileDir	ibrowserAPI.h	/^    std::string uploadFileDir = "\/Downloads";$/;"	m	class:ibrowserAPI
+url	ibrowserAPI.h	/^    std::string url;$/;"	m	class:DownloadConfig
+webinspector_client_private	include/libimobiledevice/webinspector.h	/^typedef struct webinspector_client_private webinspector_client_private;$/;"	t	typeref:struct:webinspector_client_private
+webinspector_client_t	include/libimobiledevice/webinspector.h	/^typedef webinspector_client_private *webinspector_client_t; \/**< The client handle. *\/$/;"	t
+webinspector_error_t	include/libimobiledevice/webinspector.h	/^typedef int16_t webinspector_error_t;$/;"	t
+~ibrowser	ibrowser.cpp	/^ibrowser::~ibrowser()$/;"	f	class:ibrowser
+~ibrowserAPI	ibrowserAPI.h	/^    virtual ~ibrowserAPI() {};$/;"	f	class:ibrowserAPI
