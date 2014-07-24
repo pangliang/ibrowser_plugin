@@ -14,12 +14,18 @@ function getUrlParam(name)
 }
 
 function deskNotify(title, msg) {
-    var notification = webkitNotifications.createNotification(
-        'icon.jpeg',
+    var n = new Notification(
         title,
-        msg
+        {
+            body:msg,
+            icon:"icon.jpeg"
+        }
     );
-    notification.show();
+
+    n.onshow = function () { 
+        setTimeout(n.close, 5000); 
+    }
+
 }
 
 function basename(path) {

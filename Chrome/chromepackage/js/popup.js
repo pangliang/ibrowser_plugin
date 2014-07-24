@@ -1,7 +1,7 @@
 $(function(){
 
     var plugin=chrome.extension.getBackgroundPage().plugin;
-    
+
     $("#tabs li").on("click",function(){
         $("#tabs li.active").removeClass("active");
         $(this).addClass("active");
@@ -39,6 +39,8 @@ $(function(){
                     $(this).text(p[infoName]);
                 });
             }
+        },function(error){
+            log(error);
         });
         
         
@@ -112,7 +114,7 @@ $(function(){
                     div.show();
                 });
             }
-        });
+        },function(error){log(error)});
         
     });
 
